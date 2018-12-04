@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name:       Modularity My Pages
- * Plugin URI:        (#plugin_url#)
+ * Plugin URI:        https://github.com/helsingborg-stad/modularity-my-pages/
  * Description:       My pages React fronend plugin
  * Version:           1.0.0
  * Author:            Sebastian Thulin
- * Author URI:        (#plugin_author_url#)
+ * Author URI:        https://github.com/sebastianthulin
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       modularity-my-pages
