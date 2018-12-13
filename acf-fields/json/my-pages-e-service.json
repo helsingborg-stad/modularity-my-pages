@@ -1,7 +1,27 @@
 [{
     "key": "group_5c125d8781f32",
     "title": "E-Service Form Input",
-    "fields": false,
+    "fields": [
+        {
+            "key": "field_5c125efc8254f",
+            "label": "Desciption",
+            "name": "service_description",
+            "type": "textarea",
+            "instructions": "A short description about the service. What's it about? Whats the end-user goal?",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": 500,
+            "rows": 8,
+            "new_lines": ""
+        }
+    ],
     "location": [
         [
             {
