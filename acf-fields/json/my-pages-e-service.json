@@ -37,17 +37,37 @@
             "layouts": {
                 "5c125f906fab9": {
                     "key": "5c125f906fab9",
-                    "name": "",
-                    "label": "",
-                    "display": "block",
-                    "sub_fields": [],
+                    "name": "text_input",
+                    "label": "Text input",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_5c1267ede4365",
+                            "label": "Conversional: Statement",
+                            "name": "service_conversional_statement",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        }
+                    ],
                     "min": "",
                     "max": ""
                 }
             },
-            "button_label": "Add Row",
+            "button_label": "Add Field",
             "min": "",
-            "max": ""
+            "max": 100
         }
     ],
     "location": [
