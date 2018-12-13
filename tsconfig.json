@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "outDir": "./built/",
+        "module": "esnext",
+        "target": "es5",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "es5",
+            "es2015",
+            "es2016"
+          ],
+        "sourceMap": true,
+        "allowJs": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "rootDir": "source/js",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "noUnusedLocals": true
+    },
+    "include": [
+        "./source/js/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

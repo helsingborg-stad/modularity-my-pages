@@ -1,6 +1,6 @@
 <?php
 
-namespace ModularityMyPages\Helper;
+namespace MyPages\Helper;
 
 class CacheBust
 {
@@ -31,12 +31,12 @@ class CacheBust
      */
     public static function getRevManifest()
     {
-        $jsonPath = MODULARITYMYPAGES_PATH . apply_filters('ModularityMyPages/Helper/CacheBust/RevManifestPath', 'dist/rev-manifest.json');
+        $jsonPath = MYPAGES_PATH . apply_filters('MyPages/Helper/CacheBust/RevManifestPath', 'dist/rev-manifest.json');
 
         if (file_exists($jsonPath)) {
             return json_decode(file_get_contents($jsonPath), true);
         } elseif (WP_DEBUG) {
-            echo '<div style="color:red">Error: Assets not built. Go to ' . MODULARITYMYPAGES_PATH . ' and run gulp. See '. MODULARITYMYPAGES_PATH . 'README.md for more info.</div>';
+            echo '<div style="color:red">Error: Assets not built. Go to ' . MYPAGES_PATH . ' and run gulp. See '. MYPAGES_PATH . 'README.md for more info.</div>';
         }
     }
 }

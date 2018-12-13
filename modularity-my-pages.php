@@ -18,20 +18,48 @@ if (! defined('WPINC')) {
     die;
 }
 
-define('MODULARITYMYPAGES_PATH', plugin_dir_path(__FILE__));
-define('MODULARITYMYPAGES_URL', plugins_url('', __FILE__));
-define('MODULARITYMYPAGES_TEMPLATE_PATH', MODULARITYMYPAGES_PATH . 'templates/');
+define('MYPAGES_PATH', plugin_dir_path(__FILE__));
+define('MYPAGES_URL', plugins_url('', __FILE__));
+define('MYPAGES_TEMPLATE_PATH', MYPAGES_PATH . 'templates/');
 
-load_plugin_textdomain('modularity-my-pages', false, plugin_basename(dirname(__FILE__)) . '/languages');
+load_plugin_textdomain('my-pages', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once MODULARITYMYPAGES_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
-require_once MODULARITYMYPAGES_PATH . 'Public.php';
+require_once MYPAGES_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
+require_once MYPAGES_PATH . 'Public.php';
 
 // Instantiate and register the autoloader
-$loader = new ModularityMyPages\Vendor\Psr4ClassLoader();
-$loader->addPrefix('ModularityMyPages', MODULARITYMYPAGES_PATH);
-$loader->addPrefix('ModularityMyPages', MODULARITYMYPAGES_PATH . 'source/php/');
+$loader = new MyPages\Vendor\Psr4ClassLoader();
+$loader->addPrefix('MyPages', MYPAGES_PATH);
+$loader->addPrefix('MyPages', MYPAGES_PATH . 'source/php/');
 $loader->register();
 
 // Start application
-new ModularityMyPages\App();
+new MyPages\App();
+
+// Acf auto import and export
+add_action('plugins_loaded', function () {
+    $acfExportManager = new \AcfExportManager\AcfExportManager();
+    $acfExportManager->setTextdomain('my-pages');
+    $acfExportManager->setExportFolder(MYPAGES_PATH . 'acf-fields/');
+    $acfExportManager->autoExport(array(
+        'my-pages' => 'group_5bba400a04b6c',
+    ));
+    $acfExportManager->import();
+});
+
+
+//Registers the module
+add_action('plugins_loaded', function () {
+    if (function_exists('modularity_register_module')) {
+        modularity_register_module(
+            MYPAGES_PATH . 'source/php/Module/',
+            'MyPages'
+        );
+    }
+});
+
+// Add module template dir
+add_filter('Modularity/Module/TemplatePath', function ($paths) {
+    $paths[] = MYPAGES_PATH . 'source/php/Module/views/';
+    return $paths;
+});

@@ -1,13 +1,12 @@
 <?php
 
-namespace ModularityMyPages;
+namespace MyPages;
 
 class App
 {
     public function __construct()
     {
-        add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
-        add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+        add_action('wp_enqueue_scripts', array($this, 'enqueueStyles'));
     }
 
     /**
@@ -16,15 +15,7 @@ class App
      */
     public function enqueueStyles()
     {
-        wp_register_style('modularity-my-pages-css', MODULARITYMYPAGES_URL . '/dist/' . \ModularityMyPages\Helper\CacheBust::name('css/modularity-my-pages.css'));
-    }
-
-    /**
-     * Enqueue required scripts
-     * @return void
-     */
-    public function enqueueScripts()
-    {
-        wp_register_script('modularity-my-pages-js', MODULARITYMYPAGES_URL . '/dist/' . \ModularityMyPages\Helper\CacheBust::name('js/modularity-my-pages.js'));
+        wp_register_style('my-pages-css', MYPAGES_URL . '/dist/css/my-pages.css');
+        wp_register_script('my-pages-js', MYPAGES_URL . '/dist/js/my-pages.js');
     }
 }
