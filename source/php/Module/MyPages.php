@@ -4,14 +4,14 @@ namespace MyPages\Module;
 
 class MyPages extends \Modularity\Module
 {
-    public $slug = 'mypages-gallery';
+    public $slug = 'mypages';
     public $supports = array();
 
     public function init()
     {
-        $this->nameSingular = __("mypages-gallery", 'my-pages');
-        $this->namePlural = __("mypages-gallery", 'my-pages');
-        $this->description = __("Retrives and output downloadable images from mypages.", 'my-pages');
+        $this->nameSingular = __("My Page", 'my-pages');
+        $this->namePlural = __("My Pages", 'my-pages');
+        $this->description = __("Integration for MyPages with the Helsingborg LABS platform.", 'my-pages');
     }
 
     public function data() : array
@@ -21,25 +21,23 @@ class MyPages extends \Modularity\Module
         //Send to view
         return $data;
     }
-    
+
     public function template() : string
     {
-        return "mypagesdiv.blade.php";
+        return "mypages.blade.php";
     }
-    
+
     public function script()
     {
-
         wp_enqueue_script('my-pages-js');
-        // wp_localize_script('skyfish-integration-js', 'skyfishAjaxObject', $this->scriptData());
     }
-    
-    
+
+
     public function style()
     {
-        wp_enqueue_style('skyfish-integration-css');
+        wp_enqueue_style('my-pages-css');
     }
-    
+
     /**
      * Available "magic" methods for modules:
      * init()            What to do on initialization
