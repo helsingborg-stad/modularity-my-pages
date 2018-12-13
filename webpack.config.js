@@ -60,6 +60,14 @@ module.exports = {
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader", // translates CSS into CommonJS
+                    "sass-loader" // compiles Sass to CSS, using Node Sass by default
+                ]
+            },
+            {
                 test:/\.css$/,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]  
             },
