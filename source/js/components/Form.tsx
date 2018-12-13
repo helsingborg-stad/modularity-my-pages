@@ -46,7 +46,7 @@ class Form extends React.Component<ReduxType, IState> {
         return (
             <div style={{margin: '20px'}}>
                 <input onChange={this.onInputChange}/>
-                <div>{form.PersonNr} HejHejHej</div>
+                <div>{form.PersonNr} HejHejHejHej</div>
                 <button onClick={this.onSendClick}>Add</button>
                 <Input PersonNr={form.PersonNr} updatePersonNr={this.onInputChange}/>
                 <InputBare {...form} updatePersonNr={this.onInputChange} />

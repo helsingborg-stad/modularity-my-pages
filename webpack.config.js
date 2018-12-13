@@ -5,6 +5,7 @@ const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HashOutput = require('webpack-plugin-hash-output');
 
 module.exports = {
     mode: 'development',
@@ -15,7 +16,7 @@ module.exports = {
         './modularity-my-pages.tsx'
     ],
     output: {
-        filename: '[name].my-pages.js',
+        filename: 'my-pages.[hash].js',
         path: resolve(__dirname, 'dist'), 
         publicPath: '/'
     },
@@ -59,6 +60,14 @@ module.exports = {
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader", // translates CSS into CommonJS
+                    "sass-loader" // compiles Sass to CSS, using Node Sass by default
+                ]
+            },
+            {
                 test:/\.css$/,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]  
             },
@@ -76,9 +85,9 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(['dist']),
+        new HashOutput(),
         new ManifestPlugin({
             fileName: 'rev-manifest.json',
-            writeToFileEmit: true,
         }),
         new MiniCssExtractPlugin({
             filename: "style.css",
