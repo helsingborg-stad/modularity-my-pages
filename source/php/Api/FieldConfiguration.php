@@ -49,7 +49,7 @@ class FieldConfiguration
         return wp_send_json(
             array(
                 'state' => 'success',
-                'service_description' => (string) get_field('service_field_config', $param['id']),
+                'service_description' => (string) get_field('service_description', $param['id']),
                 'configuration' => (array) get_field('service_field_config', $param['id'])
             )
         );
