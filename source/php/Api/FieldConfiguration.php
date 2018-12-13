@@ -50,7 +50,7 @@ class FieldConfiguration
             array(
                 'state' => 'success',
                 'service_description' => (string) get_field('service_description', $param['id']),
-                'configuration' => (array) get_field('service_field_config', $param['id'])
+                'configuration' => (array) $this->filterConfigurationResponseObject(get_field('service_field_config', $param['id']))
             )
         );
 
@@ -61,5 +61,32 @@ class FieldConfiguration
                 'message' => __("A unknown error with the response occured.", 'modularity-agreements-archive')
             )
         );
+    }
+
+    /**
+     * Fetch data from API
+     *
+     * @wp return object wp_send_json
+     *
+     * @return
+     */
+    public function filterConfigurationResponseObject($object) {
+
+        if (!is_array($object)) {
+            return array();
+        }
+
+        if (empty($object)) {
+            return array();
+        }
+
+        foreach ($object as &$configurationItem) {
+            if (isset($configurationItem['acf_fc_layout'])) {
+                $configurationItem['input_type'] = $configurationItem['acf_fc_layout'];
+                unset($configurationItem['acf_fc_layout']);
+            }
+        }
+
+        return $object;
     }
 }

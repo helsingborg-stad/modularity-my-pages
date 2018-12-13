@@ -47,7 +47,7 @@
                         0 => array(
                             'key' => 'field_5c1267ede4365',
                             'label' => 'Conversional: Statement',
-                            'name' => 'service_conversional_statement',
+                            'name' => 'statement',
                             'type' => 'text',
                             'instructions' => '',
                             'required' => 0,
