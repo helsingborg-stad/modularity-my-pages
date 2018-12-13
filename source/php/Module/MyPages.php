@@ -9,9 +9,9 @@ class MyPages extends \Modularity\Module
 
     public function init()
     {
-        $this->nameSingular = __("My Page", 'my-pages');
-        $this->namePlural = __("My Pages", 'my-pages');
-        $this->description = __("Integration for MyPages with the Helsingborg LABS platform.", 'my-pages');
+        $this->nameSingular = __("E-Service", 'my-pages');
+        $this->namePlural = __("E-Services", 'my-pages');
+        $this->description = __("Integration for MyPages/E-Service with the Helsingborg LABS platform.", 'my-pages');
     }
 
     public function data() : array
@@ -24,18 +24,20 @@ class MyPages extends \Modularity\Module
 
     public function template() : string
     {
-        return "mypages.blade.php";
+        return "mypagesdiv.blade.php";
     }
 
     public function script()
     {
+
         wp_enqueue_script('my-pages-js');
+        // wp_localize_script('skyfish-integration-js', 'skyfishAjaxObject', $this->scriptData());
     }
 
 
     public function style()
     {
-        wp_enqueue_style('my-pages-css');
+        wp_enqueue_style('skyfish-integration-css');
     }
 
     /**
