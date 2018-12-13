@@ -42,7 +42,7 @@ add_action('plugins_loaded', function () {
     $acfExportManager->setTextdomain('my-pages');
     $acfExportManager->setExportFolder(MYPAGES_PATH . 'acf-fields/');
     $acfExportManager->autoExport(array(
-        'my-pages' => 'group_5bba400a04b6c',
+        'my-pages-e-service' => 'group_5c125d8781f32',
     ));
     $acfExportManager->import();
 });
