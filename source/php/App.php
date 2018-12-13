@@ -7,6 +7,11 @@ class App
     public function __construct()
     {
         add_action('wp_enqueue_scripts', array($this, 'registerFrontendAssets'));
+        add_action('init', array($this, 'init'));
+    }
+
+    public function init() {
+        new Api\FieldConfiguration();
     }
 
     /**
