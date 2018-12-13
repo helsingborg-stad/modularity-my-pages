@@ -1,13 +1,38 @@
 import * as React from "react";
-import Form from './Form';
-import '../../sass/modularity-my-pages.scss'
+import Login from './Account/Login';
+import { IUserState } from '../store/user/types';
 
-class App extends React.Component {
+interface IProps {
+    user: IUserState;
+}
 
+interface IState {
+    isLoading: boolean;
+}
+
+class App extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
+        super(props);
+        this.state = {
+            isLoading: true
+        };
+      }
     render() {
-        return (
-            <Form/>
-        );
+        console.log(this.props)
+        if (this.props.user.isAuthenticated) {
+            return (
+                <div>
+                    <p> {this.props.user.userInformation.givenName} </p>
+                    <p> {this.props.user.userInformation.surname} </p>
+                    <p> {this.props.user.userInformation.name} </p>
+                    <p> {this.props.user.userInformation.personalNumber} </p>
+                </div>
+            );
+        } else {
+            return (
+                <Login user={this.props.user} />
+            )
+        }
     }
 }
 

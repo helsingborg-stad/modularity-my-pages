@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ManifestPlugin = require('webpack-manifest-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -13,7 +15,7 @@ module.exports = {
         './modularity-my-pages.tsx'
     ],
     output: {
-        filename: '[name]-my-pages.js',
+        filename: '[name].my-pages.js',
         path: resolve(__dirname, 'dist'), 
         publicPath: '/'
     },
@@ -27,7 +29,7 @@ module.exports = {
         },
         port: '8080',
         hot: true,
-        noInfo: false,
+        noInfo: true,
         quiet: false,
         contentBase: resolve(__dirname, 'source/js'),
         publicPath: '/'
@@ -81,6 +83,11 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new ManifestPlugin({
+            fileName: 'rev-manifest.json',
+            writeToFileEmit: true,
+        }),
         new MiniCssExtractPlugin({
             filename: "style.css",
             chunkFilename: "[id].css"
@@ -89,7 +96,7 @@ module.exports = {
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
-        new HtmlWebpackPlugin({template: resolve(__dirname, 'source/js/index.html')}),
+        new HtmlWebpackPlugin({title:'Output Management'}, {template: resolve(__dirname, 'source/js/index.html')}),
         // inject <script> in html file. 
     ],
 };
