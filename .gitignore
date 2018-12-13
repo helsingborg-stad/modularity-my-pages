@@ -46,9 +46,9 @@ Thumbs.db
 *.tar
 *.zip
 
-# ignore dist and built directories
+# ignore dist temp folder
 dist/
-built/
+
 
 # -------------------------
 # BEGIN Whitelisted Files
