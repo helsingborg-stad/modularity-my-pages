@@ -16,7 +16,9 @@ class MyPages extends \Modularity\Module
 
     public function data() : array
     {
-        $data = array();
+        $data = array(
+            'moduleId' => $this->data['ID']
+        );
 
         //Send to view
         return $data;
