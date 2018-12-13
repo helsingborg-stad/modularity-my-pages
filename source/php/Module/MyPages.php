@@ -24,7 +24,7 @@ class MyPages extends \Modularity\Module
 
     public function template() : string
     {
-        return "mypagesdiv.blade.php";
+        return "mypages.blade.php";
     }
 
     public function script()
