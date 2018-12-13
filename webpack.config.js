@@ -97,7 +97,7 @@ module.exports = {
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates
-        new HtmlWebpackPlugin({title:'Output Management'}, {template: resolve(__dirname, 'source/js/index.html')}),
+        new HtmlWebpackPlugin({template: resolve(__dirname, 'source/js/index.html')}),
         // inject <script> in html file. 
     ],
 };
