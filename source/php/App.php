@@ -15,7 +15,7 @@ class App
      */
     public function registerFrontendAssets()
     {
-        wp_register_style('my-pages-css', MYPAGES_URL . '/dist/my-pages.css `*`');
+        wp_register_style('my-pages-css', MYPAGES_URL . '/dist/' . \MyPages\Helper\CacheBust::name('main.css');
         wp_register_script('my-pages-js', MYPAGES_URL . '/dist/' . \MyPages\Helper\CacheBust::name('main.js'), array('jquery', 'react', 'react-dom'));
     }
 }

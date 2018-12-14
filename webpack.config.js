@@ -3,6 +3,9 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ManifestPlugin = require('webpack-manifest-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HashOutput = require('webpack-plugin-hash-output');
 
 module.exports = {
     mode: 'development',
@@ -13,7 +16,7 @@ module.exports = {
         './modularity-my-pages.tsx'
     ],
     output: {
-        filename: 'main.[hash].js',
+        filename: '[name].[hash].js',
         path: resolve(__dirname, 'dist'), 
         publicPath: '/'
     },
@@ -27,7 +30,7 @@ module.exports = {
         },
         port: '8080',
         hot: true,
-        noInfo: false,
+        noInfo: true,
         quiet: false,
         contentBase: resolve(__dirname, 'source/js'),
         publicPath: '/'
@@ -81,8 +84,13 @@ module.exports = {
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new HashOutput(),
+        new ManifestPlugin({
+            fileName: 'rev-manifest.json',
+        }),
         new MiniCssExtractPlugin({
-            filename: "style.css",
+            filename: "[name].[hash].css",
             chunkFilename: "[id].css"
           }),
         new webpack.HotModuleReplacementPlugin(),
