@@ -1,1 +1,1 @@
-<div id="app"></div>
+<div id="app" data-configuration-id="{{ $moduleId }}"></div>
