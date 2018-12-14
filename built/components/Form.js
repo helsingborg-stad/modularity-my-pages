@@ -62,7 +62,7 @@ var Form = /** @class */ (function (_super) {
             React.createElement("input", { onChange: this.onInputChange }),
             React.createElement("div", null,
                 form.PersonNr,
-                " HejHejHej"),
+                " HejHejHejHej"),
             React.createElement("button", { onClick: this.onSendClick }, "Add"),
             React.createElement(Input, { PersonNr: form.PersonNr, updatePersonNr: this.onInputChange }),
             React.createElement(InputBare, __assign({}, form, { updatePersonNr: this.onInputChange })),

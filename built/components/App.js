@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import * as React from "react";
 import Form from './Form';
-import '../../sass/modularity-my-pages.scss';
+// import '../../sass/modularity-my-pages.scss'
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
