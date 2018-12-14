@@ -48,7 +48,7 @@ class FieldConfiguration
         //Not valid response above, send error
         return wp_send_json(
             array(
-                'state' => 'success',
+                'state' => true,
                 'service_description' => (string) get_field('service_description', $param['id']),
                 'configuration' => (array) $this->filterConfigurationResponseObject(get_field('service_field_config', $param['id']))
             )
@@ -57,7 +57,7 @@ class FieldConfiguration
         //Not valid response above, send error
         return wp_send_json(
             array(
-                'state' => 'error',
+                'state' => false,
                 'message' => __("A unknown error with the response occured.", 'modularity-agreements-archive')
             )
         );
