@@ -9,6 +9,7 @@ const HashOutput = require('webpack-plugin-hash-output');
 
 module.exports = {
     mode: 'development',
+    watch: true,
     context: resolve(__dirname, 'source/js'),
     entry: [
         'webpack-dev-server/client?http://localhost:8080',
