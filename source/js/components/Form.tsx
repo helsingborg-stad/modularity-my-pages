@@ -1,3 +1,4 @@
+import 'antd/lib/button/style/css';
 import * as React from "react";
 import { IRootState } from '../store';
 import { connect } from 'react-redux';
@@ -10,9 +11,11 @@ import { IForm } from '../store/person/types';
 
 const mapDispatcherToProps = (dispatch: Dispatch<PersonActions>) => {
     return {
-        sendForm: (form: IForm) => dispatch<any>(actions.sendForm(form)),
+        sendForm: (form: IForm) => dispatch<any>(actions.login(form)),
     };
 };
+
+// sendForm: (form: IForm) => dispatch(actions.loginRequest(form)),
 
 const mapStateToProps = ({ person }: IRootState) => {
     const { form, loading, error } = person;
@@ -46,12 +49,12 @@ class Form extends React.Component<ReduxType, IState> {
         return (
             <div style={{margin: '20px'}}>
                 <input onChange={this.onInputChange}/>
-                <div>{form.PersonNr} HejHejHejHej</div>
+                <div>{form.PersonNr} Hej</div>
                 <button onClick={this.onSendClick}>Add</button>
                 <Input PersonNr={form.PersonNr} updatePersonNr={this.onInputChange}/>
                 <InputBare {...form} updatePersonNr={this.onInputChange} />
                 {
-                    loading && <p>loading...</p>
+                    loading && <p>loading..</p>
                 }
             </div>
         );

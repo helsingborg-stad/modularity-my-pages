@@ -45,7 +45,7 @@ const init: IPersonState = {
 
  export function personReducer(state: IPersonState = init, 
     action: PersonActions): IPersonState {
-        console.log('this is switch')
+        // console.log('this is switch')
     switch (action.type) {
       case Constants.LOGIN_ATTEMPT:
       console.log('login attempt')
@@ -70,7 +70,7 @@ const init: IPersonState = {
         };
         break;
       default:
-      console.log('default switch')
+    //   console.log('default switch')
         return state;
     }
 }

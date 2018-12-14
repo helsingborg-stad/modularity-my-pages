@@ -16,7 +16,7 @@ export const loginSuccess = (form: IForm) => {
   };
 }
 
-export const sendForm = (form: IForm)  => {
+export const login = (form: IForm)  => {
     return (dispatch: Dispatch) => {
         axios.post('http://localhost:3260/getNavet/', {
             id: form.PersonNr

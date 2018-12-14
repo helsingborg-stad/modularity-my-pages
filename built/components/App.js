@@ -12,15 +12,40 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import * as React from "react";
-import Form from './Form';
-// import '../../sass/modularity-my-pages.scss'
+import Login from './Account/Login';
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
-    function App() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function App(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            isLoading: true
+        };
+        return _this;
     }
     App.prototype.render = function () {
-        return (React.createElement(Form, null));
+        console.log(this.props);
+        if (this.props.user.isAuthenticated) {
+            return (React.createElement("div", null,
+                React.createElement("p", null,
+                    " ",
+                    this.props.user.userInformation.givenName,
+                    " "),
+                React.createElement("p", null,
+                    " ",
+                    this.props.user.userInformation.surname,
+                    " "),
+                React.createElement("p", null,
+                    " ",
+                    this.props.user.userInformation.name,
+                    " "),
+                React.createElement("p", null,
+                    " ",
+                    this.props.user.userInformation.personalNumber,
+                    " ")));
+        }
+        else {
+            return (React.createElement(Login, { user: this.props.user }));
+        }
     };
     return App;
 }(React.Component));

@@ -22,6 +22,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+import 'antd/lib/button/style/css';
 import * as React from "react";
 import { connect } from 'react-redux';
 import * as actions from '../store/person/actions';
@@ -29,9 +30,10 @@ import Input from './Input';
 import InputBare from './InputBare';
 var mapDispatcherToProps = function (dispatch) {
     return {
-        sendForm: function (form) { return dispatch(actions.sendForm(form)); },
+        sendForm: function (form) { return dispatch(actions.login(form)); },
     };
 };
+// sendForm: (form: IForm) => dispatch(actions.loginRequest(form)),
 var mapStateToProps = function (_a) {
     var person = _a.person;
     var form = person.form, loading = person.loading, error = person.error;
@@ -62,11 +64,11 @@ var Form = /** @class */ (function (_super) {
             React.createElement("input", { onChange: this.onInputChange }),
             React.createElement("div", null,
                 form.PersonNr,
-                " HejHejHejHej"),
+                " Hej"),
             React.createElement("button", { onClick: this.onSendClick }, "Add"),
             React.createElement(Input, { PersonNr: form.PersonNr, updatePersonNr: this.onInputChange }),
             React.createElement(InputBare, __assign({}, form, { updatePersonNr: this.onInputChange })),
-            loading && React.createElement("p", null, "loading...")));
+            loading && React.createElement("p", null, "loading..")));
     };
     return Form;
 }(React.Component));

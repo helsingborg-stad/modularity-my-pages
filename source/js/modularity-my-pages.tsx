@@ -1,23 +1,45 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./components/App";
-import { Provider } from 'react-redux';
-import store from './store';
+import { Provider, connect } from 'react-redux';
+import store, * as IStore from './store';
+import { IUserState } from "./store/user/types";
+import '../sass/modularity-my-pages.scss';
 
-let ModularityMyPages = {
-    App: null
-};
-
-ModularityMyPages.App = class {
-    constructor()
-    {
-        ReactDOM.render(
-            <Provider store={store}>
-                <App/>
-            </Provider>,
-            document.getElementById("app") as HTMLElement
-        );
-    }
+interface IMappedProps {
+    user: IUserState;
 }
+  
+interface IState {
+}
+  
+class StartPage extends React.Component<IMappedProps, IState> {
+    constructor(props: IMappedProps) {
+        super(props);
+        this.state = {
+        };
+    }
 
-new ModularityMyPages.App();
+    render() {
+        return (
+            <div id="page-wrap">
+                <App user={this.props.user} />
+            </div>
+        )
+    }
+} 
+
+const mapStateToProps = (state: IStore.IRootState) => {
+    return {
+        user: state.user,
+    };
+  };
+
+const ConnectedStartPage = connect(mapStateToProps)(StartPage);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <ConnectedStartPage />
+    </Provider>,
+    document.getElementById("app") as HTMLElement
+);
