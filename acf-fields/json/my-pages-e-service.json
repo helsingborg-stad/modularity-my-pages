@@ -340,8 +340,8 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "collapsed": "",
-                            "min": 0,
+                            "collapsed": "field_5c1374c9a2fd9",
+                            "min": 1,
                             "max": 0,
                             "layout": "table",
                             "button_label": "Add option",
@@ -355,7 +355,7 @@
                                     "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "33.333",
+                                        "width": "50",
                                         "class": "",
                                         "id": ""
                                     },
@@ -374,7 +374,7 @@
                                     "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "33.333",
+                                        "width": "50",
                                         "class": "",
                                         "id": ""
                                     },
@@ -383,6 +383,170 @@
                                     "prepend": "",
                                     "append": "",
                                     "maxlength": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_5c13794eccb3f": {
+                    "key": "layout_5c13794eccb3f",
+                    "name": "multiple_choice",
+                    "label": "Checkboxes",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_5c13794eccb40",
+                            "label": "Label",
+                            "name": "label",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5c13794eccb41",
+                            "label": "Unique field key",
+                            "name": "key",
+                            "type": "text",
+                            "instructions": "This key must be unique for this form, and may not be changed later.",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5c13794eccb42",
+                            "label": "Instructions",
+                            "name": "instructions",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "maxlength": "",
+                            "rows": 3,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_5c13794eccb43",
+                            "label": "Conversional: Statement",
+                            "name": "statement",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5c13794eccb44",
+                            "label": "Options",
+                            "name": "options",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "collapsed": "field_5c1374c9a2fd9",
+                            "min": 1,
+                            "max": 0,
+                            "layout": "table",
+                            "button_label": "Add option",
+                            "sub_fields": [
+                                {
+                                    "key": "field_5c13794eccb45",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "40",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": 60
+                                },
+                                {
+                                    "key": "field_5c13794eccb46",
+                                    "label": "Value",
+                                    "name": "value",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 1,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "40",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": ""
+                                },
+                                {
+                                    "key": "field_5c137971ccb47",
+                                    "label": "Required",
+                                    "name": "required",
+                                    "type": "true_false",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "20",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "message": "",
+                                    "default_value": 0,
+                                    "ui": 0,
+                                    "ui_on_text": "",
+                                    "ui_off_text": ""
                                 }
                             ]
                         }
