@@ -705,8 +705,98 @@
                 }
             },
             "button_label": "Add Field",
-            "min": "",
+            "min": 1,
             "max": 100
+        },
+        {
+            "key": "field_5c13a708c50d3",
+            "label": "Custom response",
+            "name": "service_response",
+            "type": "group",
+            "instructions": "Define a custom response to let the user what's happens next. What actions to take, or estimated waiting time.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5c13a802b2c0f",
+                    "label": "Enable custom service response",
+                    "name": "enabled",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "Yes, enable a custom response message.",
+                    "default_value": 0,
+                    "ui": 0,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_5c13a756c50d5",
+                    "label": "Custom response heading",
+                    "name": "heading",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5c13a802b2c0f",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5c13a720c50d4",
+                    "label": "Custom response content",
+                    "name": "content",
+                    "type": "textarea",
+                    "instructions": "Text to show to the user when the form has been filled, keep this short.",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5c13a802b2c0f",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": 6,
+                    "new_lines": ""
+                }
+            ]
         }
     ],
     "location": [

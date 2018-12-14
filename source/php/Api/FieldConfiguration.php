@@ -16,6 +16,9 @@ class FieldConfiguration
      */
     public function registerRestRoutes()
     {
+        //Enable filters
+        add_filter('acf/load_value/name=service_response', array($this, 'filterServiceResponse'), 10, 3);
+
         //Single
         register_rest_route(
             "ModularityMyPages/v1",
@@ -61,15 +64,8 @@ class FieldConfiguration
             array(
                 'state' => true,
                 'service_description' => (string) get_field('service_description', $param['id']),
-                'configuration' => (array) $this->filterConfigurationResponseObject(get_field('service_field_config', $param['id']))
-            )
-        );
-
-        //Not valid response above, send error
-        return wp_send_json(
-            array(
-                'state' => false,
-                'message' => __("A unknown error with the response occured.", 'modularity-agreements-archive')
+                'configuration' => (array) $this->filterConfigurationResponseObject(get_field('service_field_config', $param['id'])),
+                'service_response' => get_field('service_response', $param['id'])
             )
         );
     }
@@ -93,7 +89,6 @@ class FieldConfiguration
                     array(
                         'posts_per_page' => -1,
                         'post_type' => 'mod-mypages',
-                        ''
                     )
                 )
             )
@@ -136,7 +131,7 @@ class FieldConfiguration
             //Add null value on validation type
             if (isset($configurationItem['validation']) && $configurationItem['validation'] != true) {
                 if (isset($configurationItem['validation_requirement'])) {
-                    unset($configurationItem['validation_requirement']);
+                    $configurationItem['validation_requirement'] = null;
                 }
             }
         }
@@ -145,11 +140,12 @@ class FieldConfiguration
     }
 
     /**
-     * Fetch data from API
+     * Get an index of all modules published, with title, id and desciption
      *
-     * @wp return object wp_send_json
+     * @param array $object   Get posts array contining posts objects
+     * @param array $keepKeys All keys that the filter should keep to output.
      *
-     * @return
+     * @return array Contain all services in a simplified format.
      */
     public function filterIndexResponseObject($object, $keepKeys = array('ID', 'post_title', 'post_content')) {
 
@@ -162,8 +158,8 @@ class FieldConfiguration
         }
 
         //Filter out keeys that dosent apply to keep array
-        foreach ((array) $object as &$indexObject) {
-            foreach ((array) $indexObject as $fieldKey => $field) {
+        foreach ($object as &$indexObject) {
+            foreach ($indexObject as $fieldKey => $field) {
                 if (!in_array($fieldKey, $keepKeys)) {
                     unset($indexObject->{$fieldKey});
                 }
@@ -171,5 +167,22 @@ class FieldConfiguration
         }
 
         return $object;
+    }
+
+    /**
+     * Get an index of all modules published, with title, id and desciption
+     *
+     * @param array $value  Previous value
+     * @param int   $postId The post id
+     * @param array $field  The field definition
+     *
+     * @return array Contain all services in a simplified format.
+     */
+    public function filterServiceResponse($value, $postId, $field)
+    {
+        if (reset($value) == 0) {
+            return null;
+        }
+        return $value;
     }
 }
