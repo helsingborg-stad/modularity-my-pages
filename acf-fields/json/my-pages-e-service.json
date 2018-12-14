@@ -553,6 +553,102 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_5c1384161a7cc": {
+                    "key": "layout_5c1384161a7cc",
+                    "name": "output_description",
+                    "label": "Description",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_5c13841c1a7cd",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5c13846a1a7ce",
+                            "label": "Content",
+                            "name": "content",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "maxlength": "",
+                            "rows": 6,
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_5c1384821a7cf",
+                            "label": "Conversional: Information",
+                            "name": "statement_information",
+                            "type": "textarea",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "maxlength": "",
+                            "rows": 4,
+                            "new_lines": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_5c1385c6c73f3": {
+                    "key": "layout_5c1385c6c73f3",
+                    "name": "output_break",
+                    "label": "Page break",
+                    "display": "row",
+                    "sub_fields": [
+                        {
+                            "key": "field_5c1385dfc73f7",
+                            "label": "Next chapter text",
+                            "name": "button_text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "button_label": "Add Field",

@@ -82,7 +82,7 @@ class FieldConfiguration
 
         foreach ($object as &$configurationItem) {
             if (isset($configurationItem['acf_fc_layout'])) {
-                $configurationItem['input_type'] = $configurationItem['acf_fc_layout'];
+                $configurationItem['type'] = $configurationItem['acf_fc_layout'];
                 unset($configurationItem['acf_fc_layout']);
             }
         }
