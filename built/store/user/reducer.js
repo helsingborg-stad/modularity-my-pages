@@ -9,9 +9,10 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { Constants } from './types';
+import { Const } from './types';
 var init = {
     isAuthenticated: false,
+    authInProgress: false,
     userInformation: {
         name: '',
         givenName: '',
@@ -23,15 +24,15 @@ export function userReducer(state, action) {
     if (state === void 0) { state = init; }
     console.log('action', action);
     switch (action.type) {
-        case Constants.AUTHENTICATION_REQUEST:
+        case Const.AUTH_REQ:
             console.log('login attempt');
-            return __assign({}, state, { isAuthenticated: false });
-        case Constants.AUTHENTICATION_FAILURE:
+            return __assign({}, state, { authInProgress: true, isAuthenticated: false });
+        case Const.AUTH_FAIL:
             console.log('login failure');
-            return __assign({}, state, { isAuthenticated: false });
-        case Constants.AUTHENTICATION_SUCCESS:
+            return __assign({}, state, { authInProgress: false, isAuthenticated: false });
+        case Const.AUTH_SUCCESS:
             console.log('login success');
-            return __assign({}, state, { isAuthenticated: true, userInformation: __assign({}, action.userInformation) });
+            return __assign({}, state, { isAuthenticated: true, authInProgress: false, userInformation: __assign({}, action.value) });
         default:
             return state;
     }

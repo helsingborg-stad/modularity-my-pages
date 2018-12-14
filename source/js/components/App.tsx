@@ -16,23 +16,29 @@ class App extends React.Component<IProps, IState> {
         this.state = {
             isLoading: true
         };
-      }
+    }
+    
     render() {
-        console.log(this.props)
-        if (this.props.user.isAuthenticated) {
-            return (
-                <div>
-                    <p> {this.props.user.userInformation.givenName} </p>
-                    <p> {this.props.user.userInformation.surname} </p>
-                    <p> {this.props.user.userInformation.name} </p>
-                    <p> {this.props.user.userInformation.personalNumber} </p>
-                </div>
-            );
-        } else {
-            return (
-                <Login user={this.props.user} />
-            )
-        }
+        const { user } = this.props;
+        const { givenName, surname, name, personalNumber } = user.userInformation;
+        return (
+        <div>            
+            {user.isAuthenticated ?       
+                    <div>
+                        <h1>React h1</h1>
+                        <p> {givenName} </p>
+                        <p> {surname} </p>
+                        <p> {name} </p>
+                        <p> {personalNumber} </p>
+                    </div>
+                    :
+                    <div>
+                        <h1>React h1</h1>
+                        <Login user={user} />
+                    </div>
+            }
+        </div>
+        )
     }
 }
 

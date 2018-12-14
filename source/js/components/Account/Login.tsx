@@ -35,6 +35,8 @@ class Login extends React.Component<IProps, IState> {
             <div>
                Login
                <button onClick={this.authenticateUser}>Logga in</button>
+               {this.props.user.authInProgress && 
+                <div> loader... </div>}
             </div>
         );
     }

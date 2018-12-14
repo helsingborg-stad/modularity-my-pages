@@ -33,7 +33,9 @@ var Login = /** @class */ (function (_super) {
     Login.prototype.render = function () {
         return (React.createElement("div", null,
             "Login",
-            React.createElement("button", { onClick: this.authenticateUser }, "Logga in")));
+            React.createElement("button", { onClick: this.authenticateUser }, "Logga in"),
+            this.props.user.authInProgress &&
+                React.createElement("div", null, " loader... ")));
     };
     return Login;
 }(React.Component));

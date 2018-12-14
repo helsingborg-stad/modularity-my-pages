@@ -26,6 +26,7 @@ var App = /** @class */ (function (_super) {
         console.log(this.props);
         if (this.props.user.isAuthenticated) {
             return (React.createElement("div", null,
+                React.createElement("h1", null, "React h1"),
                 React.createElement("p", null,
                     " ",
                     this.props.user.userInformation.givenName,
@@ -44,7 +45,9 @@ var App = /** @class */ (function (_super) {
                     " ")));
         }
         else {
-            return (React.createElement(Login, { user: this.props.user }));
+            return (React.createElement("div", null,
+                React.createElement("h1", null, "React h1"),
+                React.createElement(Login, { user: this.props.user })));
         }
     };
     return App;

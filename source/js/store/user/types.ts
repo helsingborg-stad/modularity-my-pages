@@ -1,8 +1,6 @@
-import { ActionType } from 'typesafe-actions';
-import * as actions from './actions';
-
 export interface IUserState {
     isAuthenticated: boolean,
+    authInProgress: boolean,
     userInformation: UserInformation 
 }
 
@@ -19,10 +17,8 @@ export interface AuthRequest {
     userVisibleData: string
 }
 
-export enum Constants {
-    AUTHENTICATION_REQUEST = 'AUTHENTICATION_REQUEST',
-    AUTHENTICATION_FAILURE = 'AUTHENTICATION_FAILURE',
-    AUTHENTICATION_SUCCESS = 'AUTHENTICATION_SUCCESS',
+export enum Const {
+    AUTH_REQ = 'AUTHENTICATION_REQUEST',
+    AUTH_FAIL = 'AUTHENTICATION_FAILURE',
+    AUTH_SUCCESS = 'AUTHENTICATION_SUCCESS',
 }
-
-export type UserActions = ActionType<typeof actions>;

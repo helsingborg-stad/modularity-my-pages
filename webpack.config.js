@@ -30,19 +30,13 @@ module.exports = {
         },
         port: '8080',
         hot: true,
-        noInfo: true,
+        noInfo: false,
         quiet: false,
         contentBase: resolve(__dirname, 'source/js'),
         publicPath: '/'
     },
     module: {
-        rules: [
-            {
-                enforce: "pre",                
-                test: /\.(ts|tsx)?$/, 
-                loader: 'tslint-loader',
-                exclude: [resolve(__dirname, "node_modules")],
-            },             
+        rules: [            
             { 
                 test: /\.(ts|tsx)?$/, 
                 use: [
@@ -58,7 +52,6 @@ module.exports = {
                 ],
                 exclude: [resolve(__dirname, "node_modules")],                
             },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
                 test: /\.scss$/,
                 use: [
@@ -66,14 +59,6 @@ module.exports = {
                     "css-loader", // translates CSS into CommonJS
                     "sass-loader" // compiles Sass to CSS, using Node Sass by default
                 ]
-            },
-            {
-                test:/\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]  
-            },
-            {
-                test:/\.less$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
             { test: /\.jpg$/, loader: "file-loader" },

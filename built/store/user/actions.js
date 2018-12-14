@@ -10,24 +10,20 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 import axios from 'axios';
-import { Constants } from './types';
-export var loginRequest = function (userInformation) {
-    return { userInformation: userInformation, type: Constants.AUTHENTICATION_REQUEST };
+import { Const } from './types';
+export var loginRequest = function (value) {
+    return { value: value, type: Const.AUTH_REQ };
 };
-export var loginError = function (userInformation) {
-    return { userInformation: userInformation, type: Constants.AUTHENTICATION_FAILURE };
+export var loginError = function (value) {
+    return { value: value, type: Const.AUTH_FAIL };
 };
-export var loginSuccess = function (userInformation) {
-    return function (dispatch) {
-        dispatch({ userInformation: userInformation, type: Constants.AUTHENTICATION_SUCCESS });
-    };
+export var loginSuccess = function (value) {
+    return { value: value, type: Const.AUTH_SUCCESS };
 };
 export var authenticate = function (authRequest) {
     return function (dispatch) {
         // Dispatching REQUEST action, which tells our app, that we have started requesting authentication.
-        dispatch({
-            type: Constants.AUTHENTICATION_REQUEST
-        });
+        dispatch(loginRequest(true));
         var personalNumber = authRequest.personalNumber, endUserIp = authRequest.endUserIp, userVisibleData = authRequest.userVisibleData;
         axios.post('http://localhost:3002/auth/', {
             personalNumber: personalNumber,
@@ -38,16 +34,11 @@ export var authenticate = function (authRequest) {
             console.log('api resp', response);
             if (response.status != 200) {
                 // If request was failed, dispatching FAILURE action.
-                dispatch({
-                    type: Constants.AUTHENTICATION_FAILURE,
-                });
+                dispatch(loginError(response.data));
             }
             else {
                 // When everything is ok, dispatching SUCCESS action.
-                dispatch({
-                    type: Constants.AUTHENTICATION_SUCCESS,
-                    userInformation: __assign({}, response.data.user)
-                });
+                dispatch(loginSuccess(__assign({}, response.data.user)));
             }
         });
     };
