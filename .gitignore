@@ -48,6 +48,7 @@ Thumbs.db
 
 # ignore dist temp folder
 dist/
+built/
 
 
 # -------------------------
