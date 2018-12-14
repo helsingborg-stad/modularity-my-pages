@@ -13,7 +13,7 @@ module.exports = {
         './modularity-my-pages.tsx'
     ],
     output: {
-        filename: '[name]-my-pages.js',
+        filename: 'main.[hash].js',
         path: resolve(__dirname, 'dist'), 
         publicPath: '/'
     },
