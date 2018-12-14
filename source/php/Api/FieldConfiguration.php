@@ -81,9 +81,18 @@ class FieldConfiguration
         }
 
         foreach ($object as &$configurationItem) {
+
+            //Rename acf key
             if (isset($configurationItem['acf_fc_layout'])) {
                 $configurationItem['type'] = $configurationItem['acf_fc_layout'];
                 unset($configurationItem['acf_fc_layout']);
+            }
+
+            //Add null value on validation type
+            if (isset($configurationItem['validation']) && $configurationItem['validation'] != true) {
+                if (isset($configurationItem['validation_requirement'])) {
+                    unset($configurationItem['validation_requirement']);
+                }
             }
         }
 
