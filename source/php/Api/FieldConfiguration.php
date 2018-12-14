@@ -16,11 +16,12 @@ class FieldConfiguration
      */
     public function registerRestRoutes()
     {
+        //Single
         register_rest_route(
             "ModularityMyPages/v1",
             "GetFieldConfiguration/(?P<id>[\d]+)",
             array(
-                'methods' => \WP_REST_Server::ALLMETHODS,
+                'methods' => \WP_REST_Server::READABLE,
                 'callback' => array($this, 'getFieldConfiguration'),
                 'args' => array(
                     'id' => array(
@@ -29,6 +30,16 @@ class FieldConfiguration
                         }
                     ),
                 )
+            )
+        );
+
+        //Index
+        register_rest_route(
+            "ModularityMyPages/v1",
+            "GetFieldConfiguration",
+            array(
+                'methods' => \WP_REST_Server::READABLE,
+                'callback' => array($this, 'getFieldConfigurationIndex'),
             )
         );
     }
@@ -70,6 +81,40 @@ class FieldConfiguration
      *
      * @return
      */
+    public function getFieldConfigurationIndex($request)
+    {
+        //Get parameters
+        $param = $request->get_params();
+
+        //Not valid response above, send error
+        return wp_send_json(
+            $this->filterIndexResponseObject(
+                get_posts(
+                    array(
+                        'posts_per_page' => -1,
+                        'post_type' => 'mod-mypages',
+                        ''
+                    )
+                )
+            )
+        );
+
+        //Not valid response above, send error
+        return wp_send_json(
+            array(
+                'state' => false,
+                'message' => __("A unknown error with the response occured.", 'modularity-agreements-archive')
+            )
+        );
+    }
+
+    /**
+     * Fetch data from API
+     *
+     * @wp return object wp_send_json
+     *
+     * @return
+     */
     public function filterConfigurationResponseObject($object) {
 
         if (!is_array($object)) {
@@ -92,6 +137,35 @@ class FieldConfiguration
             if (isset($configurationItem['validation']) && $configurationItem['validation'] != true) {
                 if (isset($configurationItem['validation_requirement'])) {
                     unset($configurationItem['validation_requirement']);
+                }
+            }
+        }
+
+        return $object;
+    }
+
+    /**
+     * Fetch data from API
+     *
+     * @wp return object wp_send_json
+     *
+     * @return
+     */
+    public function filterIndexResponseObject($object, $keepKeys = array('ID', 'post_title', 'post_content')) {
+
+        if (!is_array($object)) {
+            return array();
+        }
+
+        if (empty($object)) {
+            return array();
+        }
+
+        //Filter out keeys that dosent apply to keep array
+        foreach ((array) $object as &$indexObject) {
+            foreach ((array) $indexObject as $fieldKey => $field) {
+                if (!in_array($fieldKey, $keepKeys)) {
+                    unset($indexObject->{$fieldKey});
                 }
             }
         }
