@@ -164,6 +164,7 @@ class FieldConfiguration
                     unset($indexObject->{$fieldKey});
                 }
             }
+            $indexObject->post_content = (string) get_field('service_description', $indexObject->ID);
         }
 
         return $object;
