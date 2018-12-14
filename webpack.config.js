@@ -16,7 +16,7 @@ module.exports = {
         './modularity-my-pages.tsx'
     ],
     output: {
-        filename: 'my-pages.[hash].js',
+        filename: 'main.[hash].js',
         path: resolve(__dirname, 'dist'), 
         publicPath: '/'
     },
