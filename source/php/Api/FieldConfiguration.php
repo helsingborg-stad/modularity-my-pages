@@ -63,6 +63,7 @@ class FieldConfiguration
         return wp_send_json(
             array(
                 'state' => true,
+                'service_heading' => (string) get_the_title($param['id']),
                 'service_description' => (string) get_field('service_description', $param['id']),
                 'configuration' => (array) $this->filterConfigurationResponseObject(get_field('service_field_config', $param['id'])),
                 'service_response' => get_field('service_response', $param['id'])
@@ -147,7 +148,7 @@ class FieldConfiguration
      *
      * @return array Contain all services in a simplified format.
      */
-    public function filterIndexResponseObject($object, $keepKeys = array('ID', 'post_title', 'post_content')) {
+    public function filterIndexResponseObject($object, $keepKeys = array('ID', 'post_title')) {
 
         if (!is_array($object)) {
             return array();
@@ -164,7 +165,13 @@ class FieldConfiguration
                     unset($indexObject->{$fieldKey});
                 }
             }
-            $indexObject->post_content = (string) get_field('service_description', $indexObject->ID);
+
+            //Rename
+            $indexObject->service_heading = $indexObject->post_title;
+            $indexObject->service_description = (string) get_field('service_description', $indexObject->ID);
+
+            //Unset
+            unset($indexObject->post_title);
         }
 
         return $object;
