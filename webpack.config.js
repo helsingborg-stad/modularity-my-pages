@@ -8,42 +8,52 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HashOutput = require('webpack-plugin-hash-output');
 
 module.exports = {
+    // development mode
     mode: 'development',
     context: resolve(__dirname, 'source/js'),
+    // watches for changes in files
+    watch: true,
+    // entry point of the application
     entry: [
         'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/only-dev-server',
         './modularity-my-pages.tsx'
     ],
+    // where to output the bundle.js and what its name will be
+    // the [name] is not defined by us, its magic
     output: {
         filename: '[name].[hash].js',
         path: resolve(__dirname, 'dist'), 
         publicPath: '/'
     },
+    // chooses the style of source mapping to enhance debugging
+    // process. These values can affect build and rebuild
+    // speed dramatically see for more information :
+    // https://webpack.js.org/configuration/devtool/
     devtool: 'inline-source-map',
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
+    // settings for dev server if you are running npm start
+    // and not npm run build
     devServer: {
         stats: {
+            // warnings in the console
             warnings: false
         },
         port: '8080',
         hot: true,
-        noInfo: true,
+        noInfo: false,
+        // with this no errors will be printed
         quiet: false,
+        // where the server looks for the codebase
         contentBase: resolve(__dirname, 'source/js'),
         publicPath: '/'
     },
     module: {
-        rules: [
-            {
-                enforce: "pre",                
-                test: /\.(ts|tsx)?$/, 
-                loader: 'tslint-loader',
-                exclude: [resolve(__dirname, "node_modules")],
-            },             
+        rules: [            
             { 
+                // Loader for typescript files.
                 test: /\.(ts|tsx)?$/, 
                 use: [
                     {
@@ -58,22 +68,14 @@ module.exports = {
                 ],
                 exclude: [resolve(__dirname, "node_modules")],                
             },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             {
+                // Compiles scss to css.
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     "css-loader", // translates CSS into CommonJS
                     "sass-loader" // compiles Sass to CSS, using Node Sass by default
                 ]
-            },
-            {
-                test:/\.css$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader"]  
-            },
-            {
-                test:/\.less$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
             { test: /\.jpg$/, loader: "file-loader" },
@@ -84,11 +86,15 @@ module.exports = {
         ]
     },
     plugins: [
+        // removed everything from the dist folder before the output is put in there
         new CleanWebpackPlugin(['dist']),
+        // gives the bundle a hash for uniqueness
         new HashOutput(),
+        // manages the manifest, currently only sets the name for it
         new ManifestPlugin({
             fileName: 'rev-manifest.json',
         }),
+        // extracts css-file to hashed variant.
         new MiniCssExtractPlugin({
             filename: "[name].[hash].css",
             chunkFilename: "[id].css"

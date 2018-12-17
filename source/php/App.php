@@ -7,6 +7,11 @@ class App
     public function __construct()
     {
         add_action('wp_enqueue_scripts', array($this, 'registerFrontendAssets'));
+        add_action('init', array($this, 'init'));
+    }
+
+    public function init() {
+        new Api\FieldConfiguration();
     }
 
     /**
@@ -19,9 +24,3 @@ class App
         wp_register_script('my-pages-js', MYPAGES_URL . '/dist/' . \MyPages\Helper\CacheBust::name('main.js'), array('jquery', 'react', 'react-dom'));
     }
 }
-
-
-/**
- * man kunde döpa om bundeln till main.js och be om det
- * i denna filen. så vad är meningen med bustcash
- */
