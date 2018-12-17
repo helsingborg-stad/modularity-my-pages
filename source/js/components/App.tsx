@@ -1,9 +1,12 @@
 import * as React from "react";
 import Login from './Account/Login';
 import { IUserState } from '../store/user/types';
+import Form from './FormFolder/Form';
+import { IFormStructure } from "../store/Form/types";
 
 interface IProps {
     user: IUserState;
+    formStructure: IFormStructure
 }
 
 interface IState {
@@ -19,7 +22,7 @@ class App extends React.Component<IProps, IState> {
     }
     
     render() {
-        const { user } = this.props;
+        const { user, formStructure } = this.props;
         const { givenName, surname, name, personalNumber } = user.userInformation;
         return (
         <div>            
@@ -35,7 +38,9 @@ class App extends React.Component<IProps, IState> {
                     <div>
                         <h1>React h1</h1>
                         <Login user={user} />
+                        <Form formStructure={formStructure}/>
                     </div>
+                    
             }
         </div>
         )

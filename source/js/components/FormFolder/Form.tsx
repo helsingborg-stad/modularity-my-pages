@@ -1,13 +1,45 @@
+import * as React from "react";
+import { IFormStructure } from "../../store/form/types";
+
+interface IProps {
+    formStructure: IFormStructure;
+}
+
+interface IState {
+    isLoading: boolean;
+}
+
+class Form extends React.Component<IProps, IState> {   
+    constructor(props: IProps) {
+        super(props);
+        this.state = { 
+            isLoading: false
+        };
+    }
+
+    render() {
+        return (
+            <div>
+               Login
+            </div>
+        );
+    }
+}
+
+export default Form;
+
+/*
+
 import 'antd/lib/button/style/css';
 import * as React from "react";
-import { IRootState } from '../store';
+import { IRootState } from '../../store';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import * as actions from '../store/person/actions';
-import { PersonActions } from '../store/person/types';
+import * as actions from '../../store/person/actions';
+import { PersonActions } from '../../store/person/types';
 import Input from './Input';
 import InputBare from './InputBare';
-import { IForm } from '../store/person/types';
+import { IForm } from '../../store/person/types';
 
 const mapDispatcherToProps = (dispatch: Dispatch<PersonActions>) => {
     return {
@@ -62,3 +94,20 @@ class Form extends React.Component<ReduxType, IState> {
 }
 
 export default connect(mapStateToProps, mapDispatcherToProps)(Form);
+
+
+
+
+
+<div style={{margin: '20px'}}>
+                <input onChange={this.onInputChange}/>
+                <div>{form.PersonNr} Hej</div>
+                <button onClick={this.onSendClick}>Add</button>
+                <Input PersonNr={form.PersonNr} updatePersonNr={this.onInputChange}/>
+                <InputBare {...form} updatePersonNr={this.onInputChange} />
+                {
+                    loading && <p>loading..</p>
+                }
+            </div>
+
+*/
