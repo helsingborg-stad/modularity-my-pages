@@ -8,15 +8,15 @@ import { IUserState } from './user/types';
 import { userReducer } from './user/reducer';
 
 export interface IRootState {
-    demo: IDemoState,
-    person: IPersonState
-    user: IUserState
+    demo: IDemoState;
+    person: IPersonState;
+    user: IUserState;
 }
 
 const rootReducer = Redux.combineReducers<IRootState>({
     demo: demoReducer,
     person: personReducer,
-    user: userReducer
+    user: userReducer,
 });
 
 const store: Redux.Store<IRootState> = Redux.createStore(

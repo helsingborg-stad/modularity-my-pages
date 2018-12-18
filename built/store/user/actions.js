@@ -11,28 +11,27 @@ var __assign = (this && this.__assign) || function () {
 };
 import axios from 'axios';
 import { Const } from './types';
-export var loginRequest = function (value) {
-    return { value: value, type: Const.AUTH_REQ };
-};
 export var loginError = function (value) {
+    // TODO add error message
     return { value: value, type: Const.AUTH_FAIL };
 };
 export var loginSuccess = function (value) {
     return { value: value, type: Const.AUTH_SUCCESS };
 };
+export var logoutRequest = function () {
+    return { type: Const.AUTH_LOGOUT };
+};
 export var authenticate = function (authRequest) {
     return function (dispatch) {
-        // Dispatching REQUEST action, which tells our app, that we have started requesting authentication.
-        dispatch(loginRequest(true));
         var personalNumber = authRequest.personalNumber, endUserIp = authRequest.endUserIp, userVisibleData = authRequest.userVisibleData;
-        axios.post('http://localhost:3002/auth/', {
+        axios.post('http://localhost:3002/auth/test', {
             personalNumber: personalNumber,
             endUserIp: endUserIp,
-            userVisibleData: userVisibleData
+            userVisibleData: userVisibleData,
         })
             .then(function (response) {
             console.log('api resp', response);
-            if (response.status != 200) {
+            if (response.status !== 200) {
                 // If request was failed, dispatching FAILURE action.
                 dispatch(loginError(response.data));
             }
@@ -41,6 +40,11 @@ export var authenticate = function (authRequest) {
                 dispatch(loginSuccess(__assign({}, response.data.user)));
             }
         });
+    };
+};
+export var logOut = function () {
+    return function (dispatch) {
+        dispatch(logoutRequest());
     };
 };
 //# sourceMappingURL=actions.js.map

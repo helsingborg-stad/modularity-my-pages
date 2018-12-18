@@ -11,44 +11,35 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import * as React from "react";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+import * as React from 'react';
 import Login from './Account/Login';
+import AccountInformation from './Account/AccountInformation';
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            isLoading: true
+            isLoading: true,
         };
         return _this;
     }
     App.prototype.render = function () {
-        console.log(this.props);
-        if (this.props.user.isAuthenticated) {
-            return (React.createElement("div", null,
-                React.createElement("h1", null, "React h1"),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.givenName,
-                    " "),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.surname,
-                    " "),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.name,
-                    " "),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.personalNumber,
-                    " ")));
-        }
-        else {
-            return (React.createElement("div", null,
-                React.createElement("h1", null, "React h1"),
-                React.createElement(Login, { user: this.props.user })));
-        }
+        return (React.createElement("div", { className: 'grid' },
+            React.createElement("div", { className: 'grid-fit-content u-mr-auto main-content-container' }, this.props.user.isAuthenticated ?
+                React.createElement(AccountInformation, __assign({}, this.props))
+                :
+                    React.createElement(Login, __assign({}, this.props)))));
     };
     return App;
 }(React.Component));
