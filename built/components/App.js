@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import * as React from "react";
+import * as React from 'react';
 import Login from './Account/Login';
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
@@ -23,32 +23,30 @@ var App = /** @class */ (function (_super) {
         return _this;
     }
     App.prototype.render = function () {
-        console.log(this.props);
-        if (this.props.user.isAuthenticated) {
-            return (React.createElement("div", null,
-                React.createElement("h1", null, "React h1"),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.givenName,
-                    " "),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.surname,
-                    " "),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.name,
-                    " "),
-                React.createElement("p", null,
-                    " ",
-                    this.props.user.userInformation.personalNumber,
-                    " ")));
-        }
-        else {
-            return (React.createElement("div", null,
-                React.createElement("h1", null, "React h1"),
-                React.createElement(Login, { user: this.props.user })));
-        }
+        var user = this.props.user;
+        var _a = user.userInformation, givenName = _a.givenName, surname = _a.surname, name = _a.name, personalNumber = _a.personalNumber;
+        return (React.createElement("div", { className: 'grid grid--columns' },
+            React.createElement("div", { className: 'grid-sm-12' }, user.isAuthenticated ?
+                React.createElement("div", null,
+                    React.createElement("h1", null, "React h2"),
+                    React.createElement("p", null,
+                        " ",
+                        givenName,
+                        " "),
+                    React.createElement("p", null,
+                        " ",
+                        surname,
+                        " "),
+                    React.createElement("p", null,
+                        " ",
+                        name,
+                        " "),
+                    React.createElement("p", null,
+                        " ",
+                        personalNumber,
+                        " "))
+                :
+                    React.createElement(Login, { user: user }))));
     };
     return App;
 }(React.Component));

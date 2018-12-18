@@ -31,8 +31,8 @@ var Login = /** @class */ (function (_super) {
         return _this;
     }
     Login.prototype.render = function () {
-        return (React.createElement("div", null,
-            "Login",
+        return (React.createElement("div", { className: "box-content" },
+            React.createElement("input", { type: "text", placeholder: "Skriv in ditt personnummer h\u00E4r..." }),
             React.createElement("button", { onClick: this.authenticateUser }, "Logga in"),
             this.props.user.authInProgress &&
                 React.createElement("div", null, " loader... ")));

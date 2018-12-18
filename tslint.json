@@ -7,7 +7,21 @@
     "rules": {
         "ordered-imports": false,
         "object-literal-sort-keys": false,
-        "interface-name": false
+        "interface-name": false,
+        // single quotes only
+        "quotemark": [true, "single", "jsx-single"],
+        // allow console logs
+        "no-console": false,
+        // dangling comma config for objects & arrays.
+        "trailing-comma": [true, {
+            "singleline": "never",
+            "multiline": {
+              "objects": "always",
+              "arrays": "always",
+              "functions": "never",
+              "typeLiterals": "ignore"
+            }
+          }]
     },
     "rulesDirectory": []
 }
