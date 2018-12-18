@@ -20,13 +20,13 @@ class AccountInformation extends React.Component<IProps, IState> {
         };
     }
 
-    public logOut = () => {
+    logOut = () => {
         Store.dispatch<any>(
             logOut()
         );
     }
 
-    public render() {
+    render() {
 
         const { user } = this.props;
         const { givenName, surname, name, personalNumber } = user.userInformation;

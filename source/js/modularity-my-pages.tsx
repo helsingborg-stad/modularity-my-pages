@@ -5,9 +5,12 @@ import { Provider, connect } from 'react-redux';
 import store, * as IStore from './store';
 import { IUserState } from './store/user/types';
 import '../sass/modularity-my-pages.scss';
+import { IFormStructure } from './store/Form/types';
+import { reqForm } from './store/form/actions';
 
 interface IMappedProps {
     user: IUserState;
+    formStructure: IFormStructure;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -21,10 +24,26 @@ class StartPage extends React.Component<IMappedProps, IState> {
         };
     }
 
-    public render() {
+    reqFormForRender = () => {
+        const endUserIp = 'http://localhost:8888/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/';
+        const moduleId = document.getElementById('app').dataset.configurationId;
+
+        store.dispatch<any>(
+            reqForm({
+                endUserIp,
+                moduleId,
+            })
+        );
+    }
+
+    componentWillMount() {
+        this.reqFormForRender();
+    }
+
+    render() {
         return (
-            <div className='container'>
-                <App user={this.props.user} />
+            <div id='page-wrap'>
+                <App user={this.props.user} formStructure={this.props.formStructure} />
             </div>
         );
     }
@@ -33,6 +52,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
 const mapStateToProps = (state: IStore.IRootState) => {
     return {
         user: state.user,
+        formStructure: state.formStructure,
     };
   };
 

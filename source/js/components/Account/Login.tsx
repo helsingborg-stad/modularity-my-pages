@@ -21,7 +21,7 @@ class Login extends React.Component<IProps, IState> {
         };
     }
 
-    public authenticateUser = () => {
+    authenticateUser = () => {
 
         this.setState({ isLoading: true });
 
@@ -34,11 +34,11 @@ class Login extends React.Component<IProps, IState> {
         );
     }
 
-    public cancelAuthentication = () => {
+    cancelAuthentication = () => {
         console.log('cancel');
     }
 
-    public render() {
+    render() {
         return (
             <div className='grid sm-gutter grid-va-middle'>
                 <div className='grid-s-fit-content'>

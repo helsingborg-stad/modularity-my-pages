@@ -2,20 +2,20 @@ import * as Redux from 'redux';
 import thunk from 'redux-thunk';
 import { demoReducer } from './demo/reducer';
 import { IDemoState } from './demo/types';
-import { personReducer } from './person/reducer';
-import { IPersonState } from './person/types';
 import { IUserState } from './user/types';
 import { userReducer } from './user/reducer';
+import { formReducer } from './Form/reducer';
+import { IFormStructure } from './Form/types';
 
 export interface IRootState {
     demo: IDemoState;
-    person: IPersonState;
+    formStructure: IFormStructure;
     user: IUserState;
 }
 
 const rootReducer = Redux.combineReducers<IRootState>({
     demo: demoReducer,
-    person: personReducer,
+    formStructure: formReducer,
     user: userReducer,
 });
 
