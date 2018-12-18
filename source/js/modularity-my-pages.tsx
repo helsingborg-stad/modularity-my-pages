@@ -42,7 +42,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
 
     render() {
         return (
-            <div id='page-wrap'>
+            <div className='container'>
                 <App user={this.props.user} formStructure={this.props.formStructure} />
             </div>
         );
