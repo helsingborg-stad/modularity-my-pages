@@ -11,6 +11,7 @@ interface IProps {
 
 interface IState {
     isLoading: boolean;
+    authInProgress: boolean;
 }
 
 class Login extends React.Component<IProps, IState> {
@@ -18,54 +19,85 @@ class Login extends React.Component<IProps, IState> {
         super(props);
         this.state = {
             isLoading: false,
+            authInProgress: false,
         };
     }
 
     authenticateUser = () => {
+        this.setState({ authInProgress: true });
 
-        this.setState({ isLoading: true });
-
-        Store.dispatch<any>(
-            authenticate({
-                personalNumber: '195811123073',
-                endUserIp: '194.168.2.25',
-                userVisibleData: 'Helsingborg stad',
-            })
-        );
+        setTimeout(() => {
+            Store.dispatch<any>(
+                authenticate({
+                    personalNumber: '195811123073',
+                    endUserIp: '194.168.2.25',
+                    userVisibleData: 'Helsingborg stad',
+                })
+            );
+        }, 1000);
     }
 
     cancelAuthentication = () => {
         console.log('cancel');
     }
 
+    handleInput = (e: any) => {
+        console.log(e);
+    }
+
     render() {
         return (
-            <div className='grid sm-gutter grid-va-middle'>
-                <div className='grid-s-fit-content'>
-                    <img src={bankidLogo} width='150px' height='150px' className='center-image' />
-                </div>
-
-                <div className='grid-s-fit-content'>
-                    <Input id='pno' type='text' placeholder='Skriv in ditt personnummer här...' />
-                </div>
-
-                <div className='grid'>
-                    <div className='grid-fit-content center-content'>
-                        <Button color='primary' onClick={this.authenticateUser} disabled={false}>
-                                    <i className='pricon pricon-previous u-hidden@md u-hidden@lg u-hidden@xl'></i>
-                                    <span className='u-hidden@xs u-hidden@sm'>Avbryt</span>
-                        </Button>
-                    </div>
-                    <div className='grid-fit-content center-content'>
-                        <Button color='primary' onClick={this.authenticateUser} disabled={false}>
-                                    <i className='pricon pricon-previous u-hidden@md u-hidden@lg u-hidden@xl'></i>
-                                    <span className='u-hidden@xs u-hidden@sm'>Logga in</span>
-                        </Button>
+            <div className='grid-md-6 center-content'>
+                <div className='grid row'>
+                    <div className='grid-md-6 center-content'>
+                        <img src={bankidLogo} width='150px' height='150px' className='center-image' />
                     </div>
                 </div>
+                {this.state.authInProgress === false ?
+                <>
+                    <div className='grid row'>
+                        <div className='grid-md-6 center-content'>
+                            <Input
+                                id='pno'
+                                name='pno'
+                                type='text'
+                                placeholder='Skriv in ditt personnummer här...'
+                                onChange={this.handleInput}
+                            />
+                        </div>
+                    </div>
 
-                {this.state.isLoading &&
-                <div> loader... </div>}
+                    <div className='grid row'>
+                        <div className='grid-md-6 center-content'>
+                            <div className='pull-left'>
+                                <Button
+                                    color='theme-second'
+                                    onClick={this.cancelAuthentication}
+                                    disabled={false}
+                                >
+                                    <span>Avbryt</span>
+                                </Button>
+                            </div>
+                            <div className='pull-right'>
+                                <Button
+                                    color='theme-second'
+                                    onClick={this.authenticateUser}
+                                    disabled={false}
+                                >
+                                    <span>Logga in</span>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </>
+                :
+                <div className='grid row'>
+                    <div className='grid-md-6 center-content'>
+                        <div className='text-center row'>Signera ditt bankid...</div>
+                        <div className='spinner spinner-dark center-content row'></div>
+                    </div>
+                </div>
+                }
             </div>
         );
     }

@@ -26,7 +26,6 @@ export const reqForm = (formRequest: FormRequest) => {
         dispatch(formRequests(true))
 
         // const { endUserIp, moduleId } = formRequest;
-        console.log('do i try')
         // axios.post(`${endUserIp}${moduleId}`)
         axios.get(`${formRequest.endUserIp}${formRequest.moduleId}`)
         .then((response: AxiosResponse<any>) => {

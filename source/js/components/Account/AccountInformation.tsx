@@ -32,20 +32,23 @@ class AccountInformation extends React.Component<IProps, IState> {
         const { givenName, surname, name, personalNumber } = user.userInformation;
 
         return (
-            <div>
-            <h1>Välkommen {givenName}</h1>
-            <p> {surname} </p>
-            <p> {name} </p>
-            <p> {personalNumber} </p>
-            <div className='grid'>
-                <div className='grid-fit-content'>
-                    <Button color='primary' onClick={this.logOut} disabled={false}>
-                                <i className='pricon pricon-previous u-hidden@md u-hidden@lg u-hidden@xl'></i>
-                                <span className='u-hidden@xs u-hidden@sm'>Logga ut</span>
-                    </Button>
+            <div className='grid-md-6 center-content'>
+                <div className='grid row'>
+                    <div className='grid-md-6 center-content'>
+                        <h1>Välkommen {givenName}</h1>
+                        <p> {surname} </p>
+                        <p> {name} </p>
+                        <p> {personalNumber} </p>
+                    </div>
+                </div>
+                <div className='grid row'>
+                    <div className='grid-md-6 center-content'>
+                        <Button color='theme-second' onClick={this.logOut} disabled={false}>
+                                    <span>Logga ut</span>
+                        </Button>
+                    </div>
                 </div>
             </div>
-        </div>
         );
     }
 }

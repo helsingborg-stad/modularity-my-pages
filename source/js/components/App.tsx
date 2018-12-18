@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Login from './Account/Login';
 import { IUserState } from '../store/user/types';
-import Form from './FormFolder/Form';
+// import Form from './FormFolder/Form';
 import { IFormStructure } from '../store/Form/types';
 import AccountInformation from './Account/AccountInformation';
 
@@ -26,18 +26,14 @@ class App extends React.Component<IProps, IState> {
         const { user, formStructure } = this.props;
         return (
             <div className='grid'>
-                <div className='grid-fit-content u-mr-auto center-content'>
                      {user.isAuthenticated ?
-                        <div>
+                        <>
                             <AccountInformation user={user} />
-                            <Form formStructure={formStructure} />
-                        </div>
+                            {/* <Form formStructure={formStructure} /> */}
+                        </>
                         :
-                        <div>
-                            <Login user={user} />
-                        </div>
+                        <Login user={user} />
                     }
-                </div>
             </div>
         );
     }

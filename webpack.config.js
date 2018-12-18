@@ -15,7 +15,6 @@ module.exports = {
     watch: true,
     // entry point of the application
     entry: [
-        'webpack-dev-server/client?http://localhost:8080',
         'webpack/hot/only-dev-server',
         './modularity-my-pages.tsx'
     ],

@@ -31,7 +31,6 @@ export const authenticate = (authRequest: AuthRequest) => {
             userVisibleData,
         })
         .then((response: AxiosResponse<any>) => {
-            console.log('api resp', response);
             if (response.status !== 200) {
                 // If request was failed, dispatching FAILURE action.
                 dispatch(loginError(response.data));
