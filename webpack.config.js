@@ -87,7 +87,9 @@ module.exports = {
     },
     plugins: [
         // removed everything from the dist folder before the output is put in there
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['dist'], {
+            watch: true
+        }),
         // gives the bundle a hash for uniqueness
         new HashOutput(),
         // manages the manifest, currently only sets the name for it

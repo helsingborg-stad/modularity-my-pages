@@ -22,7 +22,8 @@
         "noUnusedLocals": true
     },
     "include": [
-        "./source/js/**/*"
+        "./source/js/**/*",
+        "./source/js/**/*.d.ts"
     ],
     "exclude": [
         "node_modules"
