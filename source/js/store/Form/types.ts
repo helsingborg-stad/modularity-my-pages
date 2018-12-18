@@ -16,7 +16,15 @@ export interface FormElement {
     key: string,
     instructions: string,
     statement: string,
-    required: boolean
+    required: boolean,
+    options?: Array<optionsObject>,
+    heading?: string,
+    button_text?: string
+}
+
+export interface optionsObject {
+    label: string,
+    value: string
 }
 
 export interface FormRequest {

@@ -1,4 +1,3 @@
-import 'antd/lib/button/style/css';
 import * as React from "react";
 
 interface Props {

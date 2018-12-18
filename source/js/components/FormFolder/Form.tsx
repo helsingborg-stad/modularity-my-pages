@@ -1,6 +1,7 @@
 import * as React from "react";
 import { IFormStructure } from "../../store/form/types";
-import { Input, Textarea } from 'hbg-react';
+import { Input, Textarea, Pagination } from 'hbg-react';
+import FormGroup from './FormGroup';
 
 interface IProps {
     formStructure: IFormStructure;
@@ -22,6 +23,17 @@ class Form extends React.Component<IProps, IState> {
         console.log('handleChange')
     }
 
+    /*
+        Vi har föjande i hbg-react:
+            button
+            dropdown
+            input
+            notice
+            pagination
+            textarea
+            wordpressauthform
+    */
+
     render() {
         console.log(this.props)
         const { formStructure } = this.props;
@@ -30,13 +42,18 @@ class Form extends React.Component<IProps, IState> {
                 {
                     formStructure.structure.configuration.map((el, i) => {
                         console.log(el)
-                        // if more than 5 different elements use switch case for performance
-                        if(el.label === 'Text_Input') {
+                        if(el.key === 'text_input') {
                             return <Input key={i} id={i} label={el.label} instructions={el.instructions} statement={el.statement} required={el.required}/>
-                        } else if (el.label === 'Text_Area') {
+                        } else if (el.key === 'text_area') {
                             return <Textarea key={i} id={i} label={el.label} instructions={el.instructions} statement={el.statement} required={el.required}/>
+                        } else if (el.key === 'radio_buttons' || el.key === 'checkboxes') {
+                            return <FormGroup key={i} formElement={el}/>
+                        } else if (el.heading === 'Description') {
+                            return <Textarea key={i} id={i} label={el.label} instructions={el.instructions} statement={el.statement} required={el.required}/>
+                        } else if (el.button_text === 'next page') {
+                            return <Pagination key={i}></Pagination>
                         } else {
-                            return <div>I didnt match anything</div>
+                            return <div key={i}>I didnt match anything</div>
                         }
                     })
                 }
