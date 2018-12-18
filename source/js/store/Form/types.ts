@@ -1,6 +1,22 @@
 export interface IFormStructure {
     loading: boolean
-    structure: string,
+    structure: FormStructure,
+}
+
+export interface FormStructure {
+    configuration: Array<FormElement>,
+    service_description: string,
+    service_heading: string,
+    service_response: boolean,
+    state: boolean
+}
+
+export interface FormElement {
+    label: string,
+    key: string,
+    instructions: string,
+    statement: string,
+    required: boolean
 }
 
 export interface FormRequest {

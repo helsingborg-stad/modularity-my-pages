@@ -24,7 +24,6 @@ class StartPage extends React.Component<IMappedProps, IState> {
     }
     
     reqFormForRender = () => {
-        console.log('reqFormForRender')
         const endUserIp = 'http://localhost:8888/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/';
         const moduleId = document.getElementById('app').dataset.configurationId;
         
@@ -37,16 +36,12 @@ class StartPage extends React.Component<IMappedProps, IState> {
     }
 
     componentWillMount() {
-        console.log('wtf')
         this.reqFormForRender()
     }
     
     render() {
-        console.log(this.props)
-
         return (
             <div id="page-wrap">
-            <div>YOYOYOY</div>
                 <App user={this.props.user} formStructure={this.props.formStructure} />
             </div>
         )
