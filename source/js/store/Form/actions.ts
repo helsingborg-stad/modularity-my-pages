@@ -28,7 +28,7 @@ export const reqForm = (formRequest: FormRequest) => {
         // const { endUserIp, moduleId } = formRequest;
         console.log('do i try')
         // axios.post(`${endUserIp}${moduleId}`)
-        axios.get('http://localhost:8888/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/18')
+        axios.get(`${formRequest.endUserIp}${formRequest.moduleId}`)
         .then((response: AxiosResponse<any>) => {
             if (response.status != 200) {
                 // If request was failed, dissspatching FAILURE action.

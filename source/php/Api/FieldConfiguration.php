@@ -188,7 +188,7 @@ class FieldConfiguration
      */
     public function filterServiceResponse($value, $postId, $field)
     {
-        if (reset($value) == 0) {
+        if (is_array($value) && reset($value) == 0) {
             return null;
         }
         return $value;
