@@ -31,15 +31,13 @@ class MyPages extends \Modularity\Module
 
     public function script()
     {
-
         wp_enqueue_script('my-pages-js');
-        // wp_localize_script('skyfish-integration-js', 'skyfishAjaxObject', $this->scriptData());
     }
 
 
     public function style()
     {
-        wp_enqueue_style('skyfish-integration-css');
+        wp_enqueue_style('my-pages-css');
     }
 
     /**

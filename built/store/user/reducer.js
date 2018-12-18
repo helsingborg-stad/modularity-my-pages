@@ -12,27 +12,24 @@ var __assign = (this && this.__assign) || function () {
 import { Const } from './types';
 var init = {
     isAuthenticated: false,
-    authInProgress: false,
     userInformation: {
         name: '',
         givenName: '',
         surname: '',
-        personalNumber: ''
-    }
+        personalNumber: '',
+    },
 };
 export function userReducer(state, action) {
     if (state === void 0) { state = init; }
-    console.log('action', action);
     switch (action.type) {
-        case Const.AUTH_REQ:
-            console.log('login attempt');
-            return __assign({}, state, { authInProgress: true, isAuthenticated: false });
         case Const.AUTH_FAIL:
-            console.log('login failure');
-            return __assign({}, state, { authInProgress: false, isAuthenticated: false });
+            return __assign({}, state, { 
+                // TODO add error message
+                isAuthenticated: false });
         case Const.AUTH_SUCCESS:
-            console.log('login success');
-            return __assign({}, state, { isAuthenticated: true, authInProgress: false, userInformation: __assign({}, action.value) });
+            return __assign({}, state, { isAuthenticated: true, userInformation: __assign({}, action.value) });
+        case Const.AUTH_LOGOUT:
+            return __assign({}, state, { isAuthenticated: false });
         default:
             return state;
     }
