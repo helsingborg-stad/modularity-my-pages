@@ -1,6 +1,11 @@
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 
-.main-content-container {
+.center-content {
+  margin: 0 auto;
+}
+
+.center-image {
+  display: block;
   margin: 0 auto;
 }

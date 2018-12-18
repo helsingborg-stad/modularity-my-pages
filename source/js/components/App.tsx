@@ -22,7 +22,7 @@ class App extends React.Component<IProps, IState> {
     public render() {
         return (
         <div className='grid'>
-            <div className='grid-fit-content u-mr-auto main-content-container'>
+            <div className='grid-fit-content u-mr-auto center-content'>
             {this.props.user.isAuthenticated ?
                 <AccountInformation {...this.props} />
                 :

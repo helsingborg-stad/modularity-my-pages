@@ -3,6 +3,7 @@ import Store from '../../store/index';
 import { authenticate } from '../../store/user/actions';
 import { IUserState } from '../../store/user/types';
 import { Button, Input } from 'hbg-react';
+import bankidLogo from '../../assets/img/bankid/bankid_low_rgb.png';
 
 interface IProps {
     user: IUserState;
@@ -41,17 +42,21 @@ class Login extends React.Component<IProps, IState> {
         return (
             <div className='grid sm-gutter grid-va-middle'>
                 <div className='grid-s-fit-content'>
+                    <img src={bankidLogo} width='150px' height='150px' className='center-image' />
+                </div>
+
+                <div className='grid-s-fit-content'>
                     <Input id='pno' type='text' placeholder='Skriv in ditt personnummer här...' />
                 </div>
 
                 <div className='grid'>
-                    <div className='grid-fit-content'>
+                    <div className='grid-fit-content center-content'>
                         <Button color='primary' onClick={this.authenticateUser} disabled={false}>
                                     <i className='pricon pricon-previous u-hidden@md u-hidden@lg u-hidden@xl'></i>
                                     <span className='u-hidden@xs u-hidden@sm'>Avbryt</span>
                         </Button>
                     </div>
-                    <div className='grid-fit-content'>
+                    <div className='grid-fit-content center-content'>
                         <Button color='primary' onClick={this.authenticateUser} disabled={false}>
                                     <i className='pricon pricon-previous u-hidden@md u-hidden@lg u-hidden@xl'></i>
                                     <span className='u-hidden@xs u-hidden@sm'>Logga in</span>

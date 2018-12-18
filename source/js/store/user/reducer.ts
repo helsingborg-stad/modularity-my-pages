@@ -29,6 +29,12 @@ export function userReducer(state: IUserState = init, action: Action): IUserStat
             return {
                 ...state,
                 isAuthenticated: false,
+                userInformation: {
+                    name: '',
+                    givenName: '',
+                    surname: '',
+                    personalNumber: '',
+                },
             };
         default:
         return state;
