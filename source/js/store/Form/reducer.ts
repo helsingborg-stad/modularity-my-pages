@@ -1,38 +1,33 @@
-import { Const, IFormStructure } from './types';
+import { Const, FormStructure } from './types';
 import { Action } from './actions';
 
-const init: IFormStructure = {
-    loading: false,
-    structure: {
-        configuration: [],
+const init: FormStructure = {
+    configuration: [],
         service_description: '',
         service_heading: '',
         service_response: false,
         state: false
-    }
 };
 
- export function formReducer(state: IFormStructure = init, action: Action): IFormStructure {
+ export function formReducer(state: FormStructure = init, action: Action): FormStructure {
     switch (action.type) {
       case Const.FORM_REQ:
         return {
             ...state,
-            loading: action.value
         }
       case Const.FORM_FAIL:
         return {
             ...state,
-            loading: false,
         }
       case Const.FORM_SUC:
         return {
             ...state,
-            structure: {...action.value}
+            ...action.value
         };
       case Const.FORM_EDIT:
         return {
             ...state,
-            structure: {...action.value}
+            ...action.value
         };
       default:
         return state;

@@ -18,8 +18,6 @@ export const formError = (value: any): Action => {
 }
 
 export const formSuccess = (value: FormStructure): Action => {
-    console.log('value')
-    console.log(value)
     return { value, type: Const.FORM_SUC };
 }
 
@@ -33,7 +31,6 @@ export const reqForm = (formRequest: FormRequest) => {
         dispatch(formRequests(true))
 
         // const { endUserIp, moduleId } = formRequest;
-        console.log('do i try')
         // axios.post(`${endUserIp}${moduleId}`)
         axios.get(`${formRequest.endUserIp}${formRequest.moduleId}`)
         .then((response: AxiosResponse<any>) => {

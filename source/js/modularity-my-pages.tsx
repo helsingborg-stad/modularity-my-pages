@@ -5,12 +5,12 @@ import { Provider, connect } from 'react-redux';
 import store, * as IStore from './store';
 import { IUserState } from './store/user/types';
 import '../sass/modularity-my-pages.scss';
-import { IFormStructure } from './store/Form/types';
+import { FormStructure } from './store/Form/types';
 import { reqForm } from './store/form/actions';
 
 interface IMappedProps {
     user: IUserState;
-    formStructure: IFormStructure;
+    formStructure: FormStructure;
 }
 
 // tslint:disable-next-line:no-empty-interface

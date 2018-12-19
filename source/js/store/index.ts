@@ -5,11 +5,11 @@ import { IDemoState } from './demo/types';
 import { IUserState } from './user/types';
 import { userReducer } from './user/reducer';
 import { formReducer } from './Form/reducer';
-import { IFormStructure } from './Form/types';
+import { FormStructure } from './Form/types';
 
 export interface IRootState {
     demo: IDemoState;
-    formStructure: IFormStructure;
+    formStructure: FormStructure;
     user: IUserState;
 }
 

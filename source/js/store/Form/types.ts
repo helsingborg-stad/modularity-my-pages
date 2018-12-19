@@ -1,8 +1,3 @@
-export interface IFormStructure {
-    loading: boolean
-    structure: FormStructure,
-}
-
 export interface FormStructure {
     configuration: Array<FormElement>,
     service_description: string,

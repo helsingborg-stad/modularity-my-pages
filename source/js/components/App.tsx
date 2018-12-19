@@ -2,12 +2,12 @@ import * as React from 'react';
 import Login from './Account/Login';
 import { IUserState } from '../store/user/types';
 import Form from './FormFolder/Form';
-import { IFormStructure } from '../store/Form/types';
+import { FormStructure } from '../store/Form/types';
 import AccountInformation from './Account/AccountInformation';
 
 interface IProps {
     user: IUserState;
-    formStructure: IFormStructure;
+    formStructure: FormStructure;
 }
 
 interface IState {
