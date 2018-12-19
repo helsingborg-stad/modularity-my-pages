@@ -29,6 +29,11 @@ const init: IFormStructure = {
             ...state,
             structure: {...action.value}
         };
+      case Const.FORM_EDIT:
+        return {
+            ...state,
+            structure: {...action.value}
+        };
       default:
         return state;
     }

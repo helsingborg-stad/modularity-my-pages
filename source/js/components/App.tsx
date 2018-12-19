@@ -30,11 +30,11 @@ class App extends React.Component<IProps, IState> {
                      {user.isAuthenticated ?
                         <div>
                             <AccountInformation user={user} />
-                            <Form formStructure={formStructure} />
                         </div>
                         :
                         <div>
                             <Login user={user} />
+                            <Form formStructure={formStructure} />
                         </div>
                     }
                 </div>

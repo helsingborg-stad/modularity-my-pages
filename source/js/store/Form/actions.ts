@@ -6,6 +6,7 @@ export type Action =
   { type: Const.FORM_FAIL, value: any }
 | { type: Const.FORM_REQ, value: boolean }
 | { type: Const.FORM_SUC, value: FormStructure }
+| { type: Const.FORM_EDIT, value: FormStructure }
 
 
 export const formRequests = (value: boolean): Action => {
@@ -17,7 +18,13 @@ export const formError = (value: any): Action => {
 }
 
 export const formSuccess = (value: FormStructure): Action => {
+    console.log('value')
+    console.log(value)
     return { value, type: Const.FORM_SUC };
+}
+
+export const editForm = (value: FormStructure): Action => {
+    return { value, type: Const.FORM_EDIT}
 }
 
 export const reqForm = (formRequest: FormRequest) => {
