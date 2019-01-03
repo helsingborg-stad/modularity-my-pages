@@ -24,13 +24,12 @@ export var logoutRequest = function () {
 export var authenticate = function (authRequest) {
     return function (dispatch) {
         var personalNumber = authRequest.personalNumber, endUserIp = authRequest.endUserIp, userVisibleData = authRequest.userVisibleData;
-        axios.post('http://localhost:3002/auth/test', {
+        axios.post('http://localhost:3200/auth/test', {
             personalNumber: personalNumber,
             endUserIp: endUserIp,
             userVisibleData: userVisibleData,
         })
             .then(function (response) {
-            console.log('api resp', response);
             if (response.status !== 200) {
                 // If request was failed, dispatching FAILURE action.
                 dispatch(loginError(response.data));

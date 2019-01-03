@@ -48,6 +48,7 @@
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.8",
     "hbg-react": "^0.6.4",
+    "json-loader": "^0.5.7",
     "node-notifier": "^5.2.1",
     "node-sass": "^4.11.0",
     "react": "^16.5.2",

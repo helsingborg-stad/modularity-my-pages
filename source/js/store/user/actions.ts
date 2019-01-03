@@ -25,7 +25,7 @@ export const authenticate = (authRequest: AuthRequest) => {
 
         const { personalNumber, endUserIp, userVisibleData} = authRequest;
 
-        axios.post('http://localhost:3002/auth/test', {
+        axios.post('http://localhost:3200/auth/test', {
             personalNumber,
             endUserIp,
             userVisibleData,

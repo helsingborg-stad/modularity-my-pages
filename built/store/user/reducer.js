@@ -29,7 +29,12 @@ export function userReducer(state, action) {
         case Const.AUTH_SUCCESS:
             return __assign({}, state, { isAuthenticated: true, userInformation: __assign({}, action.value) });
         case Const.AUTH_LOGOUT:
-            return __assign({}, state, { isAuthenticated: false });
+            return __assign({}, state, { isAuthenticated: false, userInformation: {
+                    name: '',
+                    givenName: '',
+                    surname: '',
+                    personalNumber: '',
+                } });
         default:
             return state;
     }

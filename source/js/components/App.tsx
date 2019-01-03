@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Login from './Account/Login';
+// import Login from './Account/Login';
 import { IUserState } from '../store/user/types';
-// import Form from './FormFolder/Form';
 import { IFormStructure } from '../store/Form/types';
-import AccountInformation from './Account/AccountInformation';
+// import AccountInformation from './Account/AccountInformation';
+import PlotInformation from './Plots/PlotInformation';
 
 interface IProps {
     user: IUserState;
@@ -23,17 +23,10 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { user, formStructure } = this.props;
+        // const { user, formStructure } = this.props;
         return (
             <div className='grid'>
-                     {user.isAuthenticated ?
-                        <>
-                            <AccountInformation user={user} />
-                            {/* <Form formStructure={formStructure} /> */}
-                        </>
-                        :
-                        <Login user={user} />
-                    }
+                <PlotInformation />
             </div>
         );
     }

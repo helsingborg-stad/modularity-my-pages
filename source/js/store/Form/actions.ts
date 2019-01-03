@@ -1,4 +1,4 @@
- import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { Dispatch } from 'redux';
 import { Const, FormRequest, FormStructure } from './types';
 
