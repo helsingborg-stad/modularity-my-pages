@@ -7,6 +7,7 @@ import { IUserState } from './store/user/types';
 import '../sass/modularity-my-pages.scss';
 import { IFormStructure } from './store/Form/types';
 import { reqForm } from './store/form/actions';
+import { HashRouter } from 'react-router-dom';
 
 interface IMappedProps {
     user: IUserState;
@@ -42,9 +43,11 @@ class StartPage extends React.Component<IMappedProps, IState> {
 
     render() {
         return (
-            <div className='container'>
-                <App user={this.props.user} formStructure={this.props.formStructure} />
-            </div>
+            <HashRouter>
+                <div className='container'>
+                    <App user={this.props.user} formStructure={this.props.formStructure} />
+                </div>
+            </HashRouter>
         );
     }
 }

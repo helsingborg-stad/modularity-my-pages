@@ -1,9 +1,13 @@
 import * as React from 'react';
-// import Login from './Account/Login';
 import { IUserState } from '../store/user/types';
 import { IFormStructure } from '../store/Form/types';
-// import AccountInformation from './Account/AccountInformation';
 import PlotInformation from './Plots/PlotInformation';
+import {
+    Route,
+    Switch
+  } from 'react-router-dom';
+
+import PlotDetails from './Plots/PlotDetails';
 
 interface IProps {
     user: IUserState;
@@ -26,7 +30,10 @@ class App extends React.Component<IProps, IState> {
         // const { user, formStructure } = this.props;
         return (
             <div className='grid'>
-                <PlotInformation />
+             <Switch>
+                <Route exact path='/' component={() => <PlotInformation />} />
+                <Route exact path='/tomt/:id' component={() => <PlotDetails />} />
+             </Switch>
             </div>
         );
     }
