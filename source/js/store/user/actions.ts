@@ -23,7 +23,7 @@ export const logoutRequest = () => {
 export const authenticate = (authRequest: AuthRequest) => {
     return (dispatch: Dispatch) => {
 
-        const { personalNumber, endUserIp, userVisibleData} = authRequest;
+        const { personalNumber, endUserIp, userVisibleData } = authRequest;
 
         axios.post('http://localhost:3002/auth/test', {
             personalNumber,

@@ -1,83 +1,65 @@
 import * as React from "react";
-import { FormStructure } from "../../store/form/types";
+import { optionsObject, IFormState } from "../../store/form/types";
 import { Input, Textarea, Pagination } from 'hbg-react';
 import FormGroup from './FormGroup';
-import { editForm } from '../../store/form/actions';
+import { sendForm, editForm } from '../../store/form/actions';
 import store from '../../store';
 
 interface IProps {
-    formStructure: FormStructure;
+    form: IFormState;
 }
 
-interface IState {
-    isLoading: boolean,
-    editedForm: FormStructure
-}
-
-class Form extends React.Component<IProps, IState> {   
+class Form extends React.Component<IProps> {   
     constructor(props: IProps) {
         super(props);
-        this.state = { 
-            isLoading: false,
-            editedForm: {
-                configuration: [],
-                service_description: '',
-                service_heading: '',
-                service_response: false,
-                state: false
-            }
-        };
     }
-
-    handleChange (i: number ,e: React.ChangeEvent<HTMLInputElement>) {
-        const { formStructure } = this.props;
-        const editedForm = formStructure
-        editedForm.configuration[i].value = e.target.value;
-        console.log('handleChange')
-        console.log(e.target.value)
-        console.log(i)
-        console.log(editedForm)
+    // one state handler for all the elements, the elements are responsible for sending the correct input to this method
+    handleChange (i: number ,value?: React.ChangeEvent<HTMLInputElement>, array?: Array<optionsObject>) {
+        //deep clone of object
+        const formStructure = JSON.parse(JSON.stringify({...this.props.form.formStructure}));
+        if(value) {
+            formStructure.configuration[i].value = value.target.value;
+        } else if (array) {
+            formStructure.configuration[i].options = array
+        }
+        store.dispatch<any>(
+            editForm(formStructure)
+        )
     }
 
     saveChange () {
-        const { editedForm } = this.state;
+        const { form } = this.props;
         store.dispatch<any>(
-            editForm(editedForm)
+            sendForm('http://localhost:3001/getBygglov/test',form.formStructure)
         );
     }
 
-    /*
-        Vi har föjande i hbg-react:
-            button
-            dropdown
-            input
-            notice
-            pagination
-            textarea
-            wordpressauthform
-    */
-
     render() {
-        const { formStructure } = this.props;
+        const { formStructure } = this.props.form;
         return (
             <div>
                 {
                     formStructure.configuration.map((el, i) => {
                         if(el.type === 'text_input') {
-                            return <Input handleChange={(e) => this.handleChange(i, e)} key={el.key} id={i} label={el.label} instructions={el.instructions} statement={el.statement} required={el.required}/>
+                            return <Input key={el.key} handleChange={(value) => this.handleChange(i, value, null)} value={el.value} label={el.label}/>
                         } else if (el.type === 'text_area') {
-                            return <Textarea key={el.key} id={i} nr={i} label={el.label} instructions={el.instructions} statement={el.statement} required={el.required}/>
+                            return <Textarea key={el.key} label={el.label} value={el.value} handleChange={(value) => this.handleChange(i, value, null)}/>
                         } else if (el.type === 'single_choice' || el.type === 'multiple_choice') {
-                            return <FormGroup key={el.key} formElement={el}/>
+                            return <FormGroup key={el.key} formElement={el} handleChange={(array) => this.handleChange(i, null, array)}/>
                         } else if (el.type === 'output_description') {
-                            return <Textarea key={el.heading} id={el.key} label={el.label} instructions={el.instructions} statement={el.statement} required={el.required}/>
+                            return <div key={el.heading}>
+                                    <label>{el.heading}</label>
+                                    <div>{el.content}</div>
+                                </div>
                         } else if (el.type === 'output_break') {
-                            return <Pagination key={el.button_text}></Pagination>
+                            // not sure how this will work, can't do anything with the things i get from wordpress
+                            return <Pagination key={el.button_text} type={el.type}></Pagination>
                         } else {
                             return <div key={i}>I didnt match anything</div>
                         }
                     })
                 }
+                <button onClick={() => this.saveChange()}>save</button>
             </div>
         );
     }

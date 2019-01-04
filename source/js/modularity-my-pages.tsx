@@ -5,12 +5,12 @@ import { Provider, connect } from 'react-redux';
 import store, * as IStore from './store';
 import { IUserState } from './store/user/types';
 import '../sass/modularity-my-pages.scss';
-import { FormStructure } from './store/Form/types';
+import { IFormState } from './store/Form/types';
 import { reqForm } from './store/form/actions';
 
 interface IMappedProps {
     user: IUserState;
-    formStructure: FormStructure;
+    form: IFormState;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -43,7 +43,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
     render() {
         return (
             <div className='container'>
-                <App user={this.props.user} formStructure={this.props.formStructure} />
+                <App user={this.props.user} form={this.props.form} />
             </div>
         );
     }
@@ -52,7 +52,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
 const mapStateToProps = (state: IStore.IRootState) => {
     return {
         user: state.user,
-        formStructure: state.formStructure,
+        form: state.form,
     };
   };
 

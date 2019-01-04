@@ -5,17 +5,17 @@ import { IDemoState } from './demo/types';
 import { IUserState } from './user/types';
 import { userReducer } from './user/reducer';
 import { formReducer } from './Form/reducer';
-import { FormStructure } from './Form/types';
+import { IFormState } from './Form/types';
 
 export interface IRootState {
     demo: IDemoState;
-    formStructure: FormStructure;
+    form: IFormState;
     user: IUserState;
 }
 
 const rootReducer = Redux.combineReducers<IRootState>({
     demo: demoReducer,
-    formStructure: formReducer,
+    form: formReducer,
     user: userReducer,
 });
 

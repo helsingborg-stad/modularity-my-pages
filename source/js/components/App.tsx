@@ -2,12 +2,12 @@ import * as React from 'react';
 import Login from './Account/Login';
 import { IUserState } from '../store/user/types';
 import Form from './FormFolder/Form';
-import { FormStructure } from '../store/Form/types';
+import { IFormState } from '../store/Form/types';
 import AccountInformation from './Account/AccountInformation';
 
 interface IProps {
     user: IUserState;
-    formStructure: FormStructure;
+    form: IFormState;
 }
 
 interface IState {
@@ -23,7 +23,7 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { user, formStructure } = this.props;
+        const { user, form } = this.props;
         return (
             <div className='grid'>
                 <div className='grid-fit-content u-mr-auto center-content'>
@@ -34,7 +34,7 @@ class App extends React.Component<IProps, IState> {
                         :
                         <div>
                             <Login user={user} />
-                            <Form formStructure={formStructure} />
+                            <Form form={form} />
                         </div>
                     }
                 </div>

@@ -1,3 +1,8 @@
+export interface IFormState {
+    formState: string,
+    formStructure: FormStructure
+}
+
 export interface FormStructure {
     configuration: Array<FormElement>,
     service_description: string,
@@ -31,12 +36,14 @@ export interface FormElement {
     options?: Array<optionsObject>,
     heading?: string,
     button_text?: string,
-    value?: string
+    value?: string,
+    content?: string
 }
 
 export interface optionsObject {
     label: string,
-    value: string
+    value: string,
+    active: boolean
 }
 
 export interface FormRequest {
@@ -48,5 +55,7 @@ export enum Const {
     FORM_REQ = 'FORM_REQUEST',
     FORM_FAIL = 'FORM_FAILURE',
     FORM_SUC = 'FORM_SUCCESS',
-    FORM_EDIT = 'FORM_EDIT'
+    FORM_EDIT = 'FORM_EDIT',
+    FORM_POST = 'FORM_POST',
+    FORM_POST_SUC = 'FORM_POST_SUC',
 }
