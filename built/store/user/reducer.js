@@ -9,14 +9,14 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { Const } from './types';
+import { Const } from "./types";
 var init = {
     isAuthenticated: false,
     userInformation: {
-        name: '',
-        givenName: '',
-        surname: '',
-        personalNumber: '',
+        name: "",
+        givenName: "",
+        surname: "",
+        personalNumber: "",
     },
 };
 export function userReducer(state, action) {
@@ -30,10 +30,10 @@ export function userReducer(state, action) {
             return __assign({}, state, { isAuthenticated: true, userInformation: __assign({}, action.value) });
         case Const.AUTH_LOGOUT:
             return __assign({}, state, { isAuthenticated: false, userInformation: {
-                    name: '',
-                    givenName: '',
-                    surname: '',
-                    personalNumber: '',
+                    name: "",
+                    givenName: "",
+                    surname: "",
+                    personalNumber: "",
                 } });
         default:
             return state;

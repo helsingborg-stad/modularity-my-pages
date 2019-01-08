@@ -1,11 +1,6 @@
 import * as React from "react";
 import { IPlot, getPlot } from "../../services/PlotsService";
-import {
-    RouteComponentProps,
-    withRouter,
-    Link,
-    Redirect,
-} from "react-router-dom";
+import { RouteComponentProps, withRouter, Link } from "react-router-dom";
 
 interface IState {
     plot: IPlot;

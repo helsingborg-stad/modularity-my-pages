@@ -3,15 +3,15 @@ import thunk from "redux-thunk";
 import { IUserState } from "./user/types";
 import { userReducer } from "./user/reducer";
 import { formReducer } from "./Form/reducer";
-import { IFormStructure } from "./Form/types";
+import { IFormState } from "./Form/types";
 
 export interface IRootState {
-    formStructure: IFormStructure;
+    form: IFormState;
     user: IUserState;
 }
 
 const rootReducer = Redux.combineReducers<IRootState>({
-    formStructure: formReducer,
+    form: formReducer,
     user: userReducer,
 });
 

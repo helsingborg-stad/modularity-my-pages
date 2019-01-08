@@ -11,62 +11,65 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-import * as React from 'react';
-import Store from '../../store/index';
-import { authenticate } from '../../store/user/actions';
-import { Button, Input } from 'hbg-react';
-import bankidLogo from '../../assets/img/bankid/bankid_low_rgb.png';
+import * as React from "react";
+import Store from "../../store/index";
+import { authenticate } from "../../store/user/actions";
+import { Button, Input } from "hbg-react";
+import bankidLogo from "../../assets/img/bankid/bankid_low_rgb.png";
+import { Redirect, withRouter } from "react-router-dom";
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
     function Login(props) {
         var _this = _super.call(this, props) || this;
         _this.authenticateUser = function () {
-            _this.setState({ authInProgress: true });
+            _this.setState({ isLoading: true });
             setTimeout(function () {
                 Store.dispatch(authenticate({
-                    personalNumber: '195811123073',
-                    endUserIp: '194.168.2.25',
-                    userVisibleData: 'Helsingborg stad',
+                    personalNumber: "195811123073",
+                    endUserIp: "194.168.2.25",
+                    userVisibleData: "Helsingborg stad",
                 }));
             }, 1000);
         };
         _this.cancelAuthentication = function () {
-            console.log('cancel');
+            console.log("cancel");
         };
         _this.handleInput = function (e) {
             console.log(e);
         };
         _this.state = {
             isLoading: false,
-            authInProgress: false,
         };
         return _this;
     }
     Login.prototype.render = function () {
-        return (React.createElement("div", { className: 'grid-md-6 center-content' },
-            React.createElement("div", { className: 'grid row' },
-                React.createElement("div", { className: 'grid-md-6 center-content' },
-                    React.createElement("img", { src: bankidLogo, width: '150px', height: '150px', className: 'center-image' }))),
-            this.state.authInProgress === false ?
-                React.createElement(React.Fragment, null,
-                    React.createElement("div", { className: 'grid row' },
-                        React.createElement("div", { className: 'grid-md-6 center-content' },
-                            React.createElement(Input, { id: 'pno', name: 'pno', type: 'text', placeholder: 'Skriv in ditt personnummer h\u00E4r...', onChange: this.handleInput }))),
-                    React.createElement("div", { className: 'grid row' },
-                        React.createElement("div", { className: 'grid-md-6 center-content' },
-                            React.createElement("div", { className: 'pull-left' },
-                                React.createElement(Button, { color: 'theme-second', onClick: this.cancelAuthentication, disabled: false },
-                                    React.createElement("span", null, "Avbryt"))),
-                            React.createElement("div", { className: 'pull-right' },
-                                React.createElement(Button, { color: 'theme-second', onClick: this.authenticateUser, disabled: false },
-                                    React.createElement("span", null, "Logga in"))))))
-                :
-                    React.createElement("div", { className: 'grid row' },
-                        React.createElement("div", { className: 'grid-md-6 center-content' },
-                            React.createElement("div", { className: 'text-center row' }, "Signera ditt bankid..."),
-                            React.createElement("div", { className: 'spinner spinner-dark center-content row' })))));
+        var from = (this.props.location.state || {
+            from: { pathname: "/" },
+        }).from;
+        if (this.props.user.isAuthenticated === true) {
+            return React.createElement(Redirect, { to: from });
+        }
+        return (React.createElement("div", { className: "grid-md-6 center-content" },
+            React.createElement("div", { className: "grid row" },
+                React.createElement("div", { className: "grid-md-6 center-content" },
+                    React.createElement("img", { src: bankidLogo, width: "150px", height: "150px", className: "center-image" }))),
+            this.state.isLoading === false ? (React.createElement(React.Fragment, null,
+                React.createElement("div", { className: "grid row" },
+                    React.createElement("div", { className: "grid-md-6 center-content" },
+                        React.createElement(Input, { id: "pno", name: "pno", type: "text", placeholder: "Skriv in ditt personnummer h\u00E4r...", onChange: this.handleInput }))),
+                React.createElement("div", { className: "grid row" },
+                    React.createElement("div", { className: "grid-md-6 center-content" },
+                        React.createElement("div", { className: "pull-left" },
+                            React.createElement(Button, { color: "theme-second", onClick: this.cancelAuthentication, disabled: false },
+                                React.createElement("span", null, "Avbryt"))),
+                        React.createElement("div", { className: "pull-right" },
+                            React.createElement(Button, { color: "theme-second", onClick: this.authenticateUser, disabled: false },
+                                React.createElement("span", null, "Logga in"))))))) : (React.createElement("div", { className: "grid row" },
+                React.createElement("div", { className: "grid-md-6 center-content" },
+                    React.createElement("div", { className: "text-center row" }, "Signera ditt bankid..."),
+                    React.createElement("div", { className: "spinner spinner-dark center-content row" }))))));
     };
     return Login;
 }(React.Component));
-export default Login;
+export default withRouter(Login);
 //# sourceMappingURL=Login.js.map

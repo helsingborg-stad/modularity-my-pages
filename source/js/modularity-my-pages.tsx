@@ -5,13 +5,13 @@ import { Provider, connect } from "react-redux";
 import store, * as IStore from "./store";
 import { IUserState } from "./store/user/types";
 import "../sass/modularity-my-pages.scss";
-import { IFormStructure } from "./store/Form/types";
+import { IFormState } from "./store/Form/types";
 import { reqForm } from "./store/form/actions";
-import { HashRouter, withRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 interface IMappedProps {
     user: IUserState;
-    formStructure: IFormStructure;
+    form: IFormState;
 }
 
 interface IState {}
@@ -43,10 +43,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
         return (
             <HashRouter>
                 <div className="container">
-                    <App
-                        user={this.props.user}
-                        formStructure={this.props.formStructure}
-                    />
+                    <App user={this.props.user} form={this.props.form} />
                 </div>
             </HashRouter>
         );
@@ -56,7 +53,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
 const mapStateToProps = (state: IStore.IRootState) => {
     return {
         user: state.user,
-        formStructure: state.formStructure,
+        form: state.form,
     };
 };
 

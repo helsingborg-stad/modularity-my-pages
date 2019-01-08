@@ -9,8 +9,8 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import axios from 'axios';
-import { Const } from './types';
+import axios from "axios";
+import { Const } from "./types";
 export var loginError = function (value) {
     // TODO add error message
     return { value: value, type: Const.AUTH_FAIL };
@@ -24,7 +24,8 @@ export var logoutRequest = function () {
 export var authenticate = function (authRequest) {
     return function (dispatch) {
         var personalNumber = authRequest.personalNumber, endUserIp = authRequest.endUserIp, userVisibleData = authRequest.userVisibleData;
-        axios.post('http://localhost:3200/auth/test', {
+        axios
+            .post("http://localhost:3002/auth/test", {
             personalNumber: personalNumber,
             endUserIp: endUserIp,
             userVisibleData: userVisibleData,

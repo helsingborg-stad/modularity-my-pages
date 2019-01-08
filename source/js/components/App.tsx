@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { IUserState } from "../store/user/types";
-import { IFormStructure } from "../store/Form/types";
+import { IFormState } from "../store/Form/types";
 import Login from "./Account/Login";
 import Form from "./FormFolder/Form";
 import PlotInformation from "./Plots/PlotInformation";
@@ -10,7 +10,7 @@ import PlotDetails from "./Plots/PlotDetails";
 
 interface IProps {
     user: IUserState;
-    formStructure: IFormStructure;
+    form: IFormState;
 }
 
 interface IState {
@@ -46,7 +46,7 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { user, formStructure } = this.props;
+        const { user, form } = this.props;
 
         return (
             <div className="grid">
@@ -64,7 +64,7 @@ class App extends React.Component<IProps, IState> {
                     <Route
                         exact
                         path="/tomt/form"
-                        component={() => <Form formStructure={formStructure} />}
+                        component={() => <Form form={form} />}
                     />
                     <Route
                         exact
