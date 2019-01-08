@@ -9,12 +9,11 @@ import {
 
 interface IState {
     plot: IPlot;
-    redirectToReservationPage: boolean;
 }
 
 interface IProps {}
 
-class PlotDetails extends React.Component<
+class PlotReservation extends React.Component<
     RouteComponentProps<any> & IProps,
     IState
 > {
@@ -22,7 +21,6 @@ class PlotDetails extends React.Component<
         super(props);
         this.state = {
             plot: null,
-            redirectToReservationPage: false,
         };
     }
 
@@ -37,26 +35,8 @@ class PlotDetails extends React.Component<
         }
     }
 
-    redirectToReservation = () => {
-        this.setState({ redirectToReservationPage: true });
-    };
-
     render() {
-        const { redirectToReservationPage, plot } = this.state;
-        const { poperty_name, plot_size, price, area_name, id } = plot;
-
-        if (redirectToReservationPage) {
-            return (
-                <Redirect
-                    to={{
-                        pathname: "/tomt/" + id + "/reservera",
-                        state: {
-                            plot,
-                        },
-                    }}
-                />
-            );
-        }
+        const { poperty_name, plot_size, price, area_name } = this.state.plot;
 
         return (
             <div className="grid-md-8">
@@ -85,15 +65,9 @@ class PlotDetails extends React.Component<
                         infotomt@helsingborg.se
                     </p>
                 </div>
-                <button
-                    onClick={this.redirectToReservation}
-                    className="btn btn-primary resbtn"
-                >
-                    Reservera tomten
-                </button>
             </div>
         );
     }
 }
 
-export default withRouter(PlotDetails);
+export default withRouter(PlotReservation);

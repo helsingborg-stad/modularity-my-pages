@@ -1,20 +1,16 @@
-import * as Redux from 'redux';
-import thunk from 'redux-thunk';
-import { demoReducer } from './demo/reducer';
-import { IDemoState } from './demo/types';
-import { IUserState } from './user/types';
-import { userReducer } from './user/reducer';
-import { formReducer } from './Form/reducer';
-import { IFormStructure } from './Form/types';
+import * as Redux from "redux";
+import thunk from "redux-thunk";
+import { IUserState } from "./user/types";
+import { userReducer } from "./user/reducer";
+import { formReducer } from "./Form/reducer";
+import { IFormStructure } from "./Form/types";
 
 export interface IRootState {
-    demo: IDemoState;
     formStructure: IFormStructure;
     user: IUserState;
 }
 
 const rootReducer = Redux.combineReducers<IRootState>({
-    demo: demoReducer,
     formStructure: formReducer,
     user: userReducer,
 });

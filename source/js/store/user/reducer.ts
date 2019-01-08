@@ -1,17 +1,20 @@
-import { Const, IUserState } from './types';
-import { Action } from './actions';
+import { Const, IUserState } from "./types";
+import { Action } from "./actions";
 
 const init: IUserState = {
     isAuthenticated: false,
     userInformation: {
-        name: '',
-        givenName: '',
-        surname: '',
-        personalNumber: '',
+        name: "",
+        givenName: "",
+        surname: "",
+        personalNumber: "",
     },
 };
 
-export function userReducer(state: IUserState = init, action: Action): IUserState {
+export function userReducer(
+    state: IUserState = init,
+    action: Action
+): IUserState {
     switch (action.type) {
         case Const.AUTH_FAIL:
             return {
@@ -23,20 +26,20 @@ export function userReducer(state: IUserState = init, action: Action): IUserStat
             return {
                 ...state,
                 isAuthenticated: true,
-                userInformation: {...action.value},
+                userInformation: { ...action.value },
             };
         case Const.AUTH_LOGOUT:
             return {
                 ...state,
                 isAuthenticated: false,
                 userInformation: {
-                    name: '',
-                    givenName: '',
-                    surname: '',
-                    personalNumber: '',
+                    name: "",
+                    givenName: "",
+                    surname: "",
+                    personalNumber: "",
                 },
             };
         default:
-        return state;
+            return state;
     }
 }

@@ -1,33 +1,31 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './components/App';
-import { Provider, connect } from 'react-redux';
-import store, * as IStore from './store';
-import { IUserState } from './store/user/types';
-import '../sass/modularity-my-pages.scss';
-import { IFormStructure } from './store/Form/types';
-import { reqForm } from './store/form/actions';
-import { HashRouter } from 'react-router-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import App from "./components/App";
+import { Provider, connect } from "react-redux";
+import store, * as IStore from "./store";
+import { IUserState } from "./store/user/types";
+import "../sass/modularity-my-pages.scss";
+import { IFormStructure } from "./store/Form/types";
+import { reqForm } from "./store/form/actions";
+import { HashRouter, withRouter } from "react-router-dom";
 
 interface IMappedProps {
     user: IUserState;
     formStructure: IFormStructure;
 }
 
-// tslint:disable-next-line:no-empty-interface
-interface IState {
-}
+interface IState {}
 
 class StartPage extends React.Component<IMappedProps, IState> {
     constructor(props: IMappedProps) {
         super(props);
-        this.state = {
-        };
+        this.state = {};
     }
 
     reqFormForRender = () => {
-        const endUserIp = 'http://localhost:8888/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/';
-        const moduleId = document.getElementById('app').dataset.configurationId;
+        const endUserIp =
+            "http://localhost:8888/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/";
+        const moduleId = document.getElementById("app").dataset.configurationId;
 
         store.dispatch<any>(
             reqForm({
@@ -35,7 +33,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
                 moduleId,
             })
         );
-    }
+    };
 
     componentWillMount() {
         this.reqFormForRender();
@@ -44,8 +42,11 @@ class StartPage extends React.Component<IMappedProps, IState> {
     render() {
         return (
             <HashRouter>
-                <div className='container'>
-                    <App user={this.props.user} formStructure={this.props.formStructure} />
+                <div className="container">
+                    <App
+                        user={this.props.user}
+                        formStructure={this.props.formStructure}
+                    />
                 </div>
             </HashRouter>
         );
@@ -57,7 +58,7 @@ const mapStateToProps = (state: IStore.IRootState) => {
         user: state.user,
         formStructure: state.formStructure,
     };
-  };
+};
 
 const ConnectedStartPage = connect(mapStateToProps)(StartPage);
 
@@ -65,5 +66,5 @@ ReactDOM.render(
     <Provider store={store}>
         <ConnectedStartPage />
     </Provider>,
-    document.getElementById('app') as HTMLElement
+    document.getElementById("app") as HTMLElement
 );

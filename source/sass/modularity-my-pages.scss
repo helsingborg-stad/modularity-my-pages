@@ -1,4 +1,5 @@
 $spacingS: 5px;
+$spacingM: 10px;
 
 .center-content {
   margin: 0 auto;
@@ -16,4 +17,8 @@ $spacingS: 5px;
 .availablePlot {
   color: rgb(34, 168, 34);
   font-weight: bold;
+}
+
+.resbtn {
+  margin-top: $spacingM;
 }

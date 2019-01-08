@@ -1,32 +1,23 @@
-import * as React from 'react';
-import { IPlot } from '../../services/PlotsService';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import { IPlot } from "../../services/PlotsService";
 
-const PlotRow = (props: IPlot) => {
+interface IProps {
+    Plot: IPlot;
+    showDetailPage: any;
+}
 
-    const { poperty_name, plot_size, price, available } = props;
+const PlotRow = (props: IProps) => {
+    const { poperty_name, plot_size, price, available } = props.Plot;
 
     return (
-        available ? <Link
-            to={{
-            pathname: '/tomt/' + props.id,
-            state: {
-                plot: props,
-                },
-            }}
+        <tr
+            onClick={available ? () => props.showDetailPage(props.Plot) : null}
+            className={available ? "availablePlot" : ""}
         >
-            <div className={'grid ' + (available ? 'availablePlot' : '')}>
-                <div className='grid-md-4'>{poperty_name}</div>
-                <div className='grid-md-4'>{plot_size} m2</div>
-                <div className='grid-md-4'>{price.toLocaleString()} kr</div>
-            </div>
-        </Link>
-        :
-        <div className={'grid ' + (available ? 'availablePlot' : '')}>
-            <div className='grid-md-4'>{poperty_name}</div>
-            <div className='grid-md-4'>{plot_size} m2</div>
-            <div className='grid-md-4'>{price.toLocaleString()} kr</div>
-        </div>
+            <td>{poperty_name}</td>
+            <td>{plot_size} m2</td>
+            <td>{price.toLocaleString()} kr</td>
+        </tr>
     );
 };
 
