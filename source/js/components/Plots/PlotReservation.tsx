@@ -1,12 +1,16 @@
 import * as React from "react";
 import { IPlot, getPlot } from "../../services/PlotsService";
 import { RouteComponentProps, withRouter, Link } from "react-router-dom";
+import Form from "../Form/Form";
+import { IFormState } from "../../store/Form/types";
+
+interface IProps {
+    form: IFormState;
+}
 
 interface IState {
     plot: IPlot;
 }
-
-interface IProps {}
 
 class PlotReservation extends React.Component<
     RouteComponentProps<any> & IProps,
@@ -31,11 +35,17 @@ class PlotReservation extends React.Component<
     }
 
     render() {
-        const { poperty_name, plot_size, price, area_name } = this.state.plot;
+        const {
+            id,
+            poperty_name,
+            plot_size,
+            price,
+            area_name,
+        } = this.state.plot;
 
         return (
             <div className="grid-md-8">
-                <Link to="/">« Previous</Link>
+                <Link to={"/tomt/" + id}>« Previous</Link>
                 <div className="grid row">
                     <h2>{poperty_name}</h2>
                 </div>
@@ -47,19 +57,9 @@ class PlotReservation extends React.Component<
                     </p>
                 </div>
                 <div className="grid row">
-                    <p>
-                        Tomten kan tillträdas omgående efter fördelning. Tomten
-                        kommer att anslutas till Öresundskrafts naturgasnät.
-                        Kostnader för anslutning till gasnät tillkommer.{" "}
-                        <b>Tomten kan reserveras för 375 kr.</b>
-                    </p>
+                    <Form form={this.props.form} />
                 </div>
-                <div className="grid row">
-                    <p>
-                        För mer information: 042-10 53 51 /
-                        infotomt@helsingborg.se
-                    </p>
-                </div>
+                <button className="btn btn-primary resbtn">Betala</button>
             </div>
         );
     }

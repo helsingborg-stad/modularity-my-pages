@@ -1,6 +1,6 @@
 import * as React from "react";
 import { OptionsObject, IFormState } from "../../store/form/types";
-import { Input, Textarea, Pagination } from "hbg-react";
+import { Textarea, Pagination } from "hbg-react";
 import FormGroup from "./FormGroup";
 import { sendForm, editForm } from "../../store/form/actions";
 import store from "../../store";
@@ -44,18 +44,21 @@ class Form extends React.Component<IProps> {
     render() {
         const { formStructure } = this.props.form;
         return (
-            <div>
+            <form method="post" action="/">
                 {formStructure.configuration.map((el, i) => {
                     if (el.type === "text_input") {
                         return (
-                            <Input
-                                key={el.key}
-                                handleChange={value =>
-                                    this.handleChange(i, value, null)
-                                }
-                                value={el.value}
-                                label={el.label}
-                            />
+                            <div className="form-group" key={el.key}>
+                                <label>{el.label}</label>
+                                <input
+                                    onChange={value =>
+                                        this.handleChange(i, value, null)
+                                    }
+                                    type="text"
+                                    name={el.key}
+                                    id={el.key}
+                                />
+                            </div>
                         );
                     } else if (el.type === "text_area") {
                         return (
@@ -97,8 +100,8 @@ class Form extends React.Component<IProps> {
                         return <div key={i}>I didnt match anything</div>;
                     }
                 })}
-                <button onClick={() => this.saveChange()}>save</button>
-            </div>
+                {/* <button onClick={() => this.saveChange()}>save</button> */}
+            </form>
         );
     }
 }

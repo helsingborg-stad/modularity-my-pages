@@ -49,7 +49,7 @@ class PlotDetails extends React.Component<
             return (
                 <Redirect
                     to={{
-                        pathname: "/tomt/" + id + "/reservera",
+                        pathname: "/tomt/reservera/" + id,
                         state: {
                             plot,
                         },

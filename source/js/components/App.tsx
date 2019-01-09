@@ -3,7 +3,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { IUserState } from "../store/user/types";
 import { IFormState } from "../store/Form/types";
 import Login from "./Account/Login";
-import Form from "./FormFolder/Form";
 import PlotInformation from "./Plots/PlotInformation";
 import PlotReservation from "./Plots/PlotReservation";
 import PlotDetails from "./Plots/PlotDetails";
@@ -61,21 +60,16 @@ class App extends React.Component<IProps, IState> {
                         path="/tomt/login"
                         component={() => <Login user={user} />}
                     />
-                    <Route
+                    <PrivateRoute
+                        authed={user.isAuthenticated}
                         exact
-                        path="/tomt/form"
-                        component={() => <Form form={form} />}
+                        path="/tomt/reservera/:id"
+                        component={() => <PlotReservation form={form} />}
                     />
                     <Route
                         exact
                         path="/tomt/:id"
                         component={() => <PlotDetails />}
-                    />
-                    <PrivateRoute
-                        authed={user.isAuthenticated}
-                        exact
-                        path="/tomt/:id/reservera"
-                        component={() => <PlotReservation />}
                     />
                 </Switch>
             </div>
