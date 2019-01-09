@@ -46,7 +46,7 @@ Thumbs.db
 *.tar
 *.zip
 
-# ignore dist temp folder
+# ignore dist/built temp folders
 dist/
 built/
 
