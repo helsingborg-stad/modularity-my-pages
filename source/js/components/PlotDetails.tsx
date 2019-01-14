@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IPlot, getPlot } from "../../services/PlotsService";
+import { IPlot, getPlot } from "../services/PlotsService";
 import {
     RouteComponentProps,
     withRouter,
@@ -7,12 +7,12 @@ import {
     Redirect,
 } from "react-router-dom";
 
+interface IProps {}
+
 interface IState {
     plot: IPlot;
     redirectToReservationPage: boolean;
 }
-
-interface IProps {}
 
 class PlotDetails extends React.Component<
     RouteComponentProps<any> & IProps,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IPlot } from "../../services/PlotsService";
+import { IPlot } from "../services/PlotsService";
 
 interface IProps {
     Plot: IPlot;

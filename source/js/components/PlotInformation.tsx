@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getPlots, IPlot } from "../../services/PlotsService";
+import { getPlots, IPlot } from "../services/PlotsService";
 import PlotRow from "./PlotRow";
 import { RouteComponentProps, withRouter, Redirect } from "react-router-dom";
 

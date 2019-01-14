@@ -1,12 +1,9 @@
 import * as React from "react";
-import { IPlot, getPlot } from "../../services/PlotsService";
+import { IPlot, getPlot } from "../services/PlotsService";
 import { RouteComponentProps, withRouter, Link } from "react-router-dom";
-import Form from "../Form/Form";
-import { IFormState } from "../../store/Form/types";
+import Form from "./Form";
 
-interface IProps {
-    form: IFormState;
-}
+interface IProps {}
 
 interface IState {
     plot: IPlot;
@@ -51,13 +48,12 @@ class PlotReservation extends React.Component<
                 </div>
                 <div className="grid row">
                     <p>
-                        {" "}
-                        {area_name} / {plot_size} m2 / {price.toLocaleString()}{" "}
+                        {area_name} / {plot_size} m2 / {price.toLocaleString()}
                         kr
                     </p>
                 </div>
                 <div className="grid row">
-                    <Form form={this.props.form} />
+                    <Form />
                 </div>
                 <button className="btn btn-primary resbtn">Betala</button>
             </div>

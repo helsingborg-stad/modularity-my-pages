@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormElement, OptionsObject } from "../../store/Form/types";
+import { FormElement, OptionsObject } from "../store/Form/types";
 
 interface IProps {
     handleChange: (value: OptionsObject[]) => void;

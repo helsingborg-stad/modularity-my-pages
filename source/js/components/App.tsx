@@ -1,15 +1,13 @@
 import * as React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { IUserState } from "../store/user/types";
-import { IFormState } from "../store/Form/types";
-import Login from "./Account/Login";
-import PlotInformation from "./Plots/PlotInformation";
-import PlotReservation from "./Plots/PlotReservation";
-import PlotDetails from "./Plots/PlotDetails";
+import Login from "./Login";
+import PlotInformation from "./PlotInformation";
+import PlotReservation from "./PlotReservation";
+import PlotDetails from "./PlotDetails";
 
 interface IProps {
     user: IUserState;
-    form: IFormState;
 }
 
 interface IState {
@@ -45,7 +43,7 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { user, form } = this.props;
+        const { user } = this.props;
 
         return (
             <div className="grid">
@@ -64,7 +62,7 @@ class App extends React.Component<IProps, IState> {
                         authed={user.isAuthenticated}
                         exact
                         path="/tomt/reservera/:id"
-                        component={() => <PlotReservation form={form} />}
+                        component={() => <PlotReservation />}
                     />
                     <Route
                         exact

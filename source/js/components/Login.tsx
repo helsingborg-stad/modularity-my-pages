@@ -1,10 +1,11 @@
 import * as React from "react";
-import Store from "../../store/index";
-import { authenticate } from "../../store/user/actions";
-import { IUserState } from "../../store/user/types";
+import Store from "../store/index";
+import { authenticate } from "../store/user/actions";
+import { IUserState } from "../store/user/types";
 import { Button, Input } from "hbg-react";
-import bankidLogo from "../../assets/img/bankid/bankid_low_rgb.png";
+import bankidLogo from "../assets/img/bankid/bankid_low_rgb.png";
 import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
+import Spinner from "./shared/Spinner";
 
 interface IProps {
     user: IUserState;
@@ -103,14 +104,7 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
                         </div>
                     </>
                 ) : (
-                    <div className="grid row">
-                        <div className="grid-md-6 center-content">
-                            <div className="text-center row">
-                                Signera ditt bankid...
-                            </div>
-                            <div className="spinner spinner-dark center-content row" />
-                        </div>
-                    </div>
+                    <Spinner message="Signera med ditt bankid..." />
                 )}
             </div>
         );
