@@ -6,7 +6,7 @@ import {
     IFormConfiguration,
     IOption,
 } from "../services/FormService";
-import FormField from "./FormField";
+import AcfFormField from "./AcfFormField";
 import Spinner from "./shared/Spinner";
 
 interface IProps {}
@@ -15,7 +15,7 @@ interface IState {
     formConfiguration: IFormConfiguration;
 }
 
-class Form extends React.Component<IProps, IState> {
+class AcfForm extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
@@ -40,7 +40,6 @@ class Form extends React.Component<IProps, IState> {
         value?: React.ChangeEvent<HTMLInputElement>,
         array?: IOption[]
     ) {
-        // deep clone of object
         const formStructure = JSON.parse(
             JSON.stringify({ ...this.state.formConfiguration })
         );
@@ -67,7 +66,7 @@ class Form extends React.Component<IProps, IState> {
                 <form method="post" action="/">
                     {formConfiguration.configuration.map((field, i) => {
                         return (
-                            <FormField
+                            <AcfFormField
                                 index={i}
                                 field={field}
                                 handleChange={this.handleChange}
@@ -83,4 +82,4 @@ class Form extends React.Component<IProps, IState> {
     }
 }
 
-export default Form;
+export default AcfForm;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Textarea, Pagination } from "hbg-react";
 import { IField, IOption } from "../services/FormService";
-import FormGroup from "./FormGroup";
+import AcfFormGroup from "./AcfFormGroup";
 
 interface IProps {
     index: number;
@@ -13,7 +13,7 @@ interface IProps {
     ) => void;
 }
 
-class FormField extends React.Component<IProps> {
+class AcfFormField extends React.Component<IProps> {
     constructor(props: IProps) {
         super(props);
     }
@@ -46,7 +46,7 @@ class FormField extends React.Component<IProps> {
             case "single_choice":
             case "multiple_choice":
                 return (
-                    <FormGroup
+                    <AcfFormGroup
                         key={field.key}
                         formElement={field}
                         handleChange={array => handleChange(index, null, array)}
@@ -68,4 +68,4 @@ class FormField extends React.Component<IProps> {
     }
 }
 
-export default FormField;
+export default AcfFormField;

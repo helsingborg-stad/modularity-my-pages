@@ -5,6 +5,7 @@ import Login from "./Login";
 import PlotInformation from "./PlotInformation";
 import PlotReservation from "./PlotReservation";
 import PlotDetails from "./PlotDetails";
+import Payment from "./Payment";
 
 interface IProps {
     user: IUserState;
@@ -14,7 +15,7 @@ interface IState {
     isLoading: boolean;
 }
 
-function PrivateRoute({ component: Component, authed, ...rest }) {
+const PrivateRoute = ({ component: Component, authed, ...rest }) => {
     return (
         <Route
             {...rest}
@@ -32,7 +33,8 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
             }
         />
     );
-}
+};
+
 class App extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
@@ -62,6 +64,12 @@ class App extends React.Component<IProps, IState> {
                         exact
                         path="/tomt/reservera/:id"
                         component={() => <PlotReservation />}
+                    />
+                    <PrivateRoute
+                        authed={user.isAuthenticated}
+                        exact
+                        path="/tomt/reservera/betalning/:id"
+                        component={() => <Payment />}
                     />
                     <Route
                         exact

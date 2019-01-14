@@ -14,12 +14,12 @@ export interface IPlot {
     available: boolean;
 }
 
-export function getPlots(): IPlot[] {
+export const getPlots = (): IPlot[] => {
     return plots;
-}
+};
 
-export function getPlot(id: string): IPlot {
+export const getPlot = (id: string): IPlot => {
     const allPlots = getPlots();
     const plot = allPlots.filter(x => x.id === id);
     return plot[0];
-}
+};

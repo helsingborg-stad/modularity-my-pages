@@ -6,7 +6,7 @@ interface IProps {
     formElement: FormElement;
 }
 
-class FormGroup extends React.Component<IProps> {
+class AcfFormGroup extends React.Component<IProps> {
     constructor(props: IProps) {
         super(props);
     }
@@ -70,4 +70,4 @@ class FormGroup extends React.Component<IProps> {
     }
 }
 
-export default FormGroup;
+export default AcfFormGroup;

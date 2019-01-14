@@ -1,12 +1,18 @@
 import * as React from "react";
+import {
+    RouteComponentProps,
+    withRouter,
+    Link,
+    Redirect,
+} from "react-router-dom";
 import { IPlot, getPlot } from "../services/PlotsService";
-import { RouteComponentProps, withRouter, Link } from "react-router-dom";
-import Form from "./Form";
+import AcfForm from "./AcfForm";
 
 interface IProps {}
 
 interface IState {
     plot: IPlot;
+    redirectToPaymentPage: boolean;
 }
 
 class PlotReservation extends React.Component<
@@ -17,21 +23,28 @@ class PlotReservation extends React.Component<
         super(props);
         this.state = {
             plot: null,
+            redirectToPaymentPage: false,
         };
     }
 
     componentWillMount() {
-        const plot =
-            this.props.location.state && this.props.location.state.plot;
+        const { location, match } = this.props;
 
-        if (plot == null) {
-            this.setState({ plot: getPlot(this.props.match.params.id) });
+        const plot = location.state && location.state.plot;
+
+        if (plot === null) {
+            this.setState({ plot: getPlot(match.params.id) });
         } else {
             this.setState({ plot });
         }
     }
 
+    redirectToPayment = () => {
+        this.setState({ redirectToPaymentPage: true });
+    };
+
     render() {
+        const { redirectToPaymentPage } = this.state;
         const {
             id,
             poperty_name,
@@ -39,6 +52,17 @@ class PlotReservation extends React.Component<
             price,
             area_name,
         } = this.state.plot;
+
+        if (redirectToPaymentPage) {
+            return (
+                <Redirect
+                    to={{
+                        pathname: "/tomt/reservera/betalning/" + id,
+                        state: {},
+                    }}
+                />
+            );
+        }
 
         return (
             <div className="grid-md-8">
@@ -53,9 +77,14 @@ class PlotReservation extends React.Component<
                     </p>
                 </div>
                 <div className="grid row">
-                    <Form />
+                    <AcfForm />
                 </div>
-                <button className="btn btn-primary resbtn">Betala</button>
+                <button
+                    className="btn btn-primary resbtn"
+                    onClick={this.redirectToPayment}
+                >
+                    Gå till betalning
+                </button>
             </div>
         );
     }

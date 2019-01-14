@@ -11,10 +11,10 @@ const init: IUserState = {
     },
 };
 
-export function userReducer(
+export const userReducer = (
     state: IUserState = init,
     action: Action
-): IUserState {
+): IUserState => {
     switch (action.type) {
         case Const.AUTH_FAIL:
             return {
@@ -42,4 +42,4 @@ export function userReducer(
         default:
             return state;
     }
-}
+};

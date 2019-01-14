@@ -12,10 +12,10 @@ const init: IFormState = {
     },
 };
 
-export function formReducer(
+export const formReducer = (
     state: IFormState = init,
     action: Action
-): IFormState {
+): IFormState => {
     switch (action.type) {
         case Const.FORM_REQ:
             return {
@@ -52,4 +52,4 @@ export function formReducer(
         default:
             return state;
     }
-}
+};
