@@ -1,5 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter, Link } from "react-router-dom";
+import PaymentForm from "./PaymentForm";
 
 interface IProps {}
 
@@ -22,8 +23,8 @@ class Payment extends React.Component<
         //
     }
 
-    handleChange(value: any) {
-        //
+    handleInputChange(e: React.FormEvent<HTMLInputElement>) {
+        console.log(e.target);
     }
 
     render() {
@@ -36,50 +37,7 @@ class Payment extends React.Component<
                 <div className="grid row">
                     <p>Att betala {this.state.totalAmount} kr</p>
                 </div>
-                <div className="grid row">
-                    <div className="form-group">
-                        <label>Kortinnehavare</label>
-                        <input
-                            onChange={value => this.handleChange(value)}
-                            type="text"
-                            name="Kortinnehavare"
-                            id="cardHolder"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Kortnummer</label>
-                        <input
-                            onChange={value => this.handleChange(value)}
-                            type="text"
-                            name="Kortnummer"
-                            id="CardNumber"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Giltighetstid (MM/ÅÅ)</label>
-                        <input
-                            onChange={value => this.handleChange(value)}
-                            type="text"
-                            name="Månad"
-                            id="month"
-                        />
-                        <input
-                            onChange={value => this.handleChange(value)}
-                            type="text"
-                            name="År"
-                            id="year"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Säkerhetskod (CVV)</label>
-                        <input
-                            onChange={value => this.handleChange(value)}
-                            type="text"
-                            name="CVV"
-                            id="cvv"
-                        />
-                    </div>
-                </div>
+                <PaymentForm handleInputChange={this.handleInputChange} />
                 <button className="btn btn-primary resbtn">Betala</button>
             </div>
         );

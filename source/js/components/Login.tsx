@@ -1,11 +1,13 @@
 import * as React from "react";
 import Store from "../store/index";
-import { authenticate } from "../store/user/actions";
+import { loginError, loginSuccess } from "../store/user/actions";
 import { IUserState } from "../store/user/types";
 import { Button, Input } from "hbg-react";
 import bankidLogo from "../assets/img/bankid/bankid_low_rgb.png";
 import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import Spinner from "./shared/Spinner";
+import { authorizeUser } from "../services/UserService";
+import { setToken } from "../helpers/TokenHelper";
 
 interface IProps {
     user: IUserState;
@@ -27,14 +29,21 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
         this.setState({ isLoading: true });
 
         setTimeout(() => {
-            Store.dispatch<any>(
-                authenticate({
-                    personalNumber: "195811123073",
-                    endUserIp: "194.168.2.25",
-                    userVisibleData: "Helsingborg stad",
-                })
-            );
+            this.authenticate("195811123073");
         }, 1000);
+    };
+
+    authenticate = async (personalNumber: string) => {
+        const authResponse = await authorizeUser(personalNumber);
+
+        if (authResponse === null || !authResponse.sucess) {
+            // If request was failed, dispatching FAILURE action.
+            Store.dispatch(loginError(authResponse.err));
+        } else {
+            // When everything is ok, dispatching SUCCESS action.
+            setToken(authResponse.token);
+            Store.dispatch(loginSuccess({ ...authResponse.user }));
+        }
     };
 
     cancelAuthentication = () => {

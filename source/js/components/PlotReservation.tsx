@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { IPlot, getPlot } from "../services/PlotsService";
 import AcfForm from "./AcfForm";
+import Spinner from "./shared/Spinner";
 
 interface IProps {}
 
@@ -29,13 +30,12 @@ class PlotReservation extends React.Component<
 
     componentWillMount() {
         const { location, match } = this.props;
-
         const plot = location.state && location.state.plot;
 
-        if (plot === null) {
-            this.setState({ plot: getPlot(match.params.id) });
-        } else {
+        if (plot) {
             this.setState({ plot });
+        } else {
+            this.setState({ plot: getPlot(match.params.id) });
         }
     }
 
@@ -45,48 +45,56 @@ class PlotReservation extends React.Component<
 
     render() {
         const { redirectToPaymentPage } = this.state;
-        const {
-            id,
-            poperty_name,
-            plot_size,
-            price,
-            area_name,
-        } = this.state.plot;
 
         if (redirectToPaymentPage) {
             return (
                 <Redirect
                     to={{
-                        pathname: "/tomt/reservera/betalning/" + id,
+                        pathname:
+                            "/tomt/reservera/betalning/" +
+                            this.props.location.state.match.params.id,
                         state: {},
                     }}
                 />
             );
         }
 
-        return (
-            <div className="grid-md-8">
-                <Link to={"/tomt/" + id}>« Previous</Link>
-                <div className="grid row">
-                    <h2>{poperty_name}</h2>
+        if (this.state.plot) {
+            const {
+                id,
+                poperty_name,
+                plot_size,
+                price,
+                area_name,
+            } = this.state.plot;
+
+            return (
+                <div className="grid-md-8">
+                    <Link to={"/tomt/" + id}>« Previous</Link>
+                    <div className="grid row">
+                        <h2>{poperty_name}</h2>
+                    </div>
+                    <div className="grid row">
+                        <p>
+                            {area_name} / {plot_size} m2 /{" "}
+                            {price.toLocaleString()}
+                            kr
+                        </p>
+                    </div>
+                    <div className="grid row">
+                        <AcfForm />
+                    </div>
+                    <button
+                        className="btn btn-primary resbtn"
+                        onClick={this.redirectToPayment}
+                    >
+                        Gå till betalning
+                    </button>
                 </div>
-                <div className="grid row">
-                    <p>
-                        {area_name} / {plot_size} m2 / {price.toLocaleString()}
-                        kr
-                    </p>
-                </div>
-                <div className="grid row">
-                    <AcfForm />
-                </div>
-                <button
-                    className="btn btn-primary resbtn"
-                    onClick={this.redirectToPayment}
-                >
-                    Gå till betalning
-                </button>
-            </div>
-        );
+            );
+        } else {
+            return <Spinner message="Laddar tomtinformation..." />;
+        }
     }
 }
 

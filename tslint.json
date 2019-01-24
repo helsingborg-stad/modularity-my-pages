@@ -26,7 +26,8 @@
         "member-access": false,
         "no-empty-interface": false,
         "semicolon": false,
-        "arrow-parens": false
+        "arrow-parens": false,
+        "object-literal-key-quotes": false
     },
     "rulesDirectory": []
 }

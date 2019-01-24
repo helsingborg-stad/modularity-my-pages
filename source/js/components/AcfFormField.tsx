@@ -1,16 +1,13 @@
 import * as React from "react";
 import { Textarea, Pagination } from "hbg-react";
-import { IField, IOption } from "../services/FormService";
-import AcfFormGroup from "./AcfFormGroup";
+import { IField } from "../services/FormService";
+// import AcfFormGroup from "./AcfFormGroup";
+import TextInput from "./shared/TextInput";
 
 interface IProps {
     index: number;
     field: IField;
-    handleChange: (
-        i: number,
-        value?: React.ChangeEvent<HTMLInputElement>,
-        array?: IOption[]
-    ) => void;
+    handleInputChange: ((e: React.FormEvent<HTMLInputElement>) => void);
 }
 
 class AcfFormField extends React.Component<IProps> {
@@ -19,39 +16,36 @@ class AcfFormField extends React.Component<IProps> {
     }
 
     render() {
-        const { index, field, handleChange } = this.props;
-        console.log(field);
+        const { field, handleInputChange } = this.props;
+
         switch (field.type) {
             case "text_input":
                 return (
-                    <div className="form-group" key={field.key}>
-                        <label>{field.label}</label>
-                        <input
-                            onChange={value => handleChange(index, value, null)}
-                            type="text"
-                            name={field.key}
-                            id={field.key}
-                        />
-                    </div>
+                    <TextInput
+                        label={field.label}
+                        name={field.key}
+                        id={field.key}
+                        handleInputChange={handleInputChange}
+                    />
                 );
-            case "text_input":
+            case "text_area":
                 return (
                     <Textarea
                         key={field.key}
                         label={field.label}
                         value={field.value}
-                        handleChange={value => handleChange(index, value, null)}
+                        handleInputChange={handleInputChange}
                     />
                 );
             case "single_choice":
-            case "multiple_choice":
-                return (
-                    <AcfFormGroup
-                        key={field.key}
-                        formElement={field}
-                        handleChange={array => handleChange(index, null, array)}
-                    />
-                );
+            // case "multiple_choice":
+            //     return (
+            //         <AcfFormGroup
+            //             key={field.key}
+            //             formElement={field}
+            //             handleChange={array => handleInputChange(array)}
+            //         />
+            //     );
             case "output_description":
                 return (
                     <div key={field.heading}>

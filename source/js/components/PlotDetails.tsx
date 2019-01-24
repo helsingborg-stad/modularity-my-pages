@@ -66,7 +66,6 @@ class PlotDetails extends React.Component<
                 </div>
                 <div className="grid row">
                     <p>
-                        {" "}
                         {area_name} / {plot_size} m2 / {price.toLocaleString()}{" "}
                         kr
                     </p>

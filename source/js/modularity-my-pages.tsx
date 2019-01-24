@@ -6,6 +6,10 @@ import "../sass/modularity-my-pages.scss";
 import store, * as IStore from "./store";
 import { IUserState } from "./store/user/types";
 import App from "./components/App";
+import { loginSuccess } from "./store/user/actions";
+import Store from "./store/index";
+import { getUser } from "./services/UserService";
+import { getToken } from "./helpers/TokenHelper";
 
 interface IMappedProps {
     user: IUserState;
@@ -18,6 +22,19 @@ class StartPage extends React.Component<IMappedProps, IState> {
         super(props);
         this.state = {};
     }
+
+    componentWillMount() {
+        this.initUser();
+    }
+
+    initUser = async () => {
+        const token = getToken();
+
+        if (token) {
+            const user = await getUser("");
+            Store.dispatch(loginSuccess({ ...user }));
+        }
+    };
 
     render() {
         return (
