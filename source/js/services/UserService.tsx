@@ -28,5 +28,11 @@ export const getUser = async (pno: string): Promise<UserInformation> => {
     const host = "https://localhost:3005";
     const endpoint = "/auth/user/";
 
-    return await get(`${host}${endpoint}`);
+    const response = await get(`${host}${endpoint}`);
+
+    if (response) {
+        return response.data.user;
+    } else {
+        return null;
+    }
 };

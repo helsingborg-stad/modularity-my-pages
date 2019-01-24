@@ -6,10 +6,11 @@ import "../sass/modularity-my-pages.scss";
 import store, * as IStore from "./store";
 import { IUserState } from "./store/user/types";
 import App from "./components/App";
-import { loginSuccess } from "./store/user/actions";
+import { loginSuccess, logoutRequest } from "./store/user/actions";
 import Store from "./store/index";
 import { getUser } from "./services/UserService";
-import { getToken } from "./helpers/TokenHelper";
+import { getToken, removeToken } from "./helpers/TokenHelper";
+import Header from "./components/shared/Header";
 
 interface IMappedProps {
     user: IUserState;
@@ -32,14 +33,25 @@ class StartPage extends React.Component<IMappedProps, IState> {
 
         if (token) {
             const user = await getUser("");
-            Store.dispatch(loginSuccess({ ...user }));
+
+            if (user) {
+                Store.dispatch(loginSuccess({ ...user }));
+            }
         }
+    };
+
+    logOut = () => {
+        removeToken();
+        Store.dispatch(logoutRequest());
     };
 
     render() {
         return (
             <HashRouter>
                 <div className="container">
+                    {this.props.user.isAuthenticated && (
+                        <Header user={this.props.user} logOut={this.logOut} />
+                    )}
                     <App user={this.props.user} />
                 </div>
             </HashRouter>
