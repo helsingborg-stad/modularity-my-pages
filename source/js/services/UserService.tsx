@@ -1,15 +1,20 @@
 import { post, get } from "./Requests";
-import { UserInformation, IUserState } from "../store/user/types";
+import { IUserInformation } from "../store/user/types";
 
 interface IAuthResponse {
     data: {
         sucess: boolean;
         err: string;
-        user: UserInformation;
+        user: IUserInformation;
         token: string;
     };
 }
 
+interface IUserResponse {
+    data: {
+        user: IUserInformation;
+    };
+}
 export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
     const host = "https://localhost:3005";
     const endpoint = "/auth/";
@@ -17,18 +22,32 @@ export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
     return await post(`${host}${endpoint}`, {
         pno,
         "0.0.0.0": String,
-    }).catch(() => null);
+    }).catch(err => {
+        console.log("authorizeUser err", err);
+        if (err.status && err.data) {
+            return Promise.reject({
+                status: err.status,
+                data: err.data,
+            });
+        }
+
+        return Promise.reject(null);
+    });
 };
 
-export const getUser = async (pno: string): Promise<UserInformation> => {
+export const getUser = async (pno: string): Promise<IUserResponse> => {
     const host = "https://localhost:3005";
-    const endpoint = "/auth/user/";
+    const endpoint = "/auth/user";
 
-    const response = await get(`${host}${endpoint}`);
+    return await get(`${host}${endpoint}/${pno}`).catch(err => {
+        console.log("getUser err", err);
+        if (err.status && err.data) {
+            return Promise.reject({
+                status: err.status,
+                data: err.data,
+            });
+        }
 
-    if (response) {
-        return response.data.user;
-    } else {
-        return null;
-    }
+        return Promise.reject(null);
+    });
 };

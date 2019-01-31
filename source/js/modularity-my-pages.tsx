@@ -42,11 +42,12 @@ class StartPage extends React.Component<IMappedProps, IState> {
             const pno = getUserPno();
 
             if (pno) {
-                const user = await getUser(pno).catch(() => null);
+                // get user (if there are any errors they are ignored, since auth is not mandatory in this stage.)
+                const userResponse = await getUser(pno).catch(() => null);
 
                 // if user is found automatically log in the user and set the userdata.
-                if (user) {
-                    store.dispatch(loginSuccess({ ...user }));
+                if (userResponse) {
+                    store.dispatch(loginSuccess({ ...userResponse.data.user }));
                 }
             }
         }

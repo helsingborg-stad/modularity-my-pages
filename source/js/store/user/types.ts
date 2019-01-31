@@ -1,16 +1,16 @@
 export interface IUserState {
     isAuthenticated: boolean;
-    userInformation: UserInformation;
+    userInformation: IUserInformation;
 }
 
-export interface UserInformation {
+export interface IUserInformation {
     personalNumber: string;
     name: string;
     givenName: string;
     surname: string;
 }
 
-export interface AuthRequest {
+export interface IAuthRequest {
     personalNumber: string;
     endUserIp: string;
     userVisibleData: string;
