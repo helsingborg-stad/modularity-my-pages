@@ -1,27 +1,23 @@
 import { post, get } from "./Requests";
-import { UserInformation } from "../store/user/types";
+import { UserInformation, IUserState } from "../store/user/types";
 
 interface IAuthResponse {
-    sucess: boolean;
-    token: string;
-    err: string;
-    user: any;
+    data: {
+        sucess: boolean;
+        err: string;
+        user: UserInformation;
+        token: string;
+    };
 }
 
 export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
     const host = "https://localhost:3005";
     const endpoint = "/auth/";
 
-    const response = await post(`${host}${endpoint}`, {
+    return await post(`${host}${endpoint}`, {
         pno,
         "0.0.0.0": String,
-    });
-
-    if (response) {
-        return response.data;
-    } else {
-        return null;
-    }
+    }).catch(() => null);
 };
 
 export const getUser = async (pno: string): Promise<UserInformation> => {

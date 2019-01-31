@@ -1,15 +1,20 @@
+import "../sass/modularity-my-pages.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { HashRouter } from "react-router-dom";
 import { Provider, connect } from "react-redux";
-import "../sass/modularity-my-pages.scss";
 import store, * as IStore from "./store";
 import { IUserState } from "./store/user/types";
-import App from "./components/App";
 import { loginSuccess, logoutRequest } from "./store/user/actions";
-import Store from "./store/index";
 import { getUser } from "./services/UserService";
-import { getToken, removeToken } from "./helpers/TokenHelper";
+import {
+    getAuthToken,
+    removeAuthToken,
+    validateToken,
+    getUserPno,
+    removeUserPno,
+} from "./helpers/TokenHelper";
+import App from "./components/App";
 import Header from "./components/shared/Header";
 
 interface IMappedProps {
@@ -28,21 +33,30 @@ class StartPage extends React.Component<IMappedProps, IState> {
         this.initUser();
     }
 
+    // if token and pno exists in local storage we try to restore the user state.
     initUser = async () => {
-        const token = getToken();
+        const token = getAuthToken();
 
-        if (token) {
-            const user = await getUser("");
+        // if token exists and is valid, try to fetch the user.
+        if (token && validateToken(token)) {
+            const pno = getUserPno();
 
-            if (user) {
-                Store.dispatch(loginSuccess({ ...user }));
+            if (pno) {
+                const user = await getUser(pno).catch(() => null);
+
+                // if user is found automatically log in the user and set the userdata.
+                if (user) {
+                    store.dispatch(loginSuccess({ ...user }));
+                }
             }
         }
     };
 
     logOut = () => {
-        removeToken();
-        Store.dispatch(logoutRequest());
+        // remove token and user pno from localStorage and dispatch logout action.
+        removeAuthToken();
+        removeUserPno();
+        store.dispatch(logoutRequest());
     };
 
     render() {

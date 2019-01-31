@@ -7,7 +7,7 @@ import bankidLogo from "../assets/img/bankid/bankid_low_rgb.png";
 import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import Spinner from "./shared/Spinner";
 import { authorizeUser } from "../services/UserService";
-import { setToken } from "../helpers/TokenHelper";
+import { setAuthToken, setUserPno } from "../helpers/TokenHelper";
 
 interface IProps {
     user: IUserState;
@@ -29,20 +29,25 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
         this.setState({ isLoading: true });
 
         setTimeout(() => {
-            this.authenticate("195811123073");
+            this.sendAuthorizeRequest("195811123073");
         }, 1000);
     };
 
-    authenticate = async (personalNumber: string) => {
+    sendAuthorizeRequest = async (personalNumber: string): Promise<void> => {
         const authResponse = await authorizeUser(personalNumber);
 
-        if (authResponse === null || !authResponse.sucess) {
-            // If request was failed, dispatching FAILURE action.
-            Store.dispatch(loginError(authResponse.err));
+        if (authResponse) {
+            console.log("authResponse ok", authResponse);
+            // When everything is ok, saving token, pno and dispatching SUCCESS action.
+            setAuthToken(authResponse.data.token);
+            setUserPno(authResponse.data.user.personalNumber);
+            Store.dispatch(loginSuccess({ ...authResponse.data.user }));
         } else {
-            // When everything is ok, dispatching SUCCESS action.
-            setToken(authResponse.token);
-            Store.dispatch(loginSuccess({ ...authResponse.user }));
+            console.log("authResponse fail", authResponse);
+            // If login failed, dispatching FAILURE action.
+            Store.dispatch(
+                loginError(authResponse ? authResponse.data.err : null)
+            );
         }
     };
 
