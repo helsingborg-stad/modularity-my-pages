@@ -8,6 +8,7 @@ import { Redirect, RouteComponentProps, withRouter } from "react-router-dom";
 import Spinner from "./shared/Spinner";
 import { authorizeUser } from "../services/UserService";
 import { setAuthToken, setUserPno } from "../helpers/TokenHelper";
+import { validatePno } from "../helpers/ValidationHelper";
 
 interface IProps {
     user: IUserState;
@@ -15,6 +16,8 @@ interface IProps {
 
 interface IState {
     isLoading: boolean;
+    showError: boolean;
+    personalNumberInput: string;
 }
 
 class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
@@ -22,15 +25,23 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
         super(props);
         this.state = {
             isLoading: false,
+            showError: false,
+            personalNumberInput: "",
         };
     }
 
     authenticateUser = () => {
         this.setState({ isLoading: true });
 
-        setTimeout(() => {
-            this.sendAuthorizeRequest("195811123073");
-        }, 1000);
+        const { personalNumberInput } = this.state;
+
+        if (validatePno(personalNumberInput)) {
+            setTimeout(() => {
+                this.sendAuthorizeRequest(personalNumberInput);
+            }, 1000);
+        } else {
+            this.setState({ isLoading: false, showError: true });
+        }
     };
 
     sendAuthorizeRequest = async (personalNumber: string): Promise<void> => {
@@ -51,12 +62,14 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
         }
     };
 
-    cancelAuthentication = () => {
-        console.log("cancel");
+    handlePnoInputChange = (value: string) => {
+        this.setState({
+            personalNumberInput: value,
+        });
     };
 
-    handleInput = (e: any) => {
-        console.log(e);
+    cancelAuthentication = () => {
+        this.props.history.push("/");
     };
 
     render() {
@@ -89,11 +102,26 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
                                     name="pno"
                                     type="text"
                                     placeholder="Skriv in ditt personnummer här..."
-                                    onChange={this.handleInput}
+                                    handleChange={(
+                                        e: React.ChangeEvent<HTMLInputElement>
+                                    ) =>
+                                        this.handlePnoInputChange(
+                                            e.target.value
+                                        )
+                                    }
                                 />
                             </div>
                         </div>
-
+                        {this.state.showError && (
+                            <div className="grid row">
+                                <div className="grid-md-6 center-content">
+                                    <p className="inputErrorText">
+                                        Personnumret har fel format, var vänlig
+                                        försök igen.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                         <div className="grid row">
                             <div className="grid-md-6 center-content">
                                 <div className="pull-left">
