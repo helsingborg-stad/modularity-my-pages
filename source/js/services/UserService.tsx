@@ -16,7 +16,7 @@ interface IUserResponse {
     };
 }
 export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
-    const host = "https://localhost:3005";
+    const host = process.env.API_URL;
     const endpoint = "/auth/";
 
     return await post(`${host}${endpoint}`, {
@@ -36,7 +36,7 @@ export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
 };
 
 export const getUser = async (pno: string): Promise<IUserResponse> => {
-    const host = "https://localhost:3005";
+    const host = process.env.API_URL;
     const endpoint = "/auth/user";
 
     return await get(`${host}${endpoint}/${pno}`).catch(err => {

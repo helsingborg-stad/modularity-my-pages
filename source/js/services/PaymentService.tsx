@@ -18,7 +18,7 @@ interface IName {
 }
 
 export const initializePayment = (parameters: IOrderCreate): void => {
-    const host = "http://localhost:3004";
+    const host = process.env.API_URL;
     const endpoint = "/payment/";
 
     const result = axios

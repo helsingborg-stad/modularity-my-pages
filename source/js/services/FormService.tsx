@@ -31,7 +31,7 @@ export interface IOption {
 export const getFormConfiguration = async (
     moduleId: string
 ): Promise<IFormConfiguration> => {
-    const host = "http://localhost:8888";
+    const host = process.env.HOST;
     const endpoint =
         "/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/";
 

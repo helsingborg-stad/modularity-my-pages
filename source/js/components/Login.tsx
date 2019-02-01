@@ -35,11 +35,14 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
 
         const { personalNumberInput } = this.state;
 
+        // validate personal number.
         if (validatePno(personalNumberInput)) {
             setTimeout(() => {
+                // send auth request to api.
                 this.sendAuthorizeRequest(personalNumberInput);
             }, 1000);
         } else {
+            // if validation failed show error text.
             this.setState({ isLoading: false, showError: true });
         }
     };
@@ -116,7 +119,7 @@ class Login extends React.Component<RouteComponentProps<any> & IProps, IState> {
                             <div className="grid row">
                                 <div className="grid-md-6 center-content">
                                     <p className="inputErrorText">
-                                        Personnumret har fel format, var vänlig
+                                        Personnumret har fel format, vänligen
                                         försök igen.
                                     </p>
                                 </div>

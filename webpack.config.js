@@ -1,11 +1,20 @@
 const { resolve } = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const tsImportPluginFactory = require("ts-import-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ManifestPlugin = require("webpack-manifest-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HashOutput = require("webpack-plugin-hash-output");
+const dotenv = require("dotenv");
+
+// call dotenv
+const env = dotenv.config().parsed;
+
+// reduce it to object
+const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+}, {});
 
 module.exports = {
     // development mode
@@ -114,6 +123,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: resolve(__dirname, "source/js/index.html"),
         }),
-        // inject <script> in html file.
+        // load env data
+        new webpack.DefinePlugin(envKeys),
     ],
 };
