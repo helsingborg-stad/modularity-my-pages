@@ -1,18 +1,39 @@
-import * as React from 'react';
-import Login from './Account/Login';
-import { IUserState } from '../store/user/types';
-import Form from './FormFolder/Form';
-import { IFormStructure } from '../store/Form/types';
-import AccountInformation from './Account/AccountInformation';
+import * as React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { IUserState } from "../store/user/types";
+import Login from "./Login";
+import PlotInformation from "./PlotInformation";
+import PlotReservation from "./PlotReservation";
+import PlotDetails from "./PlotDetails";
+import Payment from "./Payment";
 
 interface IProps {
     user: IUserState;
-    formStructure: IFormStructure;
 }
 
 interface IState {
     isLoading: boolean;
 }
+
+const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authed === true ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: "/tomt/login",
+                            state: { from: props.location },
+                        }}
+                    />
+                )
+            }
+        />
+    );
+};
 
 class App extends React.Component<IProps, IState> {
     constructor(props: IProps) {
@@ -23,21 +44,39 @@ class App extends React.Component<IProps, IState> {
     }
 
     render() {
-        const { user, formStructure } = this.props;
+        const { user } = this.props;
+
         return (
-            <div className='grid'>
-                <div className='grid-fit-content u-mr-auto center-content'>
-                     {user.isAuthenticated ?
-                        <div>
-                            <AccountInformation user={user} />
-                            <Form formStructure={formStructure} />
-                        </div>
-                        :
-                        <div>
-                            <Login user={user} />
-                        </div>
-                    }
-                </div>
+            <div className="grid">
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        component={() => <PlotInformation />}
+                    />
+                    <Route
+                        exact
+                        path="/tomt/login"
+                        component={() => <Login user={user} />}
+                    />
+                    <PrivateRoute
+                        authed={user.isAuthenticated}
+                        exact
+                        path="/tomt/reservera/:id"
+                        component={() => <PlotReservation />}
+                    />
+                    <PrivateRoute
+                        authed={user.isAuthenticated}
+                        exact
+                        path="/tomt/reservera/betalning/:id"
+                        component={() => <Payment />}
+                    />
+                    <Route
+                        exact
+                        path="/tomt/:id"
+                        component={() => <PlotDetails />}
+                    />
+                </Switch>
             </div>
         );
     }

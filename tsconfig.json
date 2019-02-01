@@ -19,7 +19,9 @@
         "noImplicitThis": true,
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
     },
     "include": [
         "./source/js/**/*",

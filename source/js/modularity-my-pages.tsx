@@ -1,50 +1,75 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import App from './components/App';
-import { Provider, connect } from 'react-redux';
-import store, * as IStore from './store';
-import { IUserState } from './store/user/types';
-import '../sass/modularity-my-pages.scss';
-import { IFormStructure } from './store/Form/types';
-import { reqForm } from './store/form/actions';
+import "../sass/modularity-my-pages.scss";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { HashRouter } from "react-router-dom";
+import { Provider, connect } from "react-redux";
+import store, * as IStore from "./store";
+import { IUserState } from "./store/user/types";
+import { loginSuccess, logoutRequest } from "./store/user/actions";
+import { getUser } from "./services/UserService";
+import {
+    getAuthToken,
+    removeAuthToken,
+    validateToken,
+    getUserPno,
+    removeUserPno,
+} from "./helpers/TokenHelper";
+import App from "./components/App";
+import Header from "./components/shared/Header";
 
 interface IMappedProps {
     user: IUserState;
-    formStructure: IFormStructure;
 }
 
-// tslint:disable-next-line:no-empty-interface
-interface IState {
-}
+interface IState {}
 
 class StartPage extends React.Component<IMappedProps, IState> {
     constructor(props: IMappedProps) {
         super(props);
-        this.state = {
-        };
-    }
-
-    reqFormForRender = () => {
-        const endUserIp = 'http://localhost:8888/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/';
-        const moduleId = document.getElementById('app').dataset.configurationId;
-
-        store.dispatch<any>(
-            reqForm({
-                endUserIp,
-                moduleId,
-            })
-        );
+        this.state = {};
     }
 
     componentWillMount() {
-        this.reqFormForRender();
+        this.initUser();
     }
+
+    // if token and pno exists in local storage we try to restore the user state.
+    initUser = async () => {
+        const token = getAuthToken();
+
+        // if token exists and is valid, try to fetch the user.
+        if (token && validateToken(token)) {
+            const pno = getUserPno();
+
+            if (pno) {
+                // get user (if there are any errors they are ignored, since auth is not mandatory in this stage.)
+                const userResponse = await getUser(pno).catch(() => null);
+
+                // if user is found automatically log in the user and set the userdata.
+                if (userResponse) {
+                    store.dispatch(loginSuccess({ ...userResponse.data.user }));
+                }
+            }
+        }
+    };
+
+    logOut = () => {
+        // remove token and user pno from localStorage and dispatch logout action.
+        removeAuthToken();
+        removeUserPno();
+        store.dispatch(logoutRequest());
+    };
 
     render() {
         return (
-            <div className='container'>
-                <App user={this.props.user} formStructure={this.props.formStructure} />
-            </div>
+            <HashRouter>
+                <div className="container">
+                    {this.props.user.isAuthenticated && (
+                        <Header user={this.props.user} logOut={this.logOut} />
+                    )}
+                    <App user={this.props.user} />
+                </div>
+            </HashRouter>
         );
     }
 }
@@ -52,9 +77,8 @@ class StartPage extends React.Component<IMappedProps, IState> {
 const mapStateToProps = (state: IStore.IRootState) => {
     return {
         user: state.user,
-        formStructure: state.formStructure,
     };
-  };
+};
 
 const ConnectedStartPage = connect(mapStateToProps)(StartPage);
 
@@ -62,5 +86,5 @@ ReactDOM.render(
     <Provider store={store}>
         <ConnectedStartPage />
     </Provider>,
-    document.getElementById('app') as HTMLElement
+    document.getElementById("app") as HTMLElement
 );

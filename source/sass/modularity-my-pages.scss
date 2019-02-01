@@ -1,11 +1,29 @@
-$font-stack:    Helvetica, sans-serif;
-$primary-color: #333;
+$spacingS: 5px;
+$spacingM: 10px;
 
 .center-content {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 .center-image {
-  display: block;
-  margin: 0 auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.row {
+    margin-top: $spacingS;
+}
+
+.availablePlot {
+    color: rgb(34, 168, 34);
+    font-weight: bold;
+}
+
+.resbtn {
+    margin-top: $spacingM;
+}
+
+.inputErrorText {
+    font-size: 12px;
+    color: red;
 }
