@@ -6,6 +6,7 @@ import {
     Redirect,
 } from "react-router-dom";
 import { IPlot, getPlot } from "../services/PlotsService";
+import { InputData, submitFormData } from "../services/FormService";
 import AcfForm from "./AcfForm";
 import Spinner from "./shared/Spinner";
 
@@ -39,8 +40,37 @@ class PlotReservation extends React.Component<
         }
     }
 
-    redirectToPayment = () => {
-        this.setState({ redirectToPaymentPage: true });
+    // Add value of changed input dynamically to state with name as key.
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newState = {
+            [event.target.name]: event.target.value,
+        };
+        // Typescript has a bug where there is no good way to cast dynamic state properties,
+        // so the workaround is to use any as the type for now. See https://github.com/Microsoft/TypeScript/issues/13948
+        this.setState(newState as any);
+    };
+
+    submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        // Get all inputs that are saved in state and add them to an array with key and values.
+        const formValues = Object.keys(this.state)
+            // Filter unrelated state properties.
+            .filter(key => key !== "plot" && key !== "redirectToPaymentPage")
+            .reduce(
+                (all: InputData[], curr) =>
+                    all.concat({
+                        key: curr,
+                        value: this.state[curr],
+                    } as InputData),
+                []
+            );
+
+        const result = await submitFormData(formValues);
+
+        if (result && result.isSuccess) {
+            this.setState({ redirectToPaymentPage: true });
+        }
     };
 
     render() {
@@ -51,8 +81,7 @@ class PlotReservation extends React.Component<
                 <Redirect
                     to={{
                         pathname:
-                            "/tomt/reservera/betalning/" +
-                            this.props.location.state.match.params.id,
+                            "/tomt/reservera/betalning/" + this.state.plot.id,
                         state: {},
                     }}
                 />
@@ -82,14 +111,18 @@ class PlotReservation extends React.Component<
                         </p>
                     </div>
                     <div className="grid row">
-                        <AcfForm />
+                        <form method="post" action="/">
+                            <AcfForm handleInputChange={this.handleChange} />
+                            <div className="form-group">
+                                <button
+                                    className="btn btn-primary resbtn"
+                                    onClick={this.submitForm}
+                                >
+                                    Gå till betalning
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <button
-                        className="btn btn-primary resbtn"
-                        onClick={this.redirectToPayment}
-                    >
-                        Gå till betalning
-                    </button>
                 </div>
             );
         } else {

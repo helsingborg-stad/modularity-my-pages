@@ -7,7 +7,7 @@ import TextInput from "./shared/TextInput";
 interface IProps {
     index: number;
     field: IField;
-    handleInputChange: ((e: React.FormEvent<HTMLInputElement>) => void);
+    handleInputChange: ((e: React.ChangeEvent<HTMLInputElement>) => void);
 }
 
 class AcfFormField extends React.Component<IProps> {

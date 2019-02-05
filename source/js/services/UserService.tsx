@@ -37,7 +37,7 @@ export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
 
 export const getUser = async (pno: string): Promise<IUserResponse> => {
     const host = process.env.API_URL;
-    const endpoint = "/auth/user";
+    const endpoint = "/user";
 
     return await get(`${host}${endpoint}/${pno}`).catch(err => {
         console.log("getUser err", err);

@@ -28,6 +28,15 @@ export interface IOption {
     active: boolean;
 }
 
+export interface InputData {
+    key: string;
+    value: any;
+}
+
+export interface SubmitFormResponse {
+    isSuccess: boolean;
+}
+
 export const getFormConfiguration = async (
     moduleId: string
 ): Promise<IFormConfiguration> => {
@@ -46,4 +55,13 @@ export const getFormConfiguration = async (
         });
 
     return form;
+};
+
+export const submitFormData = async (
+    data: InputData[]
+): Promise<SubmitFormResponse> => {
+    console.log("submitFormData input", data);
+    return {
+        isSuccess: true,
+    } as SubmitFormResponse;
 };
