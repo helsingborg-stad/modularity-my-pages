@@ -6,11 +6,13 @@ import {
     Redirect,
 } from "react-router-dom";
 import { IPlot, getPlot } from "../services/PlotsService";
-import { InputData, submitFormData } from "../services/FormService";
 import AcfForm from "./AcfForm";
 import Spinner from "./shared/Spinner";
+import { IUserState } from "../store/user/types";
 
-interface IProps {}
+interface IProps {
+    user: IUserState;
+}
 
 interface IState {
     plot: IPlot;
@@ -40,41 +42,13 @@ class PlotReservation extends React.Component<
         }
     }
 
-    // Add value of changed input dynamically to state with name as key.
-    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newState = {
-            [event.target.name]: event.target.value,
-        };
-        // Typescript has a bug where there is no good way to cast dynamic state properties,
-        // so the workaround is to use any as the type for now. See https://github.com/Microsoft/TypeScript/issues/13948
-        this.setState(newState as any);
-    };
-
-    submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        // Get all inputs that are saved in state and add them to an array with key and values.
-        const formValues = Object.keys(this.state)
-            // Filter unrelated state properties.
-            .filter(key => key !== "plot" && key !== "redirectToPaymentPage")
-            .reduce(
-                (all: InputData[], curr) =>
-                    all.concat({
-                        key: curr,
-                        value: this.state[curr],
-                    } as InputData),
-                []
-            );
-
-        const result = await submitFormData(formValues);
-
-        if (result && result.isSuccess) {
-            this.setState({ redirectToPaymentPage: true });
-        }
+    redirectToPaymentPage = () => {
+        this.setState({ redirectToPaymentPage: true });
     };
 
     render() {
         const { redirectToPaymentPage } = this.state;
+        const { user } = this.props;
 
         if (redirectToPaymentPage) {
             return (
@@ -112,15 +86,12 @@ class PlotReservation extends React.Component<
                     </div>
                     <div className="grid row">
                         <form method="post" action="/">
-                            <AcfForm handleInputChange={this.handleChange} />
-                            <div className="form-group">
-                                <button
-                                    className="btn btn-primary resbtn"
-                                    onClick={this.submitForm}
-                                >
-                                    Gå till betalning
-                                </button>
-                            </div>
+                            <AcfForm
+                                redirectToPaymentPage={
+                                    this.redirectToPaymentPage
+                                }
+                                user={user}
+                            />
                         </form>
                     </div>
                 </div>

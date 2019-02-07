@@ -8,6 +8,9 @@ export interface IUserInformation {
     name: string;
     givenName: string;
     surname: string;
+    address: string;
+    zipCode: string;
+    city: string;
 }
 
 export interface IAuthRequest {

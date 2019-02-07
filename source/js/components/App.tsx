@@ -58,7 +58,7 @@ class App extends React.Component<IProps, IState> {
                     authed={user.isAuthenticated}
                     exact
                     path="/tomt/reservera/:id"
-                    component={() => <PlotReservation />}
+                    component={() => <PlotReservation user={user} />}
                 />
                 <PrivateRoute
                     authed={user.isAuthenticated}
