@@ -1,10 +1,12 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter, Link } from "react-router-dom";
 import PaymentForm from "./PaymentForm";
+import { IPlot, getPlot } from "../services/PlotsService";
 
 interface IProps {}
 
 interface IState {
+    plot: IPlot;
     totalAmount: number;
 }
 
@@ -15,22 +17,33 @@ class Payment extends React.Component<
     constructor(props: RouteComponentProps<any> & IProps) {
         super(props);
         this.state = {
+            plot: null,
             totalAmount: 375,
         };
     }
 
     componentWillMount() {
-        //
+        const { location, match } = this.props;
+        const plot = location.state && location.state.plot;
+
+        if (plot) {
+            this.setState({ plot });
+        } else {
+            this.setState({ plot: getPlot(match.params.id) });
+        }
     }
 
-    handleInputChange(e: React.FormEvent<HTMLInputElement>) {
-        console.log(e.target);
+    handleInputChange(name: string, value: string): void {
+        console.log(name);
+        console.log(value);
     }
 
     render() {
+        const { plot } = this.state;
+
         return (
             <div className="grid-md-8">
-                <Link to={"/tomt/"}>« Previous</Link>
+                <Link to={"/tomt/reservera/" + plot.id}>« Previous</Link>
                 <div className="grid row">
                     <h2>Kortbetalning</h2>
                 </div>

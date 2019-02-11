@@ -4,6 +4,7 @@ import {
     IFormConfiguration,
     InputData,
     submitFormData,
+    FormRequest,
 } from "../services/FormService";
 import AcfFormField from "./AcfFormField";
 import Spinner from "./shared/Spinner";
@@ -11,7 +12,7 @@ import { IUserState } from "../store/user/types";
 
 interface IProps {
     user: IUserState;
-    redirectToPaymentPage: (() => void);
+    redirectToPaymentPage: () => void;
 }
 
 interface IState {
@@ -92,7 +93,7 @@ class AcfForm extends React.Component<IProps, IState> {
         // Get all inputs that are saved in state and add them to an array with key and values.
         const formValues = Object.keys(this.state)
             // Filter unrelated state properties.
-            .filter(key => key !== "plot" && key !== "redirectToPaymentPage")
+            .filter(key => key !== "formConfiguration")
             .reduce(
                 (items: InputData[], curr) =>
                     items.concat({
@@ -102,7 +103,10 @@ class AcfForm extends React.Component<IProps, IState> {
                 []
             );
 
-        const result = await submitFormData(formValues);
+        const result = await submitFormData({
+            inputData: formValues,
+            personalNumber: this.props.user.userInformation.personalNumber,
+        } as FormRequest);
 
         if (result && result.isSuccess) {
             this.props.redirectToPaymentPage();

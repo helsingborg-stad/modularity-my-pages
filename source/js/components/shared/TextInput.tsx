@@ -5,7 +5,7 @@ interface IProps {
     name: string;
     id: string;
     defaultValue: string;
-    handleInputChange: ((name: string, value: string) => void);
+    handleInputChange: (name: string, value: string) => void;
 }
 
 const TextInput = (props: IProps) => {
@@ -15,8 +15,8 @@ const TextInput = (props: IProps) => {
         <div className="form-group">
             <label>{label}</label>
             <input
-                onChange={value =>
-                    handleInputChange(value.target.name, value.target.value)
+                onChange={element =>
+                    handleInputChange(element.target.name, element.target.value)
                 }
                 type="text"
                 name={name}

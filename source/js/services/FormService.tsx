@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { post, get } from "./Requests";
 
 export interface IFormConfiguration {
     configuration: IField[];
@@ -28,12 +29,18 @@ export interface IOption {
     active: boolean;
 }
 
+export interface FormRequest {
+    personalNumber: string;
+    inputData: InputData[];
+}
+
 export interface InputData {
     key: string;
     value: any;
 }
 
-export interface SubmitFormResponse {
+export interface ISubmitFormResponse {
+    formId: number;
     isSuccess: boolean;
 }
 
@@ -58,10 +65,23 @@ export const getFormConfiguration = async (
 };
 
 export const submitFormData = async (
-    data: InputData[]
-): Promise<SubmitFormResponse> => {
-    console.log("submitFormData input", data);
+    data: FormRequest
+): Promise<ISubmitFormResponse> => {
+    const host = process.env.API_URL;
+    const endpoint = "/form/";
+
+    const formResponse = await post(`${host}${endpoint}`, data).then(
+        (response: AxiosResponse<ISubmitFormResponse>) => {
+            if (response.status !== 200) {
+                return null;
+            } else {
+                return response.data;
+            }
+        }
+    );
+
     return {
+        formId: formResponse.formId,
         isSuccess: true,
-    } as SubmitFormResponse;
+    } as ISubmitFormResponse;
 };

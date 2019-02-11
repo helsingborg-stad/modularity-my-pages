@@ -47,7 +47,7 @@ class PlotReservation extends React.Component<
     };
 
     render() {
-        const { redirectToPaymentPage } = this.state;
+        const { redirectToPaymentPage, plot } = this.state;
         const { user } = this.props;
 
         if (redirectToPaymentPage) {
@@ -56,7 +56,7 @@ class PlotReservation extends React.Component<
                     to={{
                         pathname:
                             "/tomt/reservera/betalning/" + this.state.plot.id,
-                        state: {},
+                        state: { plot },
                     }}
                 />
             );
