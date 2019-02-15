@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { post, get } from "./Requests";
+import { post } from "./Requests";
 
 export interface IFormConfiguration {
     configuration: IField[];
@@ -29,12 +29,12 @@ export interface IOption {
     active: boolean;
 }
 
-export interface FormRequest {
+export interface IFormRequest {
     personalNumber: string;
-    inputData: InputData[];
+    inputData: IInputData[];
 }
 
-export interface InputData {
+export interface IInputData {
     key: string;
     value: any;
 }
@@ -49,7 +49,7 @@ export const getFormConfiguration = async (
 ): Promise<IFormConfiguration> => {
     const host = process.env.HOST;
     const endpoint =
-        "/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/";
+        "/wp-json/ModularityMyPages/v1/GetFieldConfiguration/";
 
     const form = await axios
         .get(`${host}${endpoint}${moduleId}`)
@@ -65,7 +65,7 @@ export const getFormConfiguration = async (
 };
 
 export const submitFormData = async (
-    data: FormRequest
+    data: IFormRequest
 ): Promise<ISubmitFormResponse> => {
     const host = process.env.API_URL;
     const endpoint = "/form/";
