@@ -1,7 +1,8 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter, Link } from "react-router-dom";
-import PaymentForm from "./PaymentForm";
+// import PaymentForm from "./PaymentForm";
 import { IPlot, getPlot } from "../services/PlotsService";
+import { initializePayment } from "../services/PaymentService";
 
 interface IProps {}
 
@@ -38,8 +39,20 @@ class Payment extends React.Component<
         console.log(value);
     }
 
+    initializePayment = async event => {
+        event.preventDefault();
+
+        const paymentUrl = await initializePayment({
+            totalAmount: this.state.totalAmount,
+        });
+
+        if (paymentUrl) {
+            window.location.replace(paymentUrl);
+        }
+    };
+
     render() {
-        const { plot } = this.state;
+        const { plot, totalAmount } = this.state;
 
         return (
             <div className="grid-md-8">
@@ -48,10 +61,21 @@ class Payment extends React.Component<
                     <h2>Kortbetalning</h2>
                 </div>
                 <div className="grid row">
-                    <p>Att betala {this.state.totalAmount} kr</p>
+                    <p>
+                        Att betala <b>{totalAmount}</b> kr
+                    </p>
+                    <p>
+                        Du kommer bli vidarebefordrad till vår partner för att
+                        genomföra kortbetalningen.
+                    </p>
                 </div>
-                <PaymentForm handleInputChange={this.handleInputChange} />
-                <button className="btn btn-primary resbtn">Betala</button>
+                {/* <PaymentForm handleInputChange={this.handleInputChange} /> */}
+                <button
+                    onClick={this.initializePayment}
+                    className="btn btn-primary resbtn"
+                >
+                    Betala
+                </button>
             </div>
         );
     }

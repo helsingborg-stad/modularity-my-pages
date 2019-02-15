@@ -2,9 +2,9 @@ import * as React from "react";
 import {
     getFormConfiguration,
     IFormConfiguration,
-    InputData,
+    IInputData,
     submitFormData,
-    FormRequest,
+    IFormRequest,
 } from "../services/FormService";
 import AcfFormField from "./AcfFormField";
 import Spinner from "./shared/Spinner";
@@ -95,18 +95,18 @@ class AcfForm extends React.Component<IProps, IState> {
             // Filter unrelated state properties.
             .filter(key => key !== "formConfiguration")
             .reduce(
-                (items: InputData[], curr) =>
+                (items: IInputData[], curr) =>
                     items.concat({
                         key: curr,
                         value: this.state[curr],
-                    } as InputData),
+                    } as IInputData),
                 []
             );
 
         const result = await submitFormData({
             inputData: formValues,
             personalNumber: this.props.user.userInformation.personalNumber,
-        } as FormRequest);
+        } as IFormRequest);
 
         if (result && result.isSuccess) {
             this.props.redirectToPaymentPage();
