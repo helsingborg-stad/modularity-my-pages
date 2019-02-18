@@ -19,3 +19,11 @@ There is no way to run the plugin as a standalone right now.
 ## Api endpoint to get field configuration
 
 rest_url('ModularityMyPages/v1/GetFieldConfiguration/{{MODULE_ID}}'); 
+
+## Payment 
+
+The payment step of this project is done with Paynova. The official docs can be found at http://developers.paynova.com/docs.
+This solution uses their hosted checkout to send the user to their payment site and then redirects the user back to us.
+
+Testdata for simulating payments on their payment site can be found at http://developers.paynova.com/docs/testing.
+Right now we use card payment with VISA but this can be changed in the api.
