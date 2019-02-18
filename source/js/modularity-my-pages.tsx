@@ -21,12 +21,16 @@ interface IMappedProps {
     user: IUserState;
 }
 
-interface IState {}
+interface IState {
+    isLoading: boolean;
+}
 
 class StartPage extends React.Component<IMappedProps, IState> {
     constructor(props: IMappedProps) {
         super(props);
-        this.state = {};
+        this.state = {
+            isLoading: false,
+        };
     }
 
     componentWillMount() {
@@ -35,6 +39,7 @@ class StartPage extends React.Component<IMappedProps, IState> {
 
     // if token and pno exists in local storage we try to restore the user state.
     initUser = async () => {
+        this.setState({ isLoading: true });
         const token = getAuthToken();
 
         // if token exists and is valid, try to fetch the user.
@@ -51,6 +56,8 @@ class StartPage extends React.Component<IMappedProps, IState> {
                 }
             }
         }
+
+        this.setState({ isLoading: false });
     };
 
     logOut = () => {
@@ -67,7 +74,9 @@ class StartPage extends React.Component<IMappedProps, IState> {
                     {this.props.user.isAuthenticated && (
                         <Header user={this.props.user} logOut={this.logOut} />
                     )}
-                    <App user={this.props.user} />
+                    {this.state.isLoading === false && (
+                        <App user={this.props.user} />
+                    )}
                 </div>
             </HashRouter>
         );
