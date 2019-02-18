@@ -3,6 +3,7 @@ import { post, get } from "./Requests";
 
 export interface IOrderCreate {
     totalAmount: number;
+    personalNumber: string;
 }
 
 export interface IConfirmOrderResponse {
@@ -20,6 +21,7 @@ export const initializePayment = async (
 
     const data = {
         totalAmount: parameters.totalAmount,
+        personalNumber: parameters.personalNumber,
         host: process.env.HOST,
     };
 

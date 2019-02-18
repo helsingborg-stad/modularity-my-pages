@@ -65,7 +65,7 @@ class App extends React.Component<IProps, IState> {
                     authed={user.isAuthenticated}
                     exact
                     path="/tomt/reservera/betalning/:id"
-                    component={() => <Payment />}
+                    component={() => <Payment user={user} />}
                 />
                 <PrivateRoute
                     authed={user.isAuthenticated}

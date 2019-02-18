@@ -3,8 +3,11 @@ import { RouteComponentProps, withRouter, Link } from "react-router-dom";
 // import PaymentForm from "./PaymentForm";
 import { IPlot, getPlot } from "../services/PlotsService";
 import { initializePayment } from "../services/PaymentService";
+import { IUserState } from "../store/user/types";
 
-interface IProps {}
+interface IProps {
+    user: IUserState;
+}
 
 interface IState {
     plot: IPlot;
@@ -44,6 +47,7 @@ class Payment extends React.Component<
 
         const paymentUrl = await initializePayment({
             totalAmount: this.state.totalAmount,
+            personalNumber: this.props.user.userInformation.personalNumber,
         });
 
         if (paymentUrl) {
