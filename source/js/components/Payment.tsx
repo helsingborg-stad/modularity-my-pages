@@ -22,7 +22,7 @@ class Payment extends React.Component<
         super(props);
         this.state = {
             plot: null,
-            totalAmount: 375,
+            totalAmount: 375, // TODO: This should probably be fetched/calculated via backend.
         };
     }
 
@@ -37,19 +37,16 @@ class Payment extends React.Component<
         }
     }
 
-    handleInputChange(name: string, value: string): void {
-        console.log(name);
-        console.log(value);
-    }
-
     initializePayment = async event => {
         event.preventDefault();
 
+        // Init payment via api (this also creates order in db).
         const paymentUrl = await initializePayment({
             totalAmount: this.state.totalAmount,
             personalNumber: this.props.user.userInformation.personalNumber,
         });
 
+        // Redirect user to paynova external payment site to finish payment.
         if (paymentUrl) {
             window.location.replace(paymentUrl);
         }
@@ -73,7 +70,6 @@ class Payment extends React.Component<
                         genomföra kortbetalningen.
                     </p>
                 </div>
-                {/* <PaymentForm handleInputChange={this.handleInputChange} /> */}
                 <button
                     onClick={this.initializePayment}
                     className="btn btn-primary resbtn"

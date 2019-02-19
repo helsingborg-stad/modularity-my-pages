@@ -22,7 +22,7 @@ export const userReducer = (
         case Const.AUTH_FAIL:
             return {
                 ...state,
-                // TODO add error message
+                // TODO: add error message
                 isAuthenticated: false,
             };
         case Const.AUTH_SUCCESS:

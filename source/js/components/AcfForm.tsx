@@ -53,7 +53,7 @@ class AcfForm extends React.Component<IProps, IState> {
 
     // Here we get the default value for fields that can be
     // populated from the user information in state.
-    // TODO Make this dynamic and not with hardcoded keys.
+    // TODO: Make this dynamic and not with hardcoded keys.
     getDefaultValue = (key: string) => {
         const { userInformation } = this.props.user;
 

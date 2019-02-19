@@ -15,23 +15,26 @@ interface IUserResponse {
         user: IUserInformation;
     };
 }
+
 export const authorizeUser = async (pno: string): Promise<IAuthResponse> => {
     const host = process.env.API_URL;
     const endpoint = "/auth/";
 
-    return await post(`${host}${endpoint}`, {
+    const data = {
         pno,
-        "0.0.0.0": String,
-    }).catch(err => {
+        endUserIp: "0.0.0.0", // TODO: Need a way to capture the user ip address either here or move it to the backend.
+    };
+
+    return await post(`${host}${endpoint}`, data).catch(err => {
         console.log("authorizeUser err", err);
         if (err.status && err.data) {
-            return Promise.reject({
+            Promise.reject({
                 status: err.status,
                 data: err.data,
             });
         }
 
-        return Promise.reject(null);
+        Promise.reject(null);
     });
 };
 

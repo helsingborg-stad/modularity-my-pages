@@ -6,7 +6,7 @@ export type Action =
     | { type: Const.AUTH_LOGOUT };
 
 export const loginError = (value: any): Action => {
-    // TODO add error message
+    // TODO: add error message
     return { value, type: Const.AUTH_FAIL };
 };
 
