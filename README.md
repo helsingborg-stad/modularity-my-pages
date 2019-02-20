@@ -16,6 +16,12 @@ To get started follow these steps:
 
 There is no way to run the plugin as a standalone right now.
 
+The project has an .env-file to manage environment variables. For this you need the <a href="https://www.npmjs.com/package/dotenv">dotenv-plugin</a>.
+
+The variables you need to set for the project is:
+- HOST (The url for you wordpress-installation)
+- API_URL (The url for the my-pages-api)
+
 ## Api endpoint to get field configuration
 
 rest_url('ModularityMyPages/v1/GetFieldConfiguration/{{MODULE_ID}}'); 
@@ -26,4 +32,3 @@ The payment step of this project is done with Paynova. The official docs can be 
 This solution uses their hosted checkout to send the user to their payment site and then redirects the user back to us.
 
 Testdata for simulating payments on their payment site can be found at http://developers.paynova.com/docs/testing.
-Right now we use card payment with VISA but this can be changed in the api.
