@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { post } from "./Requests";
 
 export interface IFormConfiguration {
     configuration: IField[];
@@ -28,12 +29,27 @@ export interface IOption {
     active: boolean;
 }
 
+export interface IFormRequest {
+    personalNumber: string;
+    inputData: IInputData[];
+}
+
+export interface IInputData {
+    key: string;
+    value: any;
+}
+
+export interface ISubmitFormResponse {
+    formId: number;
+    isSuccess: boolean;
+}
+
 export const getFormConfiguration = async (
     moduleId: string
 ): Promise<IFormConfiguration> => {
     const host = process.env.HOST;
     const endpoint =
-        "/wordpress/wp-json/ModularityMyPages/v1/GetFieldConfiguration/";
+        "/wp-json/ModularityMyPages/v1/GetFieldConfiguration/";
 
     const form = await axios
         .get(`${host}${endpoint}${moduleId}`)
@@ -46,4 +62,26 @@ export const getFormConfiguration = async (
         });
 
     return form;
+};
+
+export const submitFormData = async (
+    data: IFormRequest
+): Promise<ISubmitFormResponse> => {
+    const host = process.env.API_URL;
+    const endpoint = "/form/";
+
+    const formResponse = await post(`${host}${endpoint}`, data).then(
+        (response: AxiosResponse<ISubmitFormResponse>) => {
+            if (response.status !== 200) {
+                return null;
+            } else {
+                return response.data;
+            }
+        }
+    );
+
+    return {
+        formId: formResponse.formId,
+        isSuccess: true,
+    } as ISubmitFormResponse;
 };

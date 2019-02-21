@@ -1,63 +1,62 @@
-import axios, { AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
+import { post, get } from "./Requests";
 
 export interface IOrderCreate {
     totalAmount: number;
-    customer: ICustomer;
+    personalNumber: string;
 }
 
-interface ICustomer {
-    customerId: string;
-    governemntId: string;
-    email: string;
-    name: IName;
+export interface IConfirmOrderResponse {
+    OrderId: number;
+    TotalAmount: number;
+    Status: number;
+    UserId: number;
+    ExternalOrderId: string;
 }
 
-interface IName {
-    firstName: string;
-    lastName: string;
-}
-
-export const initializePayment = (parameters: IOrderCreate): void => {
+export const initializePayment = async (
+    parameters: IOrderCreate
+): Promise<string> => {
     const host = process.env.API_URL;
-    const endpoint = "/payment/";
+    const endpoint = "/payment/initialize";
 
-    const result = axios
-        .post(`${host}${endpoint}`, parameters)
-        .then((response: AxiosResponse<any>) => {
+    const data = {
+        totalAmount: parameters.totalAmount,
+        personalNumber: parameters.personalNumber,
+        host: process.env.HOST,
+    };
+
+    const result = await post(`${host}${endpoint}`, data).then(
+        (response: AxiosResponse<any>) => {
             if (response.status !== 200) {
                 return null;
             } else {
                 return response.data;
             }
-        });
+        }
+    );
 
     console.log(result);
+    return result.paymentInfo.url;
 };
 
-/* create order schema
- OrderNumber: Joi.string().min(4).max(50).required(),
-    TotalAmount: globalSchema.totalAmount,
-    CurrencyCode: globalSchema.currencyCode,
-    Customer: Joi.object().keys({
-        CustomerId: Joi.string().allow(''),
-        GovernmentId: globalSchema.governmentId,
-        EmailAddress: Joi.string().email(),
-        TaxIdentificationNumber: Joi.string().min(14).max(14),
-        Name: Joi.object().keys({
-            CompanyName: globalSchema.name,
-            Title: Joi.string().min(1).max(10),
-            FirstName: globalSchema.name,
-            MiddleNames: Joi.string().min(1).max(100),
-            LastName: globalSchema.name,
-            Suffix: Joi.string().min(1).max(10)
-        }),
-        HomeTelephone: globalSchema.telephone,
-        WorkTelephone: globalSchema.telephone,
-        MobileTelephone: globalSchema.telephone
-    }),
-    BillTo: globalSchema.nameAndAddress,
-    ShipTo: globalSchema.nameAndAddress,
-    LineItems: globalSchema.lineItems,
-    OrderDescription: Joi.string().min(1).max(255),
-    PurchaseReference: Joi.string().min(30).max(30)
-*/
+export const confirmPayment = async (
+    orderId: string
+): Promise<IConfirmOrderResponse> => {
+    const host = process.env.API_URL;
+    const endpoint = `/payment/confirm/${orderId}`;
+
+    const result = await get(`${host}${endpoint}`).then(
+        (response: AxiosResponse<IConfirmOrderResponse>) => {
+            if (response.status !== 200) {
+                console.log(response.data);
+                return null;
+            } else {
+                return response.data;
+            }
+        }
+    );
+
+    console.log(result);
+    return result;
+};

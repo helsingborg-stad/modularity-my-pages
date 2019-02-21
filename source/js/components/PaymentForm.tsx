@@ -2,7 +2,7 @@ import * as React from "react";
 import TextInput from "./shared/TextInput";
 
 interface IProps {
-    handleInputChange: ((e: React.FormEvent<HTMLInputElement>) => void);
+    handleInputChange: (name: string, value: string) => void;
 }
 
 interface IState {}
@@ -21,6 +21,7 @@ class PaymentForm extends React.Component<IProps, IState> {
                     label="Kortinnehavare"
                     name="Kortinnehavare"
                     id="cardHolder"
+                    defaultValue=""
                     handleInputChange={handleInputChange}
                 />
                 <TextInput
@@ -28,17 +29,28 @@ class PaymentForm extends React.Component<IProps, IState> {
                     name="Kortnummer"
                     id="cardNumber"
                     handleInputChange={handleInputChange}
+                    defaultValue=""
                 />
                 <div className="form-group">
                     <label>Giltighetstid (MM/ÅÅ)</label>
                     <input
-                        onChange={value => handleInputChange(value)}
+                        onChange={element =>
+                            handleInputChange(
+                                element.target.id,
+                                element.target.value
+                            )
+                        }
                         type="text"
                         name="Månad"
                         id="month"
                     />
                     <input
-                        onChange={value => handleInputChange(value)}
+                        onChange={element =>
+                            handleInputChange(
+                                element.target.id,
+                                element.target.value
+                            )
+                        }
                         type="text"
                         name="År"
                         id="year"
@@ -49,6 +61,7 @@ class PaymentForm extends React.Component<IProps, IState> {
                     name="CVV"
                     id="cvv"
                     handleInputChange={handleInputChange}
+                    defaultValue=""
                 />
             </div>
         );

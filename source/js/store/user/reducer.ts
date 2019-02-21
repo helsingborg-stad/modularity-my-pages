@@ -1,4 +1,4 @@
-import { Const, IUserState } from "./types";
+import { Const, IUserState, IUserInformation } from "./types";
 import { Action } from "./actions";
 
 const init: IUserState = {
@@ -8,7 +8,10 @@ const init: IUserState = {
         givenName: "",
         surname: "",
         personalNumber: "",
-    },
+        address: "",
+        zipCode: "",
+        city: "",
+    } as IUserInformation,
 };
 
 export const userReducer = (
@@ -19,7 +22,7 @@ export const userReducer = (
         case Const.AUTH_FAIL:
             return {
                 ...state,
-                // TODO add error message
+                // TODO: add error message
                 isAuthenticated: false,
             };
         case Const.AUTH_SUCCESS:
@@ -37,6 +40,9 @@ export const userReducer = (
                     givenName: "",
                     surname: "",
                     personalNumber: "",
+                    address: "",
+                    zipCode: "",
+                    city: "",
                 },
             };
         default:

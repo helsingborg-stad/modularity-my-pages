@@ -6,6 +6,7 @@ import PlotInformation from "./PlotInformation";
 import PlotReservation from "./PlotReservation";
 import PlotDetails from "./PlotDetails";
 import Payment from "./Payment";
+import PaymentConfirmation from "./PaymentConfirmation";
 
 interface IProps {
     user: IUserState;
@@ -47,37 +48,37 @@ class App extends React.Component<IProps, IState> {
         const { user } = this.props;
 
         return (
-            <div className="grid">
-                <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        component={() => <PlotInformation />}
-                    />
-                    <Route
-                        exact
-                        path="/tomt/login"
-                        component={() => <Login user={user} />}
-                    />
-                    <PrivateRoute
-                        authed={user.isAuthenticated}
-                        exact
-                        path="/tomt/reservera/:id"
-                        component={() => <PlotReservation />}
-                    />
-                    <PrivateRoute
-                        authed={user.isAuthenticated}
-                        exact
-                        path="/tomt/reservera/betalning/:id"
-                        component={() => <Payment />}
-                    />
-                    <Route
-                        exact
-                        path="/tomt/:id"
-                        component={() => <PlotDetails />}
-                    />
-                </Switch>
-            </div>
+            <Switch>
+                <Route exact path="/" component={() => <PlotInformation />} />
+                <Route
+                    exact
+                    path="/tomt/login"
+                    component={() => <Login user={user} />}
+                />
+                <PrivateRoute
+                    authed={user.isAuthenticated}
+                    exact
+                    path="/tomt/reservera/:id"
+                    component={() => <PlotReservation user={user} />}
+                />
+                <PrivateRoute
+                    authed={user.isAuthenticated}
+                    exact
+                    path="/tomt/reservera/betalning/:id"
+                    component={() => <Payment user={user} />}
+                />
+                <PrivateRoute
+                    authed={user.isAuthenticated}
+                    exact
+                    path="/tomt/reservera/betalning/bekraftelse/:id"
+                    component={() => <PaymentConfirmation />}
+                />
+                <Route
+                    exact
+                    path="/tomt/:id"
+                    component={() => <PlotDetails />}
+                />
+            </Switch>
         );
     }
 }

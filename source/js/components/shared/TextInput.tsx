@@ -4,20 +4,24 @@ interface IProps {
     label: string;
     name: string;
     id: string;
-    handleInputChange: ((e: React.FormEvent<HTMLInputElement>) => void);
+    defaultValue: string;
+    handleInputChange: (name: string, value: string) => void;
 }
 
 const TextInput = (props: IProps) => {
-    const { label, name, id, handleInputChange } = props;
+    const { label, name, id, handleInputChange, defaultValue } = props;
 
     return (
         <div className="form-group">
             <label>{label}</label>
             <input
-                onChange={value => handleInputChange(value)}
+                onChange={element =>
+                    handleInputChange(element.target.name, element.target.value)
+                }
                 type="text"
                 name={name}
                 id={id}
+                defaultValue={defaultValue}
             />
         </div>
     );

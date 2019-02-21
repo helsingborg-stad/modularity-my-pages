@@ -8,8 +8,11 @@ import {
 import { IPlot, getPlot } from "../services/PlotsService";
 import AcfForm from "./AcfForm";
 import Spinner from "./shared/Spinner";
+import { IUserState } from "../store/user/types";
 
-interface IProps {}
+interface IProps {
+    user: IUserState;
+}
 
 interface IState {
     plot: IPlot;
@@ -39,21 +42,21 @@ class PlotReservation extends React.Component<
         }
     }
 
-    redirectToPayment = () => {
+    redirectToPaymentPage = () => {
         this.setState({ redirectToPaymentPage: true });
     };
 
     render() {
-        const { redirectToPaymentPage } = this.state;
+        const { redirectToPaymentPage, plot } = this.state;
+        const { user } = this.props;
 
         if (redirectToPaymentPage) {
             return (
                 <Redirect
                     to={{
                         pathname:
-                            "/tomt/reservera/betalning/" +
-                            this.props.location.state.match.params.id,
-                        state: {},
+                            "/tomt/reservera/betalning/" + this.state.plot.id,
+                        state: { plot },
                     }}
                 />
             );
@@ -82,14 +85,15 @@ class PlotReservation extends React.Component<
                         </p>
                     </div>
                     <div className="grid row">
-                        <AcfForm />
+                        <form method="post" action="/">
+                            <AcfForm
+                                redirectToPaymentPage={
+                                    this.redirectToPaymentPage
+                                }
+                                user={user}
+                            />
+                        </form>
                     </div>
-                    <button
-                        className="btn btn-primary resbtn"
-                        onClick={this.redirectToPayment}
-                    >
-                        Gå till betalning
-                    </button>
                 </div>
             );
         } else {

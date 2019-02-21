@@ -7,7 +7,8 @@ import TextInput from "./shared/TextInput";
 interface IProps {
     index: number;
     field: IField;
-    handleInputChange: ((e: React.FormEvent<HTMLInputElement>) => void);
+    defaultValue: string;
+    handleInputChange: ((name: string, value: string) => void);
 }
 
 class AcfFormField extends React.Component<IProps> {
@@ -16,7 +17,7 @@ class AcfFormField extends React.Component<IProps> {
     }
 
     render() {
-        const { field, handleInputChange } = this.props;
+        const { field, handleInputChange, defaultValue } = this.props;
 
         switch (field.type) {
             case "text_input":
@@ -26,6 +27,7 @@ class AcfFormField extends React.Component<IProps> {
                         name={field.key}
                         id={field.key}
                         handleInputChange={handleInputChange}
+                        defaultValue={defaultValue}
                     />
                 );
             case "text_area":
@@ -35,6 +37,7 @@ class AcfFormField extends React.Component<IProps> {
                         label={field.label}
                         value={field.value}
                         handleInputChange={handleInputChange}
+                        defaultValue={defaultValue}
                     />
                 );
             case "single_choice":
