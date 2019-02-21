@@ -13,6 +13,7 @@ export interface IConfirmOrderResponse {
     UserId: number;
     ExternalOrderId: string;
 }
+
 export const initializePayment = async (
     parameters: IOrderCreate
 ): Promise<string> => {

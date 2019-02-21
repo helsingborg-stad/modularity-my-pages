@@ -74,7 +74,7 @@ class PlotDetails extends React.Component<
                     <p>
                         Tomten kan tillträdas omgående efter fördelning. Tomten
                         kommer att anslutas till Öresundskrafts naturgasnät.
-                        Kostnader för anslutning till gasnät tillkommer.{" "}
+                        Kostnader för anslutning till gasnät tillkommer.
                         <b>Tomten kan reserveras för 375 kr.</b>
                     </p>
                 </div>
