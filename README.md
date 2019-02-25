@@ -21,6 +21,8 @@ The variables you need to set for the project is:
 - HOST (The url for you wordpress-installation)
 - API_URL (The url for the my-pages-api)
 
+For using bankid in the development environment, there is an iPhone preloaded with a test bankid at the Hbg Works office. The 6 digit code for this bankid is 112233. 
+
 ## Api endpoint to get field configuration
 
 rest_url('ModularityMyPages/v1/GetFieldConfiguration/{{MODULE_ID}}'); 
